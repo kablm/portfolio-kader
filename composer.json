@@ -1,0 +1,9 @@
+{
+    "name": "kader/portfolio-kader",
+    "autoload": {
+        "psr-4": {
+            "Kader\\PortfolioKader\\": "src/"
+        }
+    },
+    "require": {}
+}
