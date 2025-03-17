@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/assets/css/epreuve4.css" rel="stylesheet" />
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <title>Projet 7 Familles</title>
+</head>
+<body>
+<div class="container">
+    <div class="row gy-4">
+        <div class="col-lg-4">
+            <div class="project-info">
+                <h3>Informations</h3>
+                <ul>
+                    <li><strong>Nom du projet :</strong> 7 Familles</li>
+                    <li><strong>Catégorie :</strong> AP</li>
+                    <li><strong>Langages :</strong> HTML, CSS</li>
+                    <li><strong>Date :</strong> Octobre 2022 - Décembre 2022</li>
+                    <li><strong>Client :</strong> <a href="https://coliniere.paysdelaloire.e-lyco.fr/" target="_blank">Lycée La Colinière</a></li>
+                </ul>
+            </div>
+
+            <div class="project-description">
+                <h2>Introduction</h2>
+                <p>L'histoire de l'informatique ne se résume pas à celle des ordinateurs :
+                    l'informatique se développe à travers une communauté scientifique qui fait vivre la discipline et interagit avec d'autres.</p>
+
+                <h2>Objectif du projet</h2>
+                <p>L'objectif de ce projet est la réalisation d'un site web qui présente un ensemble de personnes importantes ayant contribué ou contribuant encore au développement de l'informatique.
+                    Chaque personne appartient à une famille qui représente une thématique (un sous-domaine) de l'informatique.</p>
+
+                <h2>Objectif pour chaque groupe</h2>
+                <p>Chaque groupe projet réalise les pages du site concernant la famille qui lui est assignée :</p>
+                <ul>
+                    <li>La page de présentation de la famille</li>
+                    <li>Une page par membre de la famille</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="project-details-slider swiper">
+                <div class="swiper-wrapper align-items-center">
+                    <div class="swiper-slide">
+                        <img src="/assets/img/7familles/Acceuil_7Familles.png" alt="illustration 0">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assets/img/7familles/adaLovelace_7Familles.png" alt="Illustration 1">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assets/img/7familles/AL-KHWARIZMI_7Familles.png" alt="Illustration 2">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assets/img/7familles/dorothyVaughan_7Familles.png" alt="Illustration 3">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assets/img/7familles/GerardBerry_7Familles.png" alt="Illustration 4">
+                    </div>
+
+                </div>
+            </div>
+
+            <div>
+                <h2>Spécifications fonctionnelles</h2>
+                <p>Pour chaque famille (aussi appelée thématique), le site doit disposer d'une page la présentant et contenant au minimum :</p>
+                <ul>
+                    <li>Une présentation de la thématique</li>
+                    <li>Une liste cliquable des pages des personnes de la famille, classées par année de naissance croissante</li>
+                    <li>Un lien illustré par une vignette pour chaque personne</li>
+                    <li>Un lien vers la page d'accueil du site</li>
+                </ul>
+
+                <p>Chaque personne doit disposer d'une page web dédiée contenant :</p>
+                <ul>
+                    <li>Sa famille d'appartenance avec une explication sous forme d'anecdote</li>
+                    <li>Sa biographie :</li>
+                    <ul>
+                        <li>Nationalité</li>
+                        <li>Date de naissance</li>
+                        <li>Date de décès (si applicable)</li>
+                    </ul>
+                    <li>Son portrait (photo, peinture ou dessin)</li>
+                    <li>Une liste de trois travaux majeurs avec discipline et description</li>
+                    <li>Les hommages rendus à son nom</li>
+                </ul>
+
+                <p>Chaque page doit également inclure :</p>
+                <ul>
+                    <li>Des liens vers les pages des autres membres de la famille</li>
+                    <li>Trois liens vers les sources utilisées et/ou des ressources supplémentaires</li>
+                    <li>Un sommaire avec liens internes vers les différentes sections</li>
+                    <li>Un lien vers la page de la famille correspondante</li>
+                </ul>
+
+                <h2>Charte graphique</h2>
+                <p>Chaque famille est identifiée par une icône (fournie en ressources) et un code couleur. Une charte graphique doit être définie et respectée pour toutes les pages.</p>
+
+                <h2>Livrables</h2>
+                <p><strong>Contraintes techniques</strong></p>
+                <ul>
+                    <li>Le site doit être développé en HTML</li>
+                    <li>La charte graphique est définie dans un fichier CSS</li>
+                </ul>
+                <p><strong>Livrables à fournir</strong></p>
+                <ul>
+                    <li>Maquette et charte graphique</li>
+                    <li>Fichier CSS</li>
+                    <li>Fichiers HTML</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        new Swiper(".project-details-slider", {
+            loop: true,
+            autoplay: {
+                delay: 3000, // Change d'image toutes les 3 secondes
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+    });
+</script>
+
+</body>
+</html>

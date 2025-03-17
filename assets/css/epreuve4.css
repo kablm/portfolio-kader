@@ -7,6 +7,7 @@ GENERAL
 }
 body {
   color: #000;
+  background-color: #D3D3D3;
 }
 
 a {
@@ -82,6 +83,7 @@ h6 {
   color: rgba(255, 255, 255, 0.7);
   white-space: nowrap;
   transition: 0.3s;
+    color: black;
 }
 
 @media (min-width: 320px) and (max-width: 993px) {
@@ -194,3 +196,18 @@ h4 {
     transition: 1s ease-in-out;
     border-color: #195c87;
   }
+.swiper {
+    width: 100%;
+    max-width: 600px; /* Ajuste cette valeur selon tes besoins */
+    margin: auto;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: auto;
+    max-height: 400px; /* Ajuste cette valeur pour limiter la hauteur */
+    object-fit: contain;
+}
+.project-info{
+    background: #b6d4fe;
+}

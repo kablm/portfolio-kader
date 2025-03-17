@@ -18,6 +18,7 @@
 }
 body {
   color: #000;
+  background-color: #D3D3D3;
 }
 
 a {
@@ -1621,4 +1622,16 @@ hr {
   background: rgba(255, 255, 255, 0.2);
   color: #fff;
   text-decoration: none;
+}
+.swiper {
+  width: 100%;
+  max-width: 600px; /* Ajuste cette valeur selon tes besoins */
+  margin: auto;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: auto;
+  max-height: 400px; /* Ajuste cette valeur pour limiter la hauteur */
+  object-fit: contain;
 }

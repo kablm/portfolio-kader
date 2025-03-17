@@ -1,24 +1,46 @@
 <?php
 
-$receiving_email_address = 'mamadousoukouna96@gmail.com';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-if (file_exists($php_email_form = '../assets/vendor/php-email-form/php-email-form.php')) {
-  include($php_email_form);
-} else {
-  die('Unable to load the "PHP Email Form" Library!');
+$errors = [];
+if (isset($_POST['submit'])) {
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $message = trim($_POST['message']);
+
+    if (empty($name)) {
+        $errors[] = 'Name is required';
+    }
+
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = 'Invalid email';
+    }
+
+    if (empty($message)) {
+        $errors[] = 'Message is required';
+    }
+
+    if (empty($errors)) {
+        $to = 'example@example.com';
+        $subject = 'New message from contact form';
+        $headers = [
+            'From' => $email,
+            'Reply-To' => $email,
+            'Content-Type' => 'text/plain; charset=UTF-8'
+        ];
+        $body = "Name: $name\nEmail: $email\nMessage:\n$message";
+
+        if (mail($to, $subject, $body, $headers)) {
+            echo 'Message sent successfully';
+        } else {
+            echo 'Error sending message. Please check server settings.';
+        }
+    } else {
+        foreach ($errors as $error) {
+            echo "$error<br>";
+        }
+    }
 }
 
-$contact = new $PHP_EMAIL_FORM;
-$contact->ajax = true;
 
-$contact->to = $receiving_email_address;
-$contact->from_name = $_POST['name'];
-$contact->from_email = $_POST['email'];
-$contact->subject = $_POST['subject'];
-
-
-$contact->add_message($_POST['name'], 'From');
-$contact->add_message($_POST['email'], 'Email');
-$contact->add_message($_POST['message'], 'Message', 10);
-
-echo $contact->send();
