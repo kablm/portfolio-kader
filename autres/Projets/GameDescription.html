@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu avec Pygame</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header>
+        <h1>Jeu avec Pygame</h1>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Accueil</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Jeu avec Pygame</h2>
+        <h3>Présentation Générale</h3>
+        <p>
+            Ce projet consiste en la création d'un jeu vidéo utilisant la bibliothèque Pygame en Python. 
+            Le jeu propose une interface interactive où les utilisateurs peuvent interagir avec des éléments graphiques et audio. 
+            Le projet se concentre sur la création d'une expérience de jeu engageante avec des graphismes attrayants et une jouabilité fluide.
+        </p>
+        <!-- Carrousel d'images -->
+        <section class="swiper-container">
+            <div class="swiper project-carousel">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="/assets/img/game/images/jeu.jpg" alt="Fonctionnalités de calcul"></div>
+                </div>
+
+                <!-- Pagination et navigation -->
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </section>
+
+        <!-- Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                new Swiper(".project-carousel", {
+                    loop: true,
+                    autoplay: { delay: 3000 },
+                    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+                    pagination: { el: ".swiper-pagination", clickable: true },
+                });
+            });
+        </script>
+        <h3>Fonctionnalités Clés</h3>
+        <ul>
+            <li>
+                <strong>Interface Graphique Utilisateur (GUI) :</strong>
+                <ul>
+                    <li>Utilisation de Pygame pour créer une interface graphique et gérer les événements du jeu.</li>
+                    <li>Affichage des éléments du jeu tels que les personnages, les ennemis, et le score.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Mécaniques de Jeu :</strong>
+                <ul>
+                    <li>Déplacement des personnages contrôlés par l'utilisateur.</li>
+                    <li>Interactions avec des ennemis ou des obstacles.</li>
+                    <li>Système de score basé sur les performances du joueur.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Gestion des Événements :</strong>
+                <ul>
+                    <li>Gestion des entrées clavier pour contrôler les personnages.</li>
+                    <li>Détection des collisions entre les personnages et les éléments du jeu.</li>
+                    <li>Mise à jour dynamique de l'affichage du jeu.</li>
+                </ul>
+            </li>
+        </ul>
+        <h3>Détails Techniques</h3>
+        <ul>
+            <li>
+                <strong>Installation de Pygame :</strong>
+                <ul>
+                    <li>La bibliothèque Pygame doit être installée via <code>pip install pygame</code> si elle n'est pas déjà présente.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Graphismes et Sons :</strong>
+                <ul>
+                    <li>Utilisation de sprites pour les personnages et les ennemis.</li>
+                    <li>Effets sonores pour les actions importantes du jeu, tels que les collisions et les scores.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Boucle de Jeu :</strong>
+                <ul>
+                    <li>La boucle de jeu principale gère les mises à jour de l'affichage et la détection des événements.</li>
+                    <li>Le jeu continue à fonctionner jusqu'à ce qu'une condition de fin soit atteinte.</li>
+                </ul>
+            </li>
+        </ul>
+        <h3>Code Explication</h3>
+        <ul>
+            <li>
+                <strong>Importation de Pygame :</strong>
+                <pre><code>import pygame
+from pygame.locals import *</code></pre>
+            </li>
+            <li>
+                <strong>Initialisation du Jeu :</strong>
+                <ul>
+                    <li>Configuration de la fenêtre principale du jeu, y compris la taille et le titre.</li>
+                    <li>Initialisation des variables de jeu telles que les scores et les positions des personnages.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Boucle Principale :</strong>
+                <ul>
+                    <li>Gestion des entrées clavier pour déplacer les personnages.</li>
+                    <li>Détection des collisions et mise à jour des scores.</li>
+                    <li>Mise à jour de l'affichage graphique à chaque itération de la boucle.</li>
+                </ul>
+            </li>
+        </ul>
+        <h3>Exemple de Fonctionnement</h3>
+        <p>
+            Le joueur utilise les touches fléchées pour déplacer le personnage principal. Le personnage doit éviter les ennemis ou obstacles qui apparaissent. 
+            Le score augmente en fonction du temps de survie et des actions réalisées.
+        </p>
+        <h3>Conclusion</h3>
+        <p>
+            Ce projet de jeu avec Pygame est un excellent moyen d'apprendre et de pratiquer la création de jeux vidéo en Python. 
+            Il couvre les concepts de base de la programmation de jeux, la gestion des événements, et l'interaction avec les utilisateurs.
+        </p>
+    </main>
+    <footer>
+        <p>&copy; 2024 Kader Belem</p>
+    </footer>
+</body>
+</html>

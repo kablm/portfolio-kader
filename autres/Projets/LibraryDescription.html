@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliothèque de Gestion</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Bibliothèque de Gestion</h1>
+        <nav>
+            <ul>
+                <li><a href="/index.html">Accueil</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Bibliothèque de Gestion</h2>
+        <h3>Présentation Générale</h3>
+        <p>
+            Ce projet consiste en la création d'une application de gestion de bibliothèque utilisant Python et une interface graphique. 
+            L'application permet aux utilisateurs de gérer les livres, les emprunts, et les retours de manière efficace. 
+            Le projet se concentre sur la création d'une interface utilisateur intuitive et facile à utiliser.
+        </p>
+        <!-- Carrousel d'images -->
+        <section class="swiper-container">
+            <div class="swiper project-carousel">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="/assets/img/library/images/librairie.png" alt="Fonctionnalités de calcul"></div>
+                </div>
+
+                <!-- Pagination et navigation -->
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </section>
+
+        <!-- Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                new Swiper(".project-carousel", {
+                    loop: true,
+                    autoplay: { delay: 3000 },
+                    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+                    pagination: { el: ".swiper-pagination", clickable: true },
+                });
+            });
+        </script>
+        <h3>Fonctionnalités Clés</h3>
+        <ul>
+            <li>
+                <strong>Interface Graphique Utilisateur (GUI) :</strong>
+                <ul>
+                    <li>Utilisation de Tkinter pour créer une interface graphique intuitive.</li>
+                    <li>Affichage des livres disponibles, des emprunts en cours et des retours.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Gestion des Livres :</strong>
+                <ul>
+                    <li>Ajout, modification et suppression des livres dans la bibliothèque.</li>
+                    <li>Recherche de livres par titre, auteur ou genre.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Gestion des Emprunts :</strong>
+                <ul>
+                    <li>Enregistrement des emprunts et des retours de livres.</li>
+                    <li>Suivi des dates d'emprunt et de retour pour chaque livre.</li>
+                </ul>
+            </li>
+        </ul>
+        <h3>Détails Techniques</h3>
+        <ul>
+            <li>
+                <strong>Installation de Tkinter :</strong>
+                <ul>
+                    <li>La bibliothèque Tkinter doit être installée via <code>pip install tkinter</code> si elle n'est pas déjà présente.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Structure de la Base de Données :</strong>
+                <ul>
+                    <li>Utilisation d'une base de données SQLite pour stocker les informations sur les livres et les emprunts.</li>
+                    <li>Tables pour les livres, les emprunteurs et les transactions d'emprunt.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Fonctions Principales :</strong>
+                <ul>
+                    <li>Ajout de nouveaux livres à la bibliothèque.</li>
+                    <li>Enregistrement des emprunts et des retours.</li>
+                    <li>Recherche de livres par différents critères.</li>
+                </ul>
+            </li>
+        </ul>
+        <h3>Code Explication</h3>
+        <ul>
+            <li>
+                <strong>Importation de Tkinter et SQLite :</strong>
+                <pre><code>import tkinter as tk
+from tkinter import messagebox
+import sqlite3</code></pre>
+            </li>
+            <li>
+                <strong>Initialisation de l'Interface :</strong>
+                <ul>
+                    <li>Configuration de la fenêtre principale de l'application, y compris la taille et le titre.</li>
+                    <li>Création des widgets pour afficher et gérer les livres et les emprunts.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Fonctions de Gestion :</strong>
+                <ul>
+                    <li>Fonctions pour ajouter, modifier et supprimer des livres.</li>
+                    <li>Fonctions pour enregistrer les emprunts et les retours.</li>
+                    <li>Fonctions pour rechercher des livres.</li>
+                </ul>
+            </li>
+        </ul>
+        <h3>Exemple de Fonctionnement</h3>
+        <p>
+            L'utilisateur peut ajouter de nouveaux livres à la bibliothèque en remplissant un formulaire. 
+            Les emprunts sont enregistrés en sélectionnant un livre et en entrant les informations de l'emprunteur. 
+            Les retours de livres sont enregistrés en sélectionnant le livre emprunté et en marquant le retour.
+        </p>
+        <h3>Conclusion</h3>
+        <p>
+            Ce projet de gestion de bibliothèque avec Tkinter est un excellent moyen d'apprendre et de pratiquer la création d'applications de bureau en Python. 
+            Il couvre les concepts de base de la programmation GUI, la gestion des bases de données, et l'interaction avec les utilisateurs.
+        </p>
+    </main>
+    <footer>
+        <p>&copy; 2024 Kader Belem</p>
+    </footer>
+</body>
+</html>

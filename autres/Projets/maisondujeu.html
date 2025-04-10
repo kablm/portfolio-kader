@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maison du Jeu - Projet</title>
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- Styles personnalisés -->
+    <style>
+        body {
+            font-family: "Open Sans", sans-serif;
+            color: #000;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: rgba(25, 92, 135, 0.9);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+        }
+
+        section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #195c87;
+            font-family: "Poppins", sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .swiper {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #195c87;
+        }
+
+        .swiper-pagination-bullet {
+            background-color: #195c87;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(25, 92, 135, 0.9);
+            color: white;
+        }
+
+        .content-section {
+            background-color: #ffffff;
+            padding: 30px;
+            margin-top: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(127, 137, 161, 0.25);
+        }
+
+        .content-section p {
+            text-align: left;
+            line-height: 1.6em;
+        }
+
+        .content-section ul {
+            text-align: left;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Maison du Jeu - Projet</h1>
+    <p>Découvrez les missions et les activités de l'association Maison du Jeu.</p>
+</header>
+
+<section>
+    <h2>Galerie des Images</h2>
+
+    <!-- Swiper Container -->
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <!-- Slide Images -->
+            <div class="swiper-slide">
+                <img src="/assets/img/LaMaisonDuJeu/img.png" alt="Image 1">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="/assets/img/LaMaisonDuJeu/img_1.png" alt="Image 2">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="/assets/img/LaMaisonDuJeu/img_2.png" alt="Image 3">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="/assets/img/LaMaisonDuJeu/img_3.png" alt="Image 4">
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+
+
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
+<section class="content-section">
+    <h2>Description du Projet</h2>
+    <p><strong>Le projet Maison du Jeu :</strong> La Maison du Jeu de l'Ile Chépaou est une association d'éducation populaire dédiée à la promotion du jeu et à la création d'événements ludiques pour tous les publics.</p>
+
+    <h2>Objectifs du Projet</h2>
+    <ul>
+        <li>Mettre en avant la diversité des pratiques ludiques et promouvoir des événements autour du jeu.</li>
+        <li>Offrir des espaces de jeu et des ressources pour les porteurs de projets en lien avec les pratiques ludiques.</li>
+        <li>Développer des actions pour sensibiliser les publics à la culture du jeu et de l'éducation populaire.</li>
+    </ul>
+</section>
+
+<section class="content-section">
+    <h2>Les Missions de l'Association</h2>
+    <p>L'association propose des événements ludiques (festivals, journées pédagogiques, conférences) pour rassembler divers publics autour de la pratique du jeu. Elle met aussi en place des formations pour les animateurs et porteurs de projets.</p>
+
+    <ul>
+        <li><strong>Créer des événements ludiques :</strong> Festivals de jeux, journées de la ludothèque, etc.</li>
+        <li><strong>Accompagner les projets externes :</strong> Aide et conseils pour les porteurs de projets dans le domaine ludique.</li>
+        <li><strong>Proposer des formations :</strong> Formations pour les animateurs et intervenants dans le domaine de la ludique.</li>
+    </ul>
+</section>
+
+<footer>
+    <p>&copy; Copyright <strong><span>2024</span></strong> Tous droits
+        réservés</p>
+</footer>
+
+<!-- Swiper.js JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    // Initialisation de Swiper.js
+    const swiper = new Swiper('.swiper', {
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+</script>
+
+</body>
+</html>
