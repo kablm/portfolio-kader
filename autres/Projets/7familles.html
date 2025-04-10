@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7 Familles - Projet</title>
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- Styles personnalisés -->
+    <style>
+        body {
+            font-family: "Open Sans", sans-serif;
+            color: #000;
+            background-color: #D3D3D3;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: rgba(25, 92, 135, 0.9);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+        }
+
+        section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #195c87;
+            font-family: "Poppins", sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .swiper {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #195c87;
+        }
+
+        .swiper-pagination-bullet {
+            background-color: #195c87;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(25, 92, 135, 0.9);
+            color: white;
+        }
+
+        .content-section {
+            background-color: #ffffff;
+            padding: 30px;
+            margin-top: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(127, 137, 161, 0.25);
+        }
+
+        .content-section p {
+            text-align: left;
+            line-height: 1.6em;
+        }
+
+        .content-section ul {
+            text-align: left;
+            margin-left: 20px;
+        }
+
+        /* Lightbox Styling */
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>7 Familles - Projet</h1>
+    <p>Découvrez les réalisations des membres de chaque famille dans le monde de l'informatique.</p>
+</header>
+
+<section>
+    <h2>Galerie des Membres</h2>
+
+    <!-- Swiper Container -->
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <!-- Slide Images -->
+            <div class="swiper-slide">
+                <img src="/assets/img/7familles/Acceuil_7Familles.png" alt="Image 1" onclick="openLightbox(this)">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="/assets/img/7familles/adaLovelace_7Familles.png" alt="Image 2" onclick="openLightbox(this)">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="/assets/img/7familles/AL-KHWARIZMI_7Familles.png" alt="Image 3" onclick="openLightbox(this)">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="/assets/img/7familles/dorothyVaughan_7Familles.png" alt="Image 4" onclick="openLightbox(this)">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="/assets/img/7familles/GerardBerry_7Familles.png" alt="Image 5" onclick="openLightbox(this)">
+            </div>
+        </div>
+
+
+
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
+<section class="content-section">
+    <h2>Description du Projet</h2>
+    <p><strong>Le projet 7 Familles :</strong> Ce projet présente un ensemble de personnalités importantes du monde de l'informatique, réparties en 7 familles. Chaque membre contribue à sa manière au développement des technologies que nous utilisons aujourd'hui.</p>
+
+    <h2>Objectifs du Projet</h2>
+    <ul>
+        <li>Mettre en avant les grandes figures de l'informatique</li>
+        <li>Expliquer les contributions de chaque membre à l'évolution de la discipline</li>
+        <li>Permettre aux visiteurs de naviguer facilement entre les différents membres et familles</li>
+    </ul>
+</section>
+
+<section class="content-section">
+    <h2>Les Familles et leurs Membres</h2>
+    <p>Chaque famille du projet est liée à un sous-domaine de l'informatique. Chaque membre de cette famille est une figure marquante ayant contribué à ce domaine.</p>
+
+    <ul>
+        <li><strong>Famille des Algorithmes :</strong> Des pionniers comme Ada Lovelace et Al-Khwarizmi ont jeté les bases des premiers algorithmes.</li>
+        <li><strong>Famille des Sciences des Données :</strong> Dorothy Vaughan et d'autres scientifiques ont contribué au traitement des données et à la programmation informatique.</li>
+        <li><strong>Famille des Architectes de l'Informatique :</strong> Des personnalités comme Gérard Berry ont façonné l'architecture des systèmes informatiques modernes.</li>
+    </ul>
+</section>
+
+<footer>
+    <p>&copy; Copyright <strong><span>2024</span></strong> Tous droits
+        réservés</p>
+</footer>
+
+<!-- Lightbox Structure -->
+<div id="lightbox">
+    <span class="lightbox-close" onclick="closeLightbox()">×</span>
+    <img src="" alt="">
+</div>
+
+<!-- Swiper.js JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    // Initialisation de Swiper.js
+    const swiper = new Swiper('.swiper', {
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+
+    // Lightbox Functions
+    function openLightbox(image) {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = lightbox.querySelector('img');
+
+        lightboxImage.src = image.src;
+        lightbox.style.display = 'flex';
+    }
+
+    function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

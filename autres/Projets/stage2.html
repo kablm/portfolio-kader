@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Tâches en Entreprise</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <style>
+        body {
+            font-family: "Open Sans", sans-serif;
+            color: #000;
+            background-color: #D3D3D3;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: rgba(25, 92, 135, 0.9);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+        }
+
+        section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #195c87;
+            font-family: "Poppins", sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .swiper {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #195c87;
+        }
+
+        .swiper-pagination-bullet {
+            background-color: #195c87;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(25, 92, 135, 0.9);
+            color: white;
+        }
+
+        .content-section {
+            background-color: #ffffff;
+            padding: 30px;
+            margin-top: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(127, 137, 161, 0.25);
+        }
+
+        .content-section p {
+            text-align: left;
+            line-height: 1.6em;
+        }
+
+        .content-section ul {
+            text-align: left;
+            margin-left: 20px;
+        }
+
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Mes Tâches en Entreprise</h1>
+    <p>Découvrez les missions que j'ai réalisées et les compétences que j'ai développées.</p>
+</header>
+
+<section>
+    <h2>Galerie de Mes Réalisations</h2>
+
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="/assets/img/Stage1.png" alt="Analyse des sites web" onclick="openLightbox(this)">
+            </div>
+            <div class="swiper-slide">
+                <img src="/assets/img/Stage2.png" alt="Optimisation du temps de chargement" onclick="openLightbox(this)">
+            </div>
+            <div class="swiper-slide">
+                <img src="/assets/img/stage3.png" alt="Amélioration des interactions CSS et JavaScript" onclick="openLightbox(this)">
+            </div>
+            <div class="swiper-slide">
+                <img src="/assets/img/stage4.png" alt="Gestion du code source" onclick="openLightbox(this)">
+            </div>
+            <div class="swiper-slide">
+                <img src="/assets/img/stage5.png" alt="Soutien aux utilisateurs" onclick="openLightbox(this)">
+            </div>
+            <div class="swiper-slide">
+                <img src="/assets/img/stage6.png" alt="Soutien aux utilisateurs" onclick="openLightbox(this)">
+            </div>
+            <div class="swiper-slide">
+                <img src="/assets/img/stage7.png" alt="Soutien aux utilisateurs" onclick="openLightbox(this)">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="/assets/img/stage8.png" alt="Soutien aux utilisateurs" onclick="openLightbox(this)">
+            </div>
+        </div>
+
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
+<section class="content-section">
+    <h2>Introduction</h2>
+    <p>La Chambre de Commerce de Konya, située en Turquie, est une organisation qui joue un rôle clé dans la promotion de l'économie locale et le soutien aux entreprises de la région. Elle est responsable de l'activation de nombreuses initiatives visant à encourager l'innovation, la coopération entre les entreprises et la croissance économique. Travailler dans un tel environnement a été une expérience enrichissante, me permettant de découvrir les dynamiques économiques et commerciales de la Turquie.</p>
+</section>
+
+<section class="content-section">
+    <h2>Accès au stage grâce à Erasmus</h2>
+    <p>J'ai eu la chance d'accéder à ce stage grâce au programme Erasmus, une initiative européenne qui permet aux étudiants de vivre des expériences professionnelles à l'international. Ce programme m'a offert l'opportunité d'acquérir une expérience précieuse dans un environnement international, tout en développant mes compétences professionnelles et personnelles. Mon stage à la Chambre de Commerce de Konya a non seulement renforcé ma compréhension des processus économiques, mais m'a également permis d'élargir mes horizons culturels et professionnels.</p>
+</section>
+
+<section class="content-section">
+    <h2>Projets réalisés pendant le stage</h2>
+    <p>Durant mon stage à la Chambre de Commerce de Konya, j'ai eu l'opportunité de travailler sur plusieurs projets significatifs. L'un des projets principaux a été d'aider à la gestion des relations entre les entreprises locales et les partenaires internationaux. Ce travail a impliqué l'organisation de réunions, la rédaction de rapports, ainsi que la mise en place d'outils numériques pour faciliter la communication et la collaboration. J'ai également participé à des études de marché et à la préparation de supports pour des événements internationaux, contribuant ainsi à renforcer les liens économiques entre la Turquie et d'autres pays.</p>
+    <p>Ce stage m'a permis de développer de nouvelles compétences en gestion de projets internationaux et de comprendre l'importance des échanges commerciaux pour la croissance économique. Grâce à Erasmus, cette expérience a été une étape clé dans mon parcours académique et professionnel.</p>
+</section>
+
+<section class="content-section">
+    <h2>Instruction pour le Projet</h2>
+    <ul>
+        <li><strong>Relation entre le Personnel et le Client :</strong> Chaque membre du personnel gère les relations avec les entreprises assignées. Les informations sur les entretiens sont enregistrées dans le système.</li>
+        <li><strong>Processus de Devis et de Contrat :</strong> Les offres tarifaires sont préparées selon les besoins des entreprises. Une fois acceptées, un contrat est signé avec la Chambre d’Industrie de Konya.</li>
+        <li><strong>Processus de Conseil et Suivi :</strong> Un consultant fournit un suivi continu à l’entreprise pour optimiser sa consommation énergétique.</li>
+        <li><strong>Suivi des Dépenses :</strong> Toutes les dépenses liées au processus de conseil (transport, hébergement, matériel) sont enregistrées et suivies.</li>
+        <li><strong>Reporting et Données Statistiques :</strong> Les rapports permettent de suivre les performances commerciales, l’évolution des recettes/dépenses et le statut des entreprises rencontrées.</li>
+    </ul>
+</section>
+
+<footer>
+    <p>&copy; Copyright <strong><span>2024</span></strong> Tous droits réservés</p>
+</footer>
+
+<div id="lightbox">
+    <span class="lightbox-close" onclick="closeLightbox()">×</span>
+    <img src="" alt="">
+</div>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    const swiper = new Swiper('.swiper', {
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+
+    function openLightbox(image) {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = lightbox.querySelector('img');
+
+        lightboxImage.src = image.src;
+        lightbox.style.display = 'flex';
+    }
+
+    function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
