@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Répondre aux incidents et aux demandes d’assistance</title>
+  <title>Organiser son développement professionnel</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
@@ -12,10 +12,12 @@
       margin: 0;
       padding: 0;
     }
+
     h1 {
       text-align: center;
       margin-top: 20px;
     }
+
     .section-title {
       display: flex;
       align-items: center;
@@ -23,10 +25,12 @@
       margin-top: 30px;
       margin-bottom: 20px;
     }
+
     .section-title span:first-child {
       font-size: 28px;
       margin-right: 10px;
     }
+
     .experience-item, .project-item {
       display: flex;
       justify-content: space-between;
@@ -37,14 +41,40 @@
       margin-bottom: 10px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
+
     .experience-item:hover, .project-item:hover {
       background-color: #e9ecef;
+    }
+
+    .revenir-accueil {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      background-color: #195c87;
+      padding: 10px 20px;
+      border-radius: 5px;
+    }
+
+    .revenir-accueil:hover {
+      background-color: #1a7f98;
     }
   </style>
 </head>
 <body>
 
-<h1>Répondre aux incidents et aux demandes d’assistance</h1>
+<!-- Barre de navigation avec le lien vers l'accueil -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a class="nav-link revenir-accueil" href="index.html">Revenir à l'accueil</a>
+    </li>
+  </ul>
+</nav>
+
+<h1>Organiser son développement professionnel</h1>
 
 <div class="container mt-5">
 
@@ -64,7 +94,7 @@
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#experienceAccordion">
         <div class="accordion-body">
-          <p>Implémentation de mécanismes pour détecter les erreurs dans les calculs (exemple : division par zéro)...</p>
+          <p>...</p>
           <!-- Exemple d’image (si tu veux) -->
           <!-- <img src="chemin/vers/image.png" class="img-fluid" alt="Exemple"> -->
         </div>
@@ -74,8 +104,8 @@
 
   <!-- Autres expériences -->
   <div class="experience-item">
-    <span>Gestion de tickets via Framagit</span>
-    <span>Provenance : Chambre de Commerce de Konya</span>
+    <span>...</span>
+    <span>....</span>
   </div>
 
   <!-- Section Projets liés -->
@@ -84,10 +114,8 @@
     <span>Projets liés</span>
   </div>
 
-  <div class="project-item">
-    <span>Création de ticket</span>
-    <a href="#" class="btn btn-primary btn-sm">Voir projet →</a>
-  </div>
+
+
 
 </div>
 

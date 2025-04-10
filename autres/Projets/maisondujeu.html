@@ -6,12 +6,13 @@
     <title>Maison du Jeu - Projet</title>
     <!-- Swiper.js CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
     <!-- Styles personnalisés -->
     <style>
         body {
             font-family: "Open Sans", sans-serif;
             color: #000;
-            background-color: #f4f4f4;
+            background-color: #D3D3D3;
             margin: 0;
             padding: 0;
         }
@@ -74,7 +75,7 @@
             padding: 30px;
             margin-top: 30px;
             border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(127, 137, 161, 0.25);
+            box-shadow: 0 4px 8px rgba(127, 137, 161, 0.25);
         }
 
         .content-section p {
@@ -86,6 +87,17 @@
             text-align: left;
             margin-left: 20px;
         }
+        .revenir-accueil {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: #195c87;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -93,6 +105,12 @@
 <header>
     <h1>Maison du Jeu - Projet</h1>
     <p>Découvrez les missions et les activités de l'association Maison du Jeu.</p>
+    <nav>
+        <ul>
+            <!-- Lien Revenir à l'accueil -->
+            <li><a href="../../index.html" class="revenir-accueil">Revenir à l'accueil</a></li>
+        </ul>
+    </nav>
 </header>
 
 <section>
