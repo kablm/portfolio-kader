@@ -48,43 +48,15 @@
       </h1>
 
       <!-- ========== Navbar ========== -->
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Acceuil</a></li>
-          <li><a class="nav-link scrollto" href="#about">A propos</a></li>
-          <li><a class="nav-link scrollto" href="#resume">Parcours</a></li>
-          <li><a class="nav-link scrollto" href="#skills">Compétences</a></li>
-          <li><a class="nav-link scrollto" href="#veille">Veille Téchnologique</a></li>
-          <li class="dropdown"><a href="#"><span>Épreuves</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="./autres/epreuve4.html">Épreuve E4</a></li>
-              <li><a href="./autres/epreuve5.html">Épreuve E5</a></li>
+      <div id="navbar-container"></div>
 
-
-            </ul>
-          </li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li class="dropdown"><a href="#"><span>Projets</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="autres/Projets/7familles.html">7Familles</a></li>
-              <li><a href="autres/Projets/maisondujeu.html">La Maison Du Jeu</a></li>
-              <li><a href="autres/Projets/LibraryDescription.html">Librairie</a></li>
-
-            </ul>
-          </li>
-
-          </li>
-          <a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li class="dropdown"><a href="#"><span>Stages</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="autres/Projets/stage2.html">Stage Chambre de commerce</a></li>
-
-
-            </ul>
-          </li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav>
+      <script>
+        fetch('navbar.html')
+                .then(res => res.text())
+                .then(data => {
+                  document.getElementById('navbar-container').innerHTML = data;
+                });
+      </script>
       <!-- ========== Fin Navbar ========== -->
     </div>
   </header>

@@ -41,6 +41,15 @@
 <!-- ========== Fin head ========== -->
 
 <body>
+<div id="navbar-container"></div>
+
+<script>
+    fetch('navbar.html')
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById('navbar-container').innerHTML = data;
+        });
+</script>
     <!-- ========== header  ========== -->
     <header style="border-bottom: solid #fff" id="header" class="header">
         <div class="container">
