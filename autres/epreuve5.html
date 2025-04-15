@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 </head>
 <style>
+
     body {
         font-family: Arial, sans-serif;
         background-color: #f8f9fa;
@@ -111,6 +112,32 @@
         .action-btn:hover {
             background-color: #144769;
         }
+
+        /* Effets de saison */
+        .flower, .sunbeam, .leaf, .snowflake {
+            position: fixed;
+            top: -40px;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.8;
+            animation-name: fall;
+            animation-timing-function: linear;
+        }
+
+        @keyframes fall {
+            to {
+                top: 110vh;
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.5;
+            }
+        }
+
+        /* Optionnel : couleurs de fond selon la saison */
+        body.spring { background-color: #f6f9f6; transition: background 1s; }
+        body.summer { background-color: #fffbe6; transition: background 1s; }
+        body.autumn { background-color: #fff3e0; transition: background 1s; }
+        body.winter { background-color: #eaf6ff; transition: background 1s; }
+
     </style>
 
 
@@ -124,6 +151,47 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+<script>
+    const month = new Date().getMonth();
+    const bodyClass = document.body.classList;
+    let effect = '';
+
+    // Définir la saison en fonction du mois
+    if (month >= 2 && month <= 4) {
+        bodyClass.add('spring');
+        effect = 'flower';
+    } else if (month >= 5 && month <= 7) {
+        bodyClass.add('summer');
+        effect = 'sunbeam';
+    } else if (month >= 8 && month <= 10) {
+        bodyClass.add('autumn');
+        effect = 'leaf';
+    } else {
+        bodyClass.add('winter');
+        effect = 'snowflake';
+    }
+
+    // Créer l'effet de particules (fleurs, feuilles, neige, etc.)
+    function createElementEffect(className, content) {
+        const el = document.createElement('div');
+        el.className = className;
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.animationDuration = 3 + Math.random() * 5 + 's';
+        el.style.fontSize = 12 + Math.random() * 24 + 'px';
+        el.innerHTML = content;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 8000);
+    }
+
+    const icons = {
+        snowflake: '❄️',
+        leaf: '🍂',
+        flower: '🌸',
+        sunbeam: '☀️'
+    };
+
+    setInterval(() => createElementEffect(effect, icons[effect]), 300);
+</script>
 
 </body>
 </html>

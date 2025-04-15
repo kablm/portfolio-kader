@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Maison du Jeu - Projet</title>
-    <!-- Swiper.js CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
-    <!-- Styles personnalisés -->
     <style>
         body {
             font-family: "Open Sans", sans-serif;
@@ -22,11 +19,24 @@
             color: white;
             padding: 20px;
             text-align: center;
+            position: relative;
         }
 
         header h1 {
             font-family: "Poppins", sans-serif;
             margin: 0;
+        }
+
+        .revenir-accueil {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: #195c87;
+            padding: 10px 20px;
+            border-radius: 5px;
         }
 
         section {
@@ -48,19 +58,15 @@
 
         .swiper-slide img {
             width: 100%;
-            height: auto;
             max-height: 400px;
             object-fit: contain;
             border-radius: 8px;
         }
 
         .swiper-button-next,
-        .swiper-button-prev {
-            color: #195c87;
-        }
-
+        .swiper-button-prev,
         .swiper-pagination-bullet {
-            background-color: #195c87;
+            color: #195c87;
         }
 
         footer {
@@ -73,31 +79,41 @@
         .content-section {
             background-color: #ffffff;
             padding: 30px;
-            margin-top: 30px;
+            margin: 30px auto;
+            max-width: 900px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(127, 137, 161, 0.25);
-        }
-
-        .content-section p {
             text-align: left;
-            line-height: 1.6em;
         }
 
         .content-section ul {
-            text-align: left;
             margin-left: 20px;
         }
-        .revenir-accueil {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            background-color: #195c87;
-            padding: 10px 20px;
-            border-radius: 5px;
+        /* Effets de saison */
+        .flower, .sunbeam, .leaf, .snowflake {
+            position: fixed;
+            top: -40px;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.8;
+            animation-name: fall;
+            animation-timing-function: linear;
         }
+
+        @keyframes fall {
+            to {
+                top: 110vh;
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.5;
+            }
+        }
+
+        /* Optionnel : couleurs de fond selon la saison */
+        body.spring { background-color: #f6f9f6; transition: background 1s; }
+        body.summer { background-color: #fffbe6; transition: background 1s; }
+        body.autumn { background-color: #fff3e0; transition: background 1s; }
+        body.winter { background-color: #eaf6ff; transition: background 1s; }
+
     </style>
 </head>
 <body>
@@ -105,39 +121,18 @@
 <header>
     <h1>Maison du Jeu - Projet</h1>
     <p>Découvrez les missions et les activités de l'association Maison du Jeu.</p>
-
-
     <a href="../../index.html" class="revenir-accueil">🏠 Revenir à l'accueil</a>
 </header>
 
 <section>
     <h2>Galerie des Images</h2>
-
-    <!-- Swiper Container -->
     <div class="swiper">
         <div class="swiper-wrapper">
-            <!-- Slide Images -->
-            <div class="swiper-slide">
-                <img src="../../assets/img/LaMaisonDuJeu/img.png" alt="Image 1">
-            </div>
-
-            <div class="swiper-slide">
-                <img src="../../assets/img/LaMaisonDuJeu/img_1.png" alt="Image 2">
-            </div>
-
-            <div class="swiper-slide">
-                <img src="../../assets/img/LaMaisonDuJeu/img_2.png" alt="Image 3">
-            </div>
-
-            <div class="swiper-slide">
-                <img src="../../assets/img/LaMaisonDuJeu/img_3.png" alt="Image 4">
-            </div>
+            <div class="swiper-slide"><img src="../../assets/img/LaMaisonDuJeu/img.png" alt="Image 1" /></div>
+            <div class="swiper-slide"><img src="../../assets/img/LaMaisonDuJeu/img_1.png" alt="Image 2" /></div>
+            <div class="swiper-slide"><img src="../../assets/img/LaMaisonDuJeu/img_2.png" alt="Image 3" /></div>
+            <div class="swiper-slide"><img src="../../assets/img/LaMaisonDuJeu/img_3.png" alt="Image 4" /></div>
         </div>
-
-        <!-- Navigation Buttons -->
-
-
-        <!-- Pagination -->
         <div class="swiper-pagination"></div>
     </div>
 </section>
@@ -145,50 +140,84 @@
 <section class="content-section">
     <h2>Description du Projet</h2>
     <p><strong>Le projet Maison du Jeu :</strong> La Maison du Jeu de l'Ile Chépaou est une association d'éducation populaire dédiée à la promotion du jeu et à la création d'événements ludiques pour tous les publics.</p>
+</section>
 
+<section class="content-section">
     <h2>Objectifs du Projet</h2>
     <ul>
-        <li>Mettre en avant la diversité des pratiques ludiques et promouvoir des événements autour du jeu.</li>
-        <li>Offrir des espaces de jeu et des ressources pour les porteurs de projets en lien avec les pratiques ludiques.</li>
-        <li>Développer des actions pour sensibiliser les publics à la culture du jeu et de l'éducation populaire.</li>
+        <li>Mettre en avant la diversité des pratiques ludiques.</li>
+        <li>Offrir des espaces de jeu et des ressources.</li>
+        <li>Sensibiliser à la culture du jeu et de l'éducation populaire.</li>
     </ul>
 </section>
 
 <section class="content-section">
     <h2>Les Missions de l'Association</h2>
-    <p>L'association propose des événements ludiques (festivals, journées pédagogiques, conférences) pour rassembler divers publics autour de la pratique du jeu. Elle met aussi en place des formations pour les animateurs et porteurs de projets.</p>
-
     <ul>
         <li><strong>Créer des événements ludiques :</strong> Festivals de jeux, journées de la ludothèque, etc.</li>
-        <li><strong>Accompagner les projets externes :</strong> Aide et conseils pour les porteurs de projets dans le domaine ludique.</li>
-        <li><strong>Proposer des formations :</strong> Formations pour les animateurs et intervenants dans le domaine de la ludique.</li>
+        <li><strong>Accompagner les projets externes :</strong> Aide et conseils aux porteurs de projets.</li>
+        <li><strong>Proposer des formations :</strong> Pour les animateurs et intervenants ludiques.</li>
     </ul>
 </section>
 
 <footer>
-    <p>&copy; Copyright <strong><span>2024</span></strong> Tous droits
-        réservés</p>
+    <p>&copy; 2024 Tous droits réservés</p>
 </footer>
 
-<!-- Swiper.js JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
-    // Initialisation de Swiper.js
-    const swiper = new Swiper('.swiper', {
+    new Swiper('.swiper', {
         loop: true,
         autoplay: {
             delay: 3000,
-            disableOnInteraction: false,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+            disableOnInteraction: false
         },
         pagination: {
             el: '.swiper-pagination',
-            clickable: true,
-        },
+            clickable: true
+        }
     });
+</script>
+<script>
+    const month = new Date().getMonth();
+    const bodyClass = document.body.classList;
+    let effect = '';
+
+    // Définir la saison en fonction du mois
+    if (month >= 2 && month <= 4) {
+        bodyClass.add('spring');
+        effect = 'flower';
+    } else if (month >= 5 && month <= 7) {
+        bodyClass.add('summer');
+        effect = 'sunbeam';
+    } else if (month >= 8 && month <= 10) {
+        bodyClass.add('autumn');
+        effect = 'leaf';
+    } else {
+        bodyClass.add('winter');
+        effect = 'snowflake';
+    }
+
+    // Créer l'effet de particules (fleurs, feuilles, neige, etc.)
+    function createElementEffect(className, content) {
+        const el = document.createElement('div');
+        el.className = className;
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.animationDuration = 3 + Math.random() * 5 + 's';
+        el.style.fontSize = 12 + Math.random() * 24 + 'px';
+        el.innerHTML = content;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 8000);
+    }
+
+    const icons = {
+        snowflake: '❄️',
+        leaf: '🍂',
+        flower: '🌸',
+        sunbeam: '☀️'
+    };
+
+    setInterval(() => createElementEffect(effect, icons[effect]), 300);
 </script>
 
 </body>

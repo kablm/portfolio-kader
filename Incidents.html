@@ -69,7 +69,91 @@
             padding: 50px 20px;
             text-align: center;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Saison : Printemps */
+        body.spring {
+            background: linear-gradient(to right, #a8edea, #fed6e3);
+        }
+
+        /* Saison : Été */
+        body.summer {
+            background: linear-gradient(to right, #fceabb, #f8b500);
+        }
+
+        /* Saison : Automne */
+        body.autumn {
+            background: linear-gradient(to right, #D38312, #A83279);
+        }
+
+        /* Saison : Hiver */
+        body.winter {
+            background: linear-gradient(to right, #83a4d4, #b6fbff);
+        }
+
+        .scene {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .building {
+            width: 300px;
+            height: 400px;
+            margin: 20px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .label {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 5px #000;
+        }
+
+        .building:hover {
+            transform: scale(1.05);
+            transition: 0.3s;
+        }
+
+        .building a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Effet de neige, feuilles, fleurs, soleil selon la saison */
+        .snowflake, .leaf, .flower, .sunbeam {
+            position: fixed;
+            z-index: 1;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10%); opacity: 1; }
+            100% { transform: translateY(110%); opacity: 0; }
+        }
     </style>
+
 </head>
 <body>
 
@@ -132,6 +216,47 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const month = new Date().getMonth();
+    const bodyClass = document.body.classList;
+    let effect = '';
+
+    // Définir la saison en fonction du mois
+    if (month >= 2 && month <= 4) {
+        bodyClass.add('spring');
+        effect = 'flower';
+    } else if (month >= 5 && month <= 7) {
+        bodyClass.add('summer');
+        effect = 'sunbeam';
+    } else if (month >= 8 && month <= 10) {
+        bodyClass.add('autumn');
+        effect = 'leaf';
+    } else {
+        bodyClass.add('winter');
+        effect = 'snowflake';
+    }
+
+    // Créer l'effet de particules (fleurs, feuilles, neige, etc.)
+    function createElementEffect(className, content) {
+        const el = document.createElement('div');
+        el.className = className;
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.animationDuration = 3 + Math.random() * 5 + 's';
+        el.style.fontSize = 12 + Math.random() * 24 + 'px';
+        el.innerHTML = content;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 8000);
+    }
+
+    const icons = {
+        snowflake: '❄️',
+        leaf: '🍂',
+        flower: '🌸',
+        sunbeam: '☀️'
+    };
+
+    setInterval(() => createElementEffect(effect, icons[effect]), 300);
+</script>
 
 </body>
 </html>

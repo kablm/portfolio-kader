@@ -211,3 +211,27 @@ h4 {
 .project-info{
     background: #b6d4fe;
 }
+/* Effets de saison */
+.flower, .sunbeam, .leaf, .snowflake {
+    position: fixed;
+    top: -40px;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.8;
+    animation-name: fall;
+    animation-timing-function: linear;
+}
+
+@keyframes fall {
+    to {
+        top: 110vh;
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0.5;
+    }
+}
+
+/* Couleurs de fond selon la saison */
+body.spring { background-color: #f6f9f6 !important; transition: background 1s; }
+body.summer { background-color: #fffbe6 !important; transition: background 1s; }
+body.autumn { background-color: #fff3e0 !important; transition: background 1s; }
+body.winter { background-color: #eaf6ff !important; transition: background 1s; }

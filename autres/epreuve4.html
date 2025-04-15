@@ -154,6 +154,48 @@
             </div>
         </section>
     </main>
+    <script>
+        const month = new Date().getMonth();
+        const bodyClass = document.body.classList;
+        let effect = '';
+
+        // Définir la saison en fonction du mois
+        if (month >= 2 && month <= 4) {
+            bodyClass.add('spring');
+            effect = 'flower';
+        } else if (month >= 5 && month <= 7) {
+            bodyClass.add('summer');
+            effect = 'sunbeam';
+        } else if (month >= 8 && month <= 10) {
+            bodyClass.add('autumn');
+            effect = 'leaf';
+        } else {
+            bodyClass.add('winter');
+            effect = 'snowflake';
+        }
+
+        // Créer l'effet de particules (fleurs, feuilles, neige, etc.)
+        function createElementEffect(className, content) {
+            const el = document.createElement('div');
+            el.className = className;
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.animationDuration = 3 + Math.random() * 5 + 's';
+            el.style.fontSize = 12 + Math.random() * 24 + 'px';
+            el.innerHTML = content;
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 8000);
+        }
+
+        const icons = {
+            snowflake: '❄️',
+            leaf: '🍂',
+            flower: '🌸',
+            sunbeam: '☀️'
+        };
+
+        setInterval(() => createElementEffect(effect, icons[effect]), 300);
+    </script>
+
     <!-- ========== Fin main ========== -->
 </body>
 </html>

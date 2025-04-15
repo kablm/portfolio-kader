@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Interactif</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        body.summer {
+            background: linear-gradient(to right, #fceabb, #f8b500);
+        }
+
+        body.winter {
+            background: linear-gradient(to right, #83a4d4, #b6fbff);
+        }
+
+        body.spring {
+            background: linear-gradient(to right, #a8edea, #fed6e3);
+        }
+
+        body.autumn {
+            background: linear-gradient(to right, #D38312, #A83279);
+        }
+
+        .scene {
+            position: relative;
+            width: 5000px;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .character {
+            position: fixed;
+            bottom: 20px;
+            left: 50px;
+            width: 80px;
+            height: 80px;
+            background: url('https://i.imgur.com/5X2z9i7.gif') no-repeat center center;
+            background-size: contain;
+            z-index: 10;
+        }
+
+        .building {
+            width: 300px;
+            height: 400px;
+            margin: 0 100px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .label {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 5px #000;
+        }
+
+        .building:hover {
+            transform: scale(1.05);
+            transition: 0.3s;
+        }
+
+        .building a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .snowflake, .leaf, .flower, .sunbeam {
+            position: fixed;
+            z-index: 1;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10%); opacity: 1; }
+            100% { transform: translateY(110%); opacity: 0; }
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const month = new Date().getMonth();
+            const bodyClass = document.body.classList;
+            let effect = '';
+
+            if (month >= 2 && month <= 4) {
+                bodyClass.add('spring');
+                effect = 'flower';
+            } else if (month >= 5 && month <= 7) {
+                bodyClass.add('summer');
+                effect = 'sunbeam';
+            } else if (month >= 8 && month <= 10) {
+                bodyClass.add('autumn');
+                effect = 'leaf';
+            } else {
+                bodyClass.add('winter');
+                effect = 'snowflake';
+            }
+
+            function createElementEffect(className, content) {
+                const el = document.createElement('div');
+                el.className = className;
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.animationDuration = 3 + Math.random() * 5 + 's';
+                el.style.fontSize = 12 + Math.random() * 24 + 'px';
+                el.innerHTML = content;
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 8000);
+            }
+
+            const icons = {
+                snowflake: '❄️',
+                leaf: '🍂',
+                flower: '🌸',
+                sunbeam: '☀️'
+            };
+
+            setInterval(() => createElementEffect(effect, icons[effect]), 300);
+        });
+    </script>
+</head>
+<body>
+<div class="character"></div>
+<div class="scene">
+    <div class="building" style="background-image: url('https://i.imgur.com/iy0EFeU.png');">
+        <a href="projets.html"></a>
+        <div class="label">Projets</div>
+    </div>
+    <div class="building" style="background-image: url('https://i.imgur.com/iy0EFeU.png');">
+        <a href="stages.html"></a>
+        <div class="label">Stages</div>
+    </div>
+    <div class="building" style="background-image: url('https://i.imgur.com/iy0EFeU.png');">
+        <a href="competences.html"></a>
+        <div class="label">Compétences</div>
+    </div>
+    <div class="building" style="background-image: url('https://i.imgur.com/iy0EFeU.png');">
+        <a href="veille.html"></a>
+        <div class="label">Veille</div>
+    </div>
+    <div class="building" style="background-image: url('https://i.imgur.com/iy0EFeU.png');">
+        <a href="contact.html"></a>
+        <div class="label">Contact</div>
+    </div>
+</div>
+</body>
+</html>
