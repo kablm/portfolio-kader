@@ -1,22 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chambre de Commerce Konya</title>
-
-
-
-
-
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Compétences E5 - Chambre de Commerce Konya</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
         body {
-            font-family: "Open Sans", sans-serif;
-            color: #000;
-            background-color: #D3D3D3;
-            margin: 0;
-            padding: 0;
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8f9fa;
         }
 
         header {
@@ -24,70 +16,62 @@
             color: white;
             padding: 20px;
             text-align: center;
+            position: relative;
         }
 
-        header h1 {
-            font-family: "Poppins", sans-serif;
-            margin: 0;
-        }
-
-        section {
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        h2 {
+        .revenir-accueil {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: white;
             color: #195c87;
-            font-family: "Poppins", sans-serif;
-            margin-bottom: 20px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
         }
 
-        .swiper {
-            width: 100%;
-            max-width: 800px;
-            margin: auto;
-        }
-
-        .swiper-slide img {
-            width: 100%;
-            height: auto;
-            max-height: 400px;
-            object-fit: contain;
-            border-radius: 8px;
-        }
-
-        .swiper-button-next,
-        .swiper-button-prev {
-            color: #195c87;
-        }
-
-        .swiper-pagination-bullet {
-            background-color: #195c87;
-        }
-
-        footer {
-            text-align: center;
+        .competence-section {
+            margin: 50px auto;
             padding: 20px;
-            background-color: rgba(25, 92, 135, 0.9);
-            color: white;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
         }
 
-        .content-section {
-            background-color: #ffffff;
-            padding: 30px;
-            margin-top: 30px;
+        .competence-section h2 {
+            color: #195c87;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .competence-block {
+            margin-bottom: 50px;
+        }
+
+        .competence-title {
+            font-weight: bold;
+            color: #144769;
+        }
+
+        .proof {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .proof img {
+            width: 150px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(127, 137, 161, 0.25);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        .content-section p {
-            text-align: left;
-            line-height: 1.6em;
-        }
-
-        .content-section ul {
-            text-align: left;
-            margin-left: 20px;
+        .proof img:hover {
+            transform: scale(1.05);
         }
 
         #lightbox {
@@ -100,234 +84,113 @@
             background: rgba(0, 0, 0, 0.8);
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 9999;
         }
 
         #lightbox img {
             max-width: 90%;
             max-height: 90%;
-            border-radius: 8px;
+            border-radius: 10px;
         }
 
-        .lightbox-close {
+        #lightbox-close {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 30px;
+            right: 30px;
             font-size: 30px;
             color: white;
             cursor: pointer;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 50%;
-            padding: 10px;
         }
-        .revenir-accueil {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            background-color: #195c87;
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
-        /* Effets de saison */
-        .flower, .sunbeam, .leaf, .snowflake {
-            position: fixed;
-            top: -40px;
-            z-index: 9999;
-            pointer-events: none;
-            opacity: 0.8;
-            animation-name: fall;
-            animation-timing-function: linear;
-        }
-
-        @keyframes fall {
-            to {
-                top: 110vh;
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0.5;
-            }
-        }
-
-        /* Optionnel : couleurs de fond selon la saison */
-        body.spring { background-color: #f6f9f6; transition: background 1s; }
-        body.summer { background-color: #fffbe6; transition: background 1s; }
-        body.autumn { background-color: #fff3e0; transition: background 1s; }
-        body.winter { background-color: #eaf6ff; transition: background 1s; }
-
     </style>
 </head>
 <body>
-<a href="../../index.html" class="revenir-accueil">🏠 Revenir à l'accueil</a>
 
 <header>
-    <h1>Chambre de Commerce Konya</h1>
-    <p>Découvrez les missions que j'ai réalisées et les compétences que j'ai développées.</p>
+    <h1>Compétences liées au stage</h1>
+    <a href="../../index.html" class="revenir-accueil">🏠 Revenir à l'accueil</a>
 </header>
 
-<section>
-    <h2>Galerie de Mes Réalisations</h2>
+<section class="competence-section">
+    <h2>Compétences développées à la Chambre de Commerce de Konya</h2>
+    <p class="text-center mb-5">
+        Ce projet Erasmus à la Chambre de Commerce de Konya m’a permis de participer activement au déploiement de solutions numériques, d'améliorer des processus techniques existants et de collaborer avec une équipe internationale. Grâce à cette immersion professionnelle, j’ai pu développer de nombreuses compétences en lien avec le BTS SIO.
+    </p>
 
-    <div class="swiper">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <img src="../../assets/img/Stage1.png" alt="Analyse des sites web" onclick="openLightbox(this)">
-            </div>
-            <div class="swiper-slide">
-                <img src="../../assets/img/Stage2.png" alt="Optimisation du temps de chargement" onclick="openLightbox(this)">
-            </div>
-            <div class="swiper-slide">
-                <img src="../../assets/img/stage3.png" alt="Amélioration des interactions CSS et JavaScript" onclick="openLightbox(this)">
-            </div>
-            <div class="swiper-slide">
-                <img src="../../assets/img/stage4.png" alt="Gestion du code source" onclick="openLightbox(this)">
-            </div>
-            <div class="swiper-slide">
-                <img src="../../assets/img/stage5.png" alt="Soutien aux utilisateurs" onclick="openLightbox(this)">
-            </div>
-            <div class="swiper-slide">
-                <img src="../../assets/img/stage6.png" alt="Soutien aux utilisateurs" onclick="openLightbox(this)">
-            </div>
-            <div class="swiper-slide">
-                <img src="../../assets/img/stage7.png" alt="Soutien aux utilisateurs" onclick="openLightbox(this)">
-            </div>
-            <div class="swiper-slide">
-                <img src="../../assets/img/stage8.png" class="img-fluid animated" alt="" onclick="openLightbox(this)">
-            </div>
+    <!-- Organiser son développement professionnel -->
 
-            <div class="swiper-slide">
-                <img src="../../assets/img/img1.png" class="img-fluid animated" alt="" onclick="openLightbox(this)">
-            </div>
 
-            <div class="swiper-slide">
-                <img src="../../assets/img/img2.png" class="img-fluid animated" alt="" onclick="openLightbox(this)">
-            </div>
+    <!-- Gérer le patrimoine informatique -->
+    <div class="competence-block">
+        <p class="competence-title">Gérer le patrimoine informatique :</p>
+        <p>Participation à l'inventaire matériel, documentation des postes, mise à jour des logiciels pour assurer la stabilité du parc informatique.</p>
+        <div class="proof">
+            <img src="../../assets/img/stage5.png" alt="Avant inventaire" onclick="openLightbox(this)">
+            <img src="../../assets/img/stage7.png" alt="Après inventaire" onclick="openLightbox(this)">
         </div>
+    </div>
 
+    <!-- Répondre aux incidents -->
+    <div class="competence-block">
+        <p class="competence-title">Répondre aux incidents et demandes d'assistance :</p>
+        <p>Analyse des erreurs, lecture des logs, débogage avec les outils fournis pour rétablir un service fonctionnel.</p>
+        <div class="proof">
+            <img src="../../assets/img/Stage1.png" alt="Avant correction" onclick="openLightbox(this)">
+            <img src="../../assets/img/Stage2.png" alt="Après correction" onclick="openLightbox(this)">
+        </div>
+    </div>
 
-        <div class="swiper-pagination"></div>
+    <!-- Travailler en mode projet -->
+    <div class="competence-block">
+        <p class="competence-title">Travailler en mode projet :</p>
+        <p>Collaboration en équipe, gestion de tâches, organisation de réunions hebdomadaires et planification des livrables.</p>
+        <div class="proof">
+            <img src="../../assets/img/stage6.png" alt="Avant organisation" onclick="openLightbox(this)">
+            <img src="../../assets/img/stage8.png" alt="Après organisation" onclick="openLightbox(this)">
+        </div>
+    </div>
+
+    <!-- Développer la présence en ligne -->
+    <div class="competence-block">
+        <p class="competence-title">Développer la présence en ligne :</p>
+        <p>Création de pages web pour améliorer la visibilité de la Chambre de Commerce : intégration responsive, design moderne, navigation fluide.</p>
+        <div class="proof">
+            <img src="../../assets/img/stage7.png" alt="Avant site" onclick="openLightbox(this)">
+            <img src="../../assets/img/img2.png" alt="Après site" onclick="openLightbox(this)">
+        </div>
+    </div>
+    <div class="competence-block">
+        <p class="competence-title">Organiser son développement professionnel :</p>
+        <p>Pour rester compétent dans un secteur en constante évolution, je mène une veille informatique régulière via des sources comme GitHub, Stack Overflow ou des newsletters techniques.</p>
+        <ul>
+            <li>Suivi des tendances (IA, cybersécurité, etc.)</li>
+            <li>Application des nouvelles pratiques dans mes projets</li>
+            <li>Choix de formations adaptés à mon profil</li>
+        </ul>
+        <div class="proof">
+            <img src="../../assets/img/GitHub-logo.png" alt="Avant veille" onclick="openLightbox(this)">
+            <img src="../../assets/img/x-twitter-logo.png" alt="Après veille" onclick="openLightbox(this)">
+        </div>
     </div>
 </section>
 
-<section class="content-section">
-    <h2>Introduction</h2>
-    <p>La Chambre de Commerce de Konya, située en Turquie, est une organisation qui joue un rôle clé dans la promotion de l'économie locale et le soutien aux entreprises de la région. Elle est responsable de l'activation de nombreuses initiatives visant à encourager l'innovation, la coopération entre les entreprises et la croissance économique. Travailler dans un tel environnement a été une expérience enrichissante, me permettant de découvrir les dynamiques économiques et commerciales de la Turquie.</p>
-</section>
-
-<section class="content-section">
-    <h2>Accès au stage grâce à Erasmus</h2>
-    <p>J'ai eu la chance d'accéder à ce stage grâce au programme Erasmus, une initiative européenne qui permet aux étudiants de vivre des expériences professionnelles à l'international. Ce programme m'a offert l'opportunité d'acquérir une expérience précieuse dans un environnement international, tout en développant mes compétences professionnelles et personnelles. Mon stage à la Chambre de Commerce de Konya a non seulement renforcé ma compréhension des processus économiques, mais m'a également permis d'élargir mes horizons culturels et professionnels.</p>
-</section>
-
-<section class="content-section">
-    <h2>Projets réalisés pendant le stage</h2>
-    <p>Durant mon stage à la Chambre de Commerce de Konya, j'ai eu l'opportunité de travailler sur plusieurs projets significatifs. L'un des projets principaux a été d'aider à la gestion des relations entre les entreprises locales et les partenaires internationaux. Ce travail a impliqué l'organisation de réunions, la rédaction de rapports, ainsi que la mise en place d'outils numériques pour faciliter la communication et la collaboration. J'ai également participé à des études de marché et à la préparation de supports pour des événements internationaux, contribuant ainsi à renforcer les liens économiques entre la Turquie et d'autres pays.</p>
-    <p>Ce stage m'a permis de développer de nouvelles compétences en gestion de projets internationaux et de comprendre l'importance des échanges commerciaux pour la croissance économique. Grâce à Erasmus, cette expérience a été une étape clé dans mon parcours académique et professionnel.</p>
-</section>
-
-<section class="content-section">
-    <h2>Pourquoi ce projet est important</h2>
-    <p>Ce projet est très important pour la Chambre de Commerce de Konya, car il aide à améliorer les relations entre les entreprises locales et leurs partenaires étrangers. En organisant des réunions et en mettant en place des outils numériques pour faciliter la communication, ce projet rend les échanges commerciaux plus rapides et efficaces. De plus, en faisant des études de marché et en préparant des événements internationaux, il permet aux entreprises de se faire connaître dans d'autres pays et de trouver de nouveaux partenaires.</p>
-    <p>Pour les entreprises locales, cela peut leur offrir de nouvelles opportunités pour se développer à l'international et attirer des investissements. En gros, ce projet aide à rendre les entreprises locales plus compétitives et à améliorer l'économie de la région.</p>
-</section>
-
-<section class="content-section">
-    <h2>Instruction pour le Projet</h2>
-    <ul>
-        <li><strong>Relation entre le Personnel et le Client :</strong> Chaque membre du personnel gère les relations avec les entreprises assignées. Les informations sur les entretiens sont enregistrées dans le système.</li>
-        <li><strong>Processus de Devis et de Contrat :</strong> Les offres tarifaires sont préparées selon les besoins des entreprises. Une fois acceptées, un contrat est signé avec la Chambre d’Industrie de Konya.</li>
-        <li><strong>Processus de Conseil et Suivi :</strong> Un consultant fournit un suivi continu à l’entreprise pour optimiser sa consommation énergétique.</li>
-        <li><strong>Suivi des Dépenses :</strong> Toutes les dépenses liées au processus de conseil (transport, hébergement, matériel) sont enregistrées et suivies.</li>
-        <li><strong>Reporting et Données Statistiques :</strong> Les rapports permettent de suivre les performances commerciales, l’évolution des recettes/dépenses et le statut des entreprises rencontrées.</li>
-    </ul>
-</section>
-
-
-
-
-<footer>
-    <p>&copy; Copyright <strong><span>2024</span></strong> Tous droits réservés</p>
-</footer>
-
-<div id="lightbox">
-    <span class="lightbox-close" onclick="closeLightbox()">×</span>
-    <img src="" alt="">
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+    <span id="lightbox-close">&times;</span>
+    <img src="" alt="zoomed">
 </div>
 
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
-    const swiper = new Swiper('.swiper', {
-        loop: true,
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-    });
-
-    function openLightbox(image) {
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImage = lightbox.querySelector('img');
-
-        lightboxImage.src = image.src;
-        lightbox.style.display = 'flex';
+    function openLightbox(img) {
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = lightbox.querySelector("img");
+        lightboxImg.src = img.src;
+        lightbox.style.display = "flex";
     }
 
     function closeLightbox() {
-        const lightbox = document.getElementById('lightbox');
-        lightbox.style.display = 'none';
+        document.getElementById("lightbox").style.display = "none";
     }
 </script>
-<script>
-    const month = new Date().getMonth();
-    const bodyClass = document.body.classList;
-    let effect = '';
-
-    // Définir la saison en fonction du mois
-    if (month >= 2 && month <= 4) {
-        bodyClass.add('spring');
-        effect = 'flower';
-    } else if (month >= 5 && month <= 7) {
-        bodyClass.add('summer');
-        effect = 'sunbeam';
-    } else if (month >= 8 && month <= 10) {
-        bodyClass.add('autumn');
-        effect = 'leaf';
-    } else {
-        bodyClass.add('winter');
-        effect = 'snowflake';
-    }
-
-    // Créer l'effet de particules (fleurs, feuilles, neige, etc.)
-    function createElementEffect(className, content) {
-        const el = document.createElement('div');
-        el.className = className;
-        el.style.left = Math.random() * 100 + 'vw';
-        el.style.animationDuration = 3 + Math.random() * 5 + 's';
-        el.style.fontSize = 12 + Math.random() * 24 + 'px';
-        el.innerHTML = content;
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 8000);
-    }
-
-    const icons = {
-        snowflake: '❄️',
-        leaf: '🍂',
-        flower: '🌸',
-        sunbeam: '☀️'
-    };
-
-    setInterval(() => createElementEffect(effect, icons[effect]), 300);
-</script>
-
 
 </body>
 </html>

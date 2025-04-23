@@ -2,16 +2,13 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Maison du Jeu - Projet</title>
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Maison du Jeu - Compétences</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
         body {
-            font-family: "Open Sans", sans-serif;
-            color: #000;
-            background-color: #D3D3D3;
-            margin: 0;
-            padding: 0;
+            font-family: 'Open Sans', sans-serif;
+            background-color: #d3d3d3;
         }
 
         header {
@@ -22,202 +19,140 @@
             position: relative;
         }
 
-        header h1 {
-            font-family: "Poppins", sans-serif;
-            margin: 0;
-        }
-
         .revenir-accueil {
             position: absolute;
             top: 20px;
             right: 20px;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
             background-color: #195c87;
+            color: white;
             padding: 10px 20px;
             border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
         }
 
-        section {
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        h2 {
-            color: #195c87;
-            font-family: "Poppins", sans-serif;
-            margin-bottom: 20px;
-        }
-
-        .swiper {
-            width: 100%;
-            max-width: 800px;
-            margin: auto;
-        }
-
-        .swiper-slide img {
-            width: 100%;
-            max-height: 400px;
-            object-fit: contain;
-            border-radius: 8px;
-        }
-
-        .swiper-button-next,
-        .swiper-button-prev,
-        .swiper-pagination-bullet {
-            color: #195c87;
-        }
-
-        footer {
-            text-align: center;
+        .competence-section {
+            margin: 50px auto;
             padding: 20px;
-            background-color: rgba(25, 92, 135, 0.9);
-            color: white;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
         }
 
-        .content-section {
-            background-color: #ffffff;
-            padding: 30px;
-            margin: 30px auto;
-            max-width: 900px;
+        .competence-section h2 {
+            color: #195c87;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .competence-block {
+            margin-bottom: 50px;
+        }
+
+        .competence-title {
+            font-weight: bold;
+            color: #144769;
+        }
+
+        .proof {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .proof img {
+            width: 150px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(127, 137, 161, 0.25);
-            text-align: left;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        .content-section ul {
-            margin-left: 20px;
+        .proof img:hover {
+            transform: scale(1.05);
         }
-        /* Effets de saison */
-        .flower, .sunbeam, .leaf, .snowflake {
+
+        #lightbox {
+            display: none;
             position: fixed;
-            top: -40px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
             z-index: 9999;
-            pointer-events: none;
-            opacity: 0.8;
-            animation-name: fall;
-            animation-timing-function: linear;
         }
 
-        @keyframes fall {
-            to {
-                top: 110vh;
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0.5;
-            }
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
         }
 
-        /* Optionnel : couleurs de fond selon la saison */
-        body.spring { background-color: #f6f9f6; transition: background 1s; }
-        body.summer { background-color: #fffbe6; transition: background 1s; }
-        body.autumn { background-color: #fff3e0; transition: background 1s; }
-        body.winter { background-color: #eaf6ff; transition: background 1s; }
-
+        #lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Maison du Jeu - Projet</h1>
-    <p>Découvrez les missions et les activités de l'association Maison du Jeu.</p>
+    <h1>Maison du Jeu - Compétences</h1>
     <a href="../../index.html" class="revenir-accueil">🏠 Revenir à l'accueil</a>
 </header>
 
-<section>
-    <h2>Galerie des Images</h2>
-    <div class="swiper">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="../../assets/img/LaMaisonDuJeu/img.png" alt="Image 1" /></div>
-            <div class="swiper-slide"><img src="../../assets/img/LaMaisonDuJeu/img_1.png" alt="Image 2" /></div>
-            <div class="swiper-slide"><img src="../../assets/img/LaMaisonDuJeu/img_2.png" alt="Image 3" /></div>
-            <div class="swiper-slide"><img src="../../assets/img/LaMaisonDuJeu/img_3.png" alt="Image 4" /></div>
+<section class="competence-section">
+    <h2>Compétences développées avec la Maison du Jeu</h2>
+    <p class="text-center mb-5">
+        Le projet "Maison du Jeu" m'a permis de mettre en œuvre des compétences variées en gestion de projet associatif, en communication, en organisation d'événements et en création de ressources ludiques pour tous les publics.
+    </p>
+
+    <div class="competence-block">
+        <p class="competence-title">Développer la présence en ligne :</p>
+        <p>J’ai participé à la conception et à l’animation de festivals, de soirées jeux et d’ateliers pour différents publics, en veillant à l’accessibilité et à la convivialité.</p>
+        <div class="proof">
+            <img src="../../assets/img/LaMaisonDuJeu/img.png" alt="Festival de jeux" onclick="openLightbox(this)">
+            <img src="../../assets/img/LaMaisonDuJeu/img_1.png" alt="Animation ludique" onclick="openLightbox(this)">
         </div>
-        <div class="swiper-pagination"></div>
     </div>
+
+    <div class="competence-block">
+        <p class="competence-title">Travailler en mode projet :</p>
+        <p>J’ai défini les rôles des membres de l'équipe, organisé les tâches par étapes, géré la documentation technique et mené des tests utilisateurs pour valider la navigation.</p>
+        <div class="proof">
+            <img src="../../assets/img/MDJ.png" alt="Affiche événement" onclick="openLightbox(this)">
+        </div>
+    </div>
+
+
 </section>
 
-<section class="content-section">
-    <h2>Description du Projet</h2>
-    <p><strong>Le projet Maison du Jeu :</strong> La Maison du Jeu de l'Ile Chépaou est une association d'éducation populaire dédiée à la promotion du jeu et à la création d'événements ludiques pour tous les publics.</p>
-</section>
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+    <span id="lightbox-close">&times;</span>
+    <img src="" alt="zoomed">
+</div>
 
-<section class="content-section">
-    <h2>Objectifs du Projet</h2>
-    <ul>
-        <li>Mettre en avant la diversité des pratiques ludiques.</li>
-        <li>Offrir des espaces de jeu et des ressources.</li>
-        <li>Sensibiliser à la culture du jeu et de l'éducation populaire.</li>
-    </ul>
-</section>
-
-<section class="content-section">
-    <h2>Les Missions de l'Association</h2>
-    <ul>
-        <li><strong>Créer des événements ludiques :</strong> Festivals de jeux, journées de la ludothèque, etc.</li>
-        <li><strong>Accompagner les projets externes :</strong> Aide et conseils aux porteurs de projets.</li>
-        <li><strong>Proposer des formations :</strong> Pour les animateurs et intervenants ludiques.</li>
-    </ul>
-</section>
-
-<footer>
-    <p>&copy; 2024 Tous droits réservés</p>
-</footer>
-
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
-    new Swiper('.swiper', {
-        loop: true,
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true
-        }
-    });
-</script>
-<script>
-    const month = new Date().getMonth();
-    const bodyClass = document.body.classList;
-    let effect = '';
-
-    // Définir la saison en fonction du mois
-    if (month >= 2 && month <= 4) {
-        bodyClass.add('spring');
-        effect = 'flower';
-    } else if (month >= 5 && month <= 7) {
-        bodyClass.add('summer');
-        effect = 'sunbeam';
-    } else if (month >= 8 && month <= 10) {
-        bodyClass.add('autumn');
-        effect = 'leaf';
-    } else {
-        bodyClass.add('winter');
-        effect = 'snowflake';
+    function openLightbox(img) {
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = lightbox.querySelector("img");
+        lightboxImg.src = img.src;
+        lightbox.style.display = "flex";
     }
 
-    // Créer l'effet de particules (fleurs, feuilles, neige, etc.)
-    function createElementEffect(className, content) {
-        const el = document.createElement('div');
-        el.className = className;
-        el.style.left = Math.random() * 100 + 'vw';
-        el.style.animationDuration = 3 + Math.random() * 5 + 's';
-        el.style.fontSize = 12 + Math.random() * 24 + 'px';
-        el.innerHTML = content;
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 8000);
+    function closeLightbox() {
+        document.getElementById("lightbox").style.display = "none";
     }
-
-    const icons = {
-        snowflake: '❄️',
-        leaf: '🍂',
-        flower: '🌸',
-        sunbeam: '☀️'
-    };
-
-    setInterval(() => createElementEffect(effect, icons[effect]), 300);
 </script>
 
 </body>

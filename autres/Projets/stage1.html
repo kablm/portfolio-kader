@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mon stage de première année</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    header {
+      background-color: rgba(25, 92, 135, 0.9);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .revenir-accueil {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: white;
+      color: #195c87;
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .stage-section {
+      margin: 50px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 1000px;
+    }
+
+    .stage-section h2 {
+      color: #195c87;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .stage-block {
+      margin-bottom: 50px;
+    }
+
+    .stage-title {
+      font-weight: bold;
+      color: #144769;
+    }
+
+    .competence-label {
+      display: inline-block;
+      background: #e5f1fa;
+      color: #195c87;
+      border-radius: 4px;
+      padding: 2px 10px;
+      font-size: 0.95em;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+
+    .proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .proof img {
+      width: 150px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .proof img:hover {
+      transform: scale(1.05);
+    }
+
+    #lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Mon stage de première année</h1>
+  <a href="../../index.html" class="revenir-accueil">🏠 Revenir à l'accueil</a>
+</header>
+
+<section class="stage-section">
+  <h2>Mon expérience en entreprise et les compétences associées</h2>
+  <p class="text-center mb-5">
+    Lors de mon stage de première année, j'ai eu l'opportunité de participer activement à la refonte du site web de l'entreprise. Cette expérience m'a permis de découvrir le travail en équipe et de développer plusieurs compétences professionnelles.
+  </p>
+
+  <div class="stage-block">
+    <span class="competence-label">Compétence : Gérer un projet informatique</span>
+    <p class="stage-title">Participation à la refonte du site</p>
+    <p>
+      J'ai pris part à la modernisation du site internet de l'entreprise, en collaborant avec l'équipe sur la nouvelle structure, l'intégration des contenus et l'amélioration du design. J'ai pu observer le processus complet, de la conception à la mise en ligne, en comprenant l'importance de la planification et de la répartition des tâches.
+    </p>
+
+  </div>
+
+  <div class="stage-block">
+    <span class="competence-label">Compétence : Répondre aux incidents et aux demandes d’assistance</span>
+    <p class="stage-title">Repérage et remontée de bugs</p>
+    <p>
+      Lors de la phase de test, j'ai repéré certains bugs et dysfonctionnements sur différentes pages du site. J'ai pris soin de les documenter et de les remonter à mon maître de stage, ce qui a permis à l'équipe de les corriger rapidement. Cette démarche m'a sensibilisé à l'importance du suivi des incidents et de la communication efficace au sein d'une équipe.
+    </p>
+    <div class="proof">
+      <img src="../../assets/img/aube.png" alt="Bug détecté" onclick="openLightbox(this)">
+    </div>
+  </div>
+
+  <div class="stage-block">
+    <span class="competence-label">Compétence : Travailler en équipe</span>
+    <p class="stage-title">Collaboration et communication</p>
+    <p>
+      Tout au long de mon stage, j'ai eu l'opportunité de travailler en étroite collaboration avec mon maître de stage.
+      Chaque matin, nous organisions une courte réunion afin de faire le point sur l’avancement des différents projets et de répartir les tâches à accomplir dans la journée.
+    </p>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+  <span id="lightbox-close">&times;</span>
+  <img src="" alt="zoomed">
+</div>
+
+<script>
+  function openLightbox(img) {
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = lightbox.querySelector("img");
+    lightboxImg.src = img.src;
+    lightbox.style.display = "flex";
+  }
+
+  function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+  }
+</script>
+
+</body>
+</html>
