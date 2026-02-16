@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio de Kader Belem - Administrateur Systèmes et Réseaux, étudiant en BTS CIEL">
+    <meta name="keywords" content="Kader Belem, Administrateur Système, Réseaux, BTS CIEL, Cybersécurité, Proxmox, Active Directory">
+    <meta name="author" content="Kader Belem">
+    <title>Kader Belem | Administrateur Systèmes et Réseaux</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="logo">
+                <span class="logo-text">KB</span>
+            </a>
+            <div class="nav-menu" id="navMenu">
+                <a href="#about" class="nav-link">À propos</a>
+                <a href="#skills" class="nav-link">Compétences</a>
+                <a href="#projects" class="nav-link">Projets</a>
+                <a href="#experience" class="nav-link">Expériences</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu mobile">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-background">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    Disponible en alternance dès maintenant
+                </div>
+                
+                <h1 class="hero-title">
+                    <span class="title-line">Bonjour, je suis</span>
+                    <span class="title-name">Kader Belem</span>
+                </h1>
+                
+                <p class="hero-description">
+                    Étudiant en <strong>BTS CIEL</strong> (Cybersécurité, Informatique et Réseaux, Électronique), 
+                    je me spécialise en administration système, réseaux et cybersécurité. Fort de 6 stages 
+                    en entreprise, je recherche une alternance pour renforcer mes compétences et contribuer 
+                    aux projets d'une équipe IT.
+                </p>
+                
+                <div class="hero-cta">
+                    <a href="#projects" class="btn btn-primary">
+                        Mes projets
+                        <i class='bx bx-rocket'></i>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        Me contacter
+                    </a>
+                </div>
+                
+                <div class="hero-social">
+                    <a href="https://www.linkedin.com/in/kader-belem-688699213/" target="_blank" class="social-link" aria-label="LinkedIn">
+                        <i class='bx bxl-linkedin'></i>
+                    </a>
+                    <a href="https://github.com/kablm" target="_blank" class="social-link" aria-label="GitHub">
+                        <i class='bx bxl-github'></i>
+                    </a>
+                    <a href="mailto:kaderbelem428@gmail.com" class="social-link" aria-label="Email">
+                        <i class='bx bx-envelope'></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="visual-card">
+                    <div class="network-diagram">
+                        <div class="diagram-line center">╔═══════════════════╗</div>
+                        <div class="diagram-line center">║   <span class="firewall">🛡️ FIREWALL</span>     ║</div>
+                        <div class="diagram-line center">╚═══════════════════╝</div>
+                        <div class="diagram-line center">         ║</div>
+                        <div class="diagram-line center">╔═══════════════════╗</div>
+                        <div class="diagram-line center">║   <span class="router">🌐 ROUTER</span>       ║</div>
+                        <div class="diagram-line center">║   <span style="color: #94a3b8;">192.168.1.1</span>   ║</div>
+                        <div class="diagram-line center">╚═══════════════════╝</div>
+                        <div class="diagram-line center">    ║        ║        ║</div>
+                        <div class="diagram-line">┌────────┴────┬───┴────┬───┴────┐</div>
+                        <div class="diagram-line"><span class="server">🖥️ Server</span>  <span class="client">💻 Client 1</span> <span class="client">💻 Client 2</span></div>
+                        <div class="diagram-line" style="color: #94a3b8;">.10        .20       .30</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Qui suis-je ?</span>
+                <h2 class="section-title">À propos</h2>
+            </div>
+            
+            <div class="about-grid">
+                <div class="about-content">
+                    <p class="about-text">
+                        Étudiant motivé et sérieux en <strong>BTS CIEL</strong> au Lycée de l'Hyrôme à Chemillé, 
+                        je me spécialise dans les domaines des réseaux, de l'administration système et de la cybersécurité.
+                    </p>
+                    
+                    <p class="about-text">
+                        Avec une solide expérience acquise lors de 6 stages en entreprise, j'ai développé 
+                        des compétences pratiques en configuration réseau, administration Windows Server et Linux, 
+                        virtualisation, et sécurité informatique.
+                    </p>
+                    
+                    <p class="about-text">
+                        Mon parcours a débuté avec un <strong>Bac Pro Systèmes Numériques</strong>, suivi d'un 
+                        <strong>BTS SIO option SLAM</strong>, avant de me réorienter vers le BTS CIEL pour 
+                        approfondir mes compétences en infrastructure et cybersécurité.
+                    </p>
+
+                    <p class="about-text">
+                        <strong>🚗 Permis B</strong> - Véhiculé | 
+                        <strong>🌍 Anglais niveau B2</strong> (écrit et oral)
+                    </p>
+                </div>
+                
+                <div class="about-side">
+                    <h3 style="font-size: 24px; margin-bottom: 24px;">Formations</h3>
+                    <div class="certifications">
+                        <div class="cert-item">
+                            <div class="cert-icon">
+                                <i class='bx bx-chip'></i>
+                            </div>
+                            <div>
+                                <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">BTS CIEL</h4>
+                                <p style="font-size: 14px; color: var(--text-secondary);">2025-2026 | Lycée de l'Hyrôme</p>
+                            </div>
+                        </div>
+                        
+                        <div class="cert-item">
+                            <div class="cert-icon">
+                                <i class='bx bx-code-alt'></i>
+                            </div>
+                            <div>
+                                <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">BTS SIO SLAM</h4>
+                                <p style="font-size: 14px; color: var(--text-secondary);">2023-2025 | Lycée La Colinière</p>
+                            </div>
+                        </div>
+                        
+                        <div class="cert-item">
+                            <div class="cert-icon">
+                                <i class='bx bx-devices'></i>
+                            </div>
+                            <div>
+                                <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">Bac Pro SN</h4>
+                                <p style="font-size: 14px; color: var(--text-secondary);">2020-2023 | Lycée François Arago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills section section-dark">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-label">Mon expertise</span>
+                <h2 class="section-title">Compétences Techniques</h2>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class='bx bx-server'></i>
+                    </div>
+                    <h3 class="skill-name">Administration Système</h3>
+                    <p class="skill-list">
+                        Windows Server 2019/2022<br>
+                        Active Directory<br>
+                        GPO<br>
+                        Ubuntu Server<br>
+                        Apache
+                    </p>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class='bx bx-network-chart'></i>
+                    </div>
+                    <h3 class="skill-name">Réseaux</h3>
+                    <p class="skill-list">
+                        Architecture LAN<br>
+                        Adressage IP<br>
+                        DHCP / DNS<br>
+                        Configuration Switch/Router<br>
+                        Câblage réseau
+                    </p>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class='bx bx-shield'></i>
+                    </div>
+                    <h3 class="skill-name">Sécurité</h3>
+                    <p class="skill-list">
+                        Firewalling<br>
+                        OWASP Top 10<br>
+                        Sécurisation postes<br>
+                        Gestion droits utilisateurs<br>
+                        Cybersécurité
+                    </p>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class='bx bx-cloud'></i>
+                    </div>
+                    <h3 class="skill-name">Virtualisation & Cloud</h3>
+                    <p class="skill-list">
+                        VMware<br>
+                        VirtualBox<br>
+                        Docker<br>
+                        Gestion de parc (GLPI)
+                    </p>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class='bx bx-code'></i>
+                    </div>
+                    <h3 class="skill-name">Développement</h3>
+                    <p class="skill-list">
+                        Python (automatisation)<br>
+                        SQL / Procédures stockées<br>
+                        PHP<br>
+                        Git / GitHub<br>
+                        Scripts Bash
+                    </p>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class='bx bx-wrench'></i>
+                    </div>
+                    <h3 class="skill-name">Support & Maintenance</h3>
+                    <p class="skill-list">
+                        Dépannage hardware<br>
+                        Installation logiciels<br>
+                        Configuration postes<br>
+                        Relation client<br>
+                        Documentation
+                    </p>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class='bx bx-data'></i>
+                    </div>
+                    <h3 class="skill-name">Bases de données</h3>
+                    <p class="skill-list">
+                        MySQL<br>
+                        Conception BDD<br>
+                        Requêtes SQL<br>
+                        Optimisation<br>
+                        Procédures stockées
+                    </p>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class='bx bx-world'></i>
+                    </div>
+                    <h3 class="skill-name">Web & Services</h3>
+                    <p class="skill-list">
+                        HTML/CSS<br>
+                        Architecture MVC<br>
+                        Optimisation UX/UI<br>
+                        Services web<br>
+                        Apache/Nginx
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Mes réalisations</span>
+                <h2 class="section-title">Projets Personnels</h2>
+            </div>
+            
+            <div class="projects-grid">
+                <!-- Projet Proxmox -->
+                <div class="project-card">
+                    <div class="project-icon-wrapper">
+                        <div class="project-icon">
+                            <i class='bx bx-cube-alt'></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Virtualisation</span>
+                            <span class="project-tag">DevOps</span>
+                            <span class="project-tag">Cloud</span>
+                        </div>
+                        <h3 class="project-title">Infrastructure Proxmox VE</h3>
+                        <p class="project-description">
+                            Création d'une infrastructure réseau virtuelle complète avec Proxmox VE. 
+                            Gestion de VMs (Ubuntu, pfSense), conteneurs LXC, VLANs, services (Nginx, MySQL, 
+                            Prometheus/Grafana), backups et infrastructure-as-code. Compétences cloud/DevOps 
+                            demandées en industrie.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge">Proxmox VE</span>
+                            <span class="tech-badge">KVM/QEMU</span>
+                            <span class="tech-badge">LXC</span>
+                            <span class="tech-badge">Ubuntu</span>
+                            <span class="tech-badge">pfSense</span>
+                            <span class="tech-badge">Nginx</span>
+                            <span class="tech-badge">MySQL</span>
+                            <span class="tech-badge">Grafana</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Homelab Active Directory -->
+                <div class="project-card">
+                    <div class="project-icon-wrapper" style="background: linear-gradient(135deg, #22c55e, #16a34a);">
+                        <div class="project-icon">
+                            <i class='bx bxs-server'></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Windows Server</span>
+                            <span class="project-tag">Active Directory</span>
+                        </div>
+                        <h3 class="project-title">Homelab Active Directory</h3>
+                        <p class="project-description">
+                            Configuration complète d'un environnement Windows Server 2022 avec Active Directory, 
+                            gestion d'utilisateurs et groupes, GPO pour sécurisation des postes clients, 
+                            DHCP/DNS intégrés, et serveur de fichiers avec quotas. Simulation d'un environnement 
+                            d'entreprise professionnel.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge">Windows Server 2022</span>
+                            <span class="tech-badge">Active Directory</span>
+                            <span class="tech-badge">GPO</span>
+                            <span class="tech-badge">DHCP/DNS</span>
+                            <span class="tech-badge">PowerShell</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Serveur Web sécurisé -->
+                <div class="project-card">
+                    <div class="project-icon-wrapper" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                        <div class="project-icon">
+                            <i class='bx bxs-lock-alt'></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Linux</span>
+                            <span class="project-tag">Sécurité</span>
+                            <span class="project-tag">Web</span>
+                        </div>
+                        <h3 class="project-title">Serveur Web Sécurisé</h3>
+                        <p class="project-description">
+                            Déploiement d'un stack LEMP (Linux, Nginx, MySQL, PHP) avec renforcement de la sécurité : 
+                            configuration pare-feu UFW, certificats SSL/TLS Let's Encrypt, fail2ban contre brute-force, 
+                            hardening système selon les standards OWASP. Monitoring avec logs centralisés.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge">Ubuntu Server</span>
+                            <span class="tech-badge">Nginx</span>
+                            <span class="tech-badge">MySQL</span>
+                            <span class="tech-badge">SSL/TLS</span>
+                            <span class="tech-badge">UFW</span>
+                            <span class="tech-badge">Fail2ban</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monitoring réseau -->
+                <div class="project-card">
+                    <div class="project-icon-wrapper" style="background: linear-gradient(135deg, #f97316, #ea580c);">
+                        <div class="project-icon">
+                            <i class='bx bx-line-chart'></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Monitoring</span>
+                            <span class="project-tag">Docker</span>
+                        </div>
+                        <h3 class="project-title">Stack Monitoring & Alerting</h3>
+                        <p class="project-description">
+                            Mise en place d'une solution de monitoring complète avec Prometheus pour la collecte 
+                            de métriques, Grafana pour la visualisation, et Alertmanager pour les notifications. 
+                            Conteneurisé avec Docker, permet le suivi en temps réel des performances serveurs, 
+                            services et réseau.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge">Prometheus</span>
+                            <span class="tech-badge">Grafana</span>
+                            <span class="tech-badge">Docker</span>
+                            <span class="tech-badge">Alertmanager</span>
+                            <span class="tech-badge">Node Exporter</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience section section-dark">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-label">Mon parcours professionnel</span>
+                <h2 class="section-title">Expériences</h2>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025</div>
+                        <h3>Stage - Chambre de Commerce de Konya</h3>
+                        <h4>Turquie</h4>
+                        <ul>
+                            <li>Développement application web (architecture MVC)</li>
+                            <li>Analyse des besoins et conception BDD</li>
+                            <li>Interface HTML/CSS/PHP</li>
+                            <li>Collaboration en contexte international</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2024</div>
+                        <h3>Stage - Aube Multitech</h3>
+                        <h4>Montrouge</h4>
+                        <ul>
+                            <li>Création et optimisation de sites web</li>
+                            <li>Amélioration UX/UI</li>
+                            <li>Maintenance corrective</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023</div>
+                        <h3>Stage - Espaces Mobile</h3>
+                        <h4>Nantes</h4>
+                        <ul>
+                            <li>Dépannage informatique hardware/software</li>
+                            <li>Configuration réseau et matériel</li>
+                            <li>Gestion relation client</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023</div>
+                        <h3>Stage - Services 111</h3>
+                        <h4>Nantes</h4>
+                        <ul>
+                            <li>Réparation et entretien postes de travail</li>
+                            <li>Installation produits numériques</li>
+                            <li>Intervention technique chez clients</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2021</div>
+                        <h3>Stage - Delia Technologies</h3>
+                        <h4>Nantes</h4>
+                        <ul>
+                            <li>Projets développement web</li>
+                            <li>Correction bugs, mise à jour contenu</li>
+                            <li>Utilisation Git pour versionnage</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2020</div>
+                        <h3>Stage - Lycée Aristide Briand</h3>
+                        <h4>Saint-Nazaire</h4>
+                        <ul>
+                            <li>Configuration réseau local (IP, câblage, partages)</li>
+                            <li>Maintenance informatique</li>
+                            <li>Création/gestion comptes (Active Directory)</li>
+                            <li>Sécurisation postes clients</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-label">Restons en contact</span>
+                <h2 class="section-title">Contactez-moi</h2>
+                <p style="font-size: 18px; color: var(--text-secondary);">
+                    Je recherche activement une alternance en administration systèmes et réseaux. 
+                    N'hésitez pas à me contacter !
+                </p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class='bx bx-envelope'></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <a href="mailto:kaderbelem428@gmail.com">kaderbelem428@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class='bx bx-phone'></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Téléphone</h4>
+                            <a href="tel:+33661402998">+33 6 61 40 29 98</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class='bx bx-map'></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Localisation</h4>
+                            <p>Nantes, France</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class='bx bx-briefcase'></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Disponibilité</h4>
+                            <p>Immédiate (2025-2026)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form-wrapper">
+                    <form action="https://formsubmit.co/kaderbelem428@gmail.com" method="POST" class="contact-form">
+                        <input type="hidden" name="_subject" value="Nouveau message depuis le portfolio">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="text" name="_honey" style="display:none">
+                        
+                        <div class="form-group">
+                            <label for="name">Nom complet</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            Envoyer le message
+                            <i class='bx bx-send'></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3 style="font-size: 24px; margin-bottom: 12px;">Kader Belem</h3>
+                    <p style="color: #64748b;">Administrateur Systèmes et Réseaux</p>
+                    <p style="color: #64748b;">BTS CIEL - En recherche d'alternance</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 20px;">Navigation</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <a href="#about" style="color: #94a3b8;">À propos</a>
+                        <a href="#skills" style="color: #94a3b8;">Compétences</a>
+                        <a href="#projects" style="color: #94a3b8;">Projets</a>
+                        <a href="#experience" style="color: #94a3b8;">Expériences</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 20px;">Contact</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <a href="mailto:kaderbelem428@gmail.com" style="color: #94a3b8;">Email</a>
+                        <a href="tel:+33661402998" style="color: #94a3b8;">Téléphone</a>
+                        <a href="https://www.linkedin.com/in/kader-belem-688699213/" style="color: #94a3b8;">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Kader Belem. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
