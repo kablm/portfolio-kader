@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f172a">
     <meta name="description" content="Portfolio de Kader Belem - Administrateur Systèmes et Réseaux, étudiant en BTS CIEL">
     <meta name="keywords" content="Kader Belem, Administrateur Système, Réseaux, BTS CIEL, Cybersécurité, Proxmox, Active Directory">
     <meta name="author" content="Kader Belem">
@@ -20,6 +21,8 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -33,13 +36,19 @@
                 <a href="#experience" class="nav-link">Expériences</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
-            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu mobile">
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Basculer le theme clair/sombre" aria-pressed="false">
+                <i class='bx bx-moon'></i>
+            </button>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu mobile" aria-controls="navMenu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </div>
     </nav>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <main id="main-content">
 
     <!-- Hero Section -->
     <section id="hero" class="hero">
@@ -79,15 +88,30 @@
                 </div>
                 
                 <div class="hero-social">
-                    <a href="https://www.linkedin.com/in/kader-belem-688699213/" target="_blank" class="social-link" aria-label="LinkedIn">
+                    <a href="https://www.linkedin.com/in/kader-belem-688699213/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
                         <i class='bx bxl-linkedin'></i>
                     </a>
-                    <a href="https://github.com/kablm" target="_blank" class="social-link" aria-label="GitHub">
+                    <a href="https://github.com/kablm" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
                         <i class='bx bxl-github'></i>
                     </a>
                     <a href="mailto:kaderbelem428@gmail.com" class="social-link" aria-label="Email">
                         <i class='bx bx-envelope'></i>
                     </a>
+                </div>
+
+                <div class="hero-stats" aria-label="Chiffres clés">
+                    <div class="stat-card">
+                        <span class="stat-number" data-counter="6" data-suffix="+">0</span>
+                        <span class="stat-label">Stages réalisés</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" data-counter="4">0</span>
+                        <span class="stat-label">Projets majeurs</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" data-counter="100" data-suffix="%">0</span>
+                        <span class="stat-label">Motivation</span>
+                    </div>
                 </div>
             </div>
             
@@ -100,12 +124,28 @@
                         <div class="diagram-line center">         ║</div>
                         <div class="diagram-line center">╔═══════════════════╗</div>
                         <div class="diagram-line center">║   <span class="router">🌐 ROUTER</span>       ║</div>
-                        <div class="diagram-line center">║   <span style="color: #94a3b8;">192.168.1.1</span>   ║</div>
+                        <div class="diagram-line center">║   <span class="diagram-muted">192.168.1.1</span>   ║</div>
                         <div class="diagram-line center">╚═══════════════════╝</div>
                         <div class="diagram-line center">    ║        ║        ║</div>
                         <div class="diagram-line">┌────────┴────┬───┴────┬───┴────┐</div>
                         <div class="diagram-line"><span class="server">🖥️ Server</span>  <span class="client">💻 Client 1</span> <span class="client">💻 Client 2</span></div>
-                        <div class="diagram-line" style="color: #94a3b8;">.10        .20       .30</div>
+                        <div class="diagram-line diagram-muted">.10        .20       .30</div>
+                    </div>
+                </div>
+                <div class="terminal-card">
+                    <div class="terminal-header">
+                        <span class="terminal-dot dot-red"></span>
+                        <span class="terminal-dot dot-yellow"></span>
+                        <span class="terminal-dot dot-green"></span>
+                        <span class="terminal-title">kader@homelab:~</span>
+                    </div>
+                    <div class="terminal-body" id="terminalOutput">
+                        <div class="terminal-line muted">Initialisation de la demo...</div>
+                    </div>
+                    <div class="terminal-input-row">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-input" id="terminalInput"></span>
+                        <span class="terminal-cursor" aria-hidden="true"></span>
                     </div>
                 </div>
             </div>
@@ -146,15 +186,15 @@
                 </div>
                 
                 <div class="about-side">
-                    <h3 style="font-size: 24px; margin-bottom: 24px;">Formations</h3>
+                    <h3 class="about-side-title">Formations</h3>
                     <div class="certifications">
                         <div class="cert-item">
                             <div class="cert-icon">
                                 <i class='bx bx-chip'></i>
                             </div>
                             <div>
-                                <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">BTS CIEL</h4>
-                                <p style="font-size: 14px; color: var(--text-secondary);">2025-2026 | Lycée de l'Hyrôme</p>
+                                <h4 class="cert-title">BTS CIEL</h4>
+                                <p class="cert-meta">2025-2026 | Lycée de l'Hyrôme</p>
                             </div>
                         </div>
                         
@@ -163,8 +203,8 @@
                                 <i class='bx bx-code-alt'></i>
                             </div>
                             <div>
-                                <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">BTS SIO SLAM</h4>
-                                <p style="font-size: 14px; color: var(--text-secondary);">2023-2025 | Lycée La Colinière</p>
+                                <h4 class="cert-title">BTS SIO SLAM</h4>
+                                <p class="cert-meta">2023-2025 | Lycée La Colinière</p>
                             </div>
                         </div>
                         
@@ -173,8 +213,8 @@
                                 <i class='bx bx-devices'></i>
                             </div>
                             <div>
-                                <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">Bac Pro SN</h4>
-                                <p style="font-size: 14px; color: var(--text-secondary);">2020-2023 | Lycée François Arago</p>
+                                <h4 class="cert-title">Bac Pro SN</h4>
+                                <p class="cert-meta">2020-2023 | Lycée François Arago</p>
                             </div>
                         </div>
                     </div>
@@ -313,10 +353,18 @@
                 <span class="section-label">Mes réalisations</span>
                 <h2 class="section-title">Projets Personnels</h2>
             </div>
+
+            <div class="project-filters" role="group" aria-label="Filtrer les projets">
+                <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">Tous</button>
+                <button class="filter-btn" type="button" data-filter="virtualisation" aria-pressed="false">Virtualisation</button>
+                <button class="filter-btn" type="button" data-filter="windows" aria-pressed="false">Windows</button>
+                <button class="filter-btn" type="button" data-filter="securite" aria-pressed="false">Sécurité</button>
+                <button class="filter-btn" type="button" data-filter="monitoring" aria-pressed="false">Monitoring</button>
+            </div>
             
             <div class="projects-grid">
                 <!-- Projet Proxmox -->
-                <div class="project-card">
+                <div class="project-card" data-category="virtualisation">
                     <div class="project-icon-wrapper">
                         <div class="project-icon">
                             <i class='bx bx-cube-alt'></i>
@@ -345,12 +393,13 @@
                             <span class="tech-badge">MySQL</span>
                             <span class="tech-badge">Grafana</span>
                         </div>
+                        <button type="button" class="project-open-btn">Voir le detail</button>
                     </div>
                 </div>
 
                 <!-- Homelab Active Directory -->
-                <div class="project-card">
-                    <div class="project-icon-wrapper" style="background: linear-gradient(135deg, #22c55e, #16a34a);">
+                <div class="project-card" data-category="windows">
+                    <div class="project-icon-wrapper project-icon-wrapper-green">
                         <div class="project-icon">
                             <i class='bx bxs-server'></i>
                         </div>
@@ -374,12 +423,13 @@
                             <span class="tech-badge">DHCP/DNS</span>
                             <span class="tech-badge">PowerShell</span>
                         </div>
+                        <button type="button" class="project-open-btn">Voir le detail</button>
                     </div>
                 </div>
 
                 <!-- Serveur Web sécurisé -->
-                <div class="project-card">
-                    <div class="project-icon-wrapper" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                <div class="project-card" data-category="securite">
+                    <div class="project-icon-wrapper project-icon-wrapper-red">
                         <div class="project-icon">
                             <i class='bx bxs-lock-alt'></i>
                         </div>
@@ -404,12 +454,13 @@
                             <span class="tech-badge">UFW</span>
                             <span class="tech-badge">Fail2ban</span>
                         </div>
+                        <button type="button" class="project-open-btn">Voir le detail</button>
                     </div>
                 </div>
 
                 <!-- Monitoring réseau -->
-                <div class="project-card">
-                    <div class="project-icon-wrapper" style="background: linear-gradient(135deg, #f97316, #ea580c);">
+                <div class="project-card" data-category="monitoring">
+                    <div class="project-icon-wrapper project-icon-wrapper-orange">
                         <div class="project-icon">
                             <i class='bx bx-line-chart'></i>
                         </div>
@@ -433,6 +484,7 @@
                             <span class="tech-badge">Alertmanager</span>
                             <span class="tech-badge">Node Exporter</span>
                         </div>
+                        <button type="button" class="project-open-btn">Voir le detail</button>
                     </div>
                 </div>
             </div>
@@ -538,12 +590,12 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact section">
+    <section id="contact" class="contact section section-dark">
         <div class="container">
             <div class="section-header centered">
                 <span class="section-label">Restons en contact</span>
                 <h2 class="section-title">Contactez-moi</h2>
-                <p style="font-size: 18px; color: var(--text-secondary);">
+                <p class="contact-intro">
                     Je recherche activement une alternance en administration systèmes et réseaux. 
                     N'hésitez pas à me contacter !
                 </p>
@@ -593,11 +645,11 @@
                 </div>
                 
                 <div class="contact-form-wrapper">
-                    <form action="https://formsubmit.co/kaderbelem428@gmail.com" method="POST" class="contact-form">
+                    <form id="contactForm" action="https://formsubmit.co/kaderbelem428@gmail.com" method="POST" class="contact-form">
                         <input type="hidden" name="_subject" value="Nouveau message depuis le portfolio">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_template" value="table">
-                        <input type="text" name="_honey" style="display:none">
+                        <input type="text" name="_honey" class="honey-field" tabindex="-1" autocomplete="off" aria-hidden="true">
                         
                         <div class="form-group">
                             <label for="name">Nom complet</label>
@@ -614,7 +666,7 @@
                             <textarea id="message" name="message" rows="5" required></textarea>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        <button type="submit" class="btn btn-primary btn-full">
                             Envoyer le message
                             <i class='bx bx-send'></i>
                         </button>
@@ -624,41 +676,67 @@
         </div>
     </section>
 
+    <div class="project-modal" id="projectModal" aria-hidden="true">
+        <div class="project-modal-backdrop" data-close-modal="true"></div>
+        <div class="project-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+            <button type="button" class="project-modal-close" id="projectModalClose" aria-label="Fermer la fenetre">
+                <i class='bx bx-x'></i>
+            </button>
+            <div class="project-modal-content">
+                <p class="project-modal-kicker">Detail du projet</p>
+                <h3 id="projectModalTitle"></h3>
+                <p id="projectModalDescription"></p>
+                <div class="project-modal-block">
+                    <h4>Categories</h4>
+                    <div class="project-modal-tags" id="projectModalTags"></div>
+                </div>
+                <div class="project-modal-block">
+                    <h4>Technologies</h4>
+                    <div class="project-modal-tech" id="projectModalTech"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div>
-                    <h3 style="font-size: 24px; margin-bottom: 12px;">Kader Belem</h3>
-                    <p style="color: #64748b;">Administrateur Systèmes et Réseaux</p>
-                    <p style="color: #64748b;">BTS CIEL - En recherche d'alternance pour la rentrée 2026</p>
+                    <h3 class="footer-brand-title">Kader Belem</h3>
+                    <p class="footer-muted">Administrateur Systèmes et Réseaux</p>
+                    <p class="footer-muted">BTS CIEL - En recherche d'alternance pour la rentrée 2026</p>
                 </div>
                 <div>
-                    <h4 style="margin-bottom: 20px;">Navigation</h4>
-                    <div style="display: flex; flex-direction: column; gap: 12px;">
-                        <a href="#about" style="color: #94a3b8;">À propos</a>
-                        <a href="#skills" style="color: #94a3b8;">Compétences</a>
-                        <a href="#projects" style="color: #94a3b8;">Projets</a>
-                        <a href="#experience" style="color: #94a3b8;">Expériences</a>
+                    <h4 class="footer-col-title">Navigation</h4>
+                    <div class="footer-link-list">
+                        <a href="#about" class="footer-link">À propos</a>
+                        <a href="#skills" class="footer-link">Compétences</a>
+                        <a href="#projects" class="footer-link">Projets</a>
+                        <a href="#experience" class="footer-link">Expériences</a>
                     </div>
                 </div>
                 <div>
-                    <h4 style="margin-bottom: 20px;">Contact</h4>
-                    <div style="display: flex; flex-direction: column; gap: 12px;">
-                        <a href="mailto:kaderbelem428@gmail.com" style="color: #94a3b8;">Email</a>
-                        <a href="tel:+33661402998" style="color: #94a3b8;">Téléphone</a>
-                        <a href="https://www.linkedin.com/in/kader-belem-688699213/" style="color: #94a3b8;">LinkedIn</a>
+                    <h4 class="footer-col-title">Contact</h4>
+                    <div class="footer-link-list">
+                        <a href="mailto:kaderbelem428@gmail.com" class="footer-link">Email</a>
+                        <a href="tel:+33661402998" class="footer-link">Téléphone</a>
+                        <a href="https://www.linkedin.com/in/kader-belem-688699213/" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
                     </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2025 Kader Belem. Tous droits réservés.</p>
+                <p>&copy; 2026 Kader Belem. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
+    <button class="scroll-top-btn" id="scrollTopBtn" type="button" aria-label="Revenir en haut">
+        <i class='bx bx-up-arrow-alt'></i>
+    </button>
+    </main>
 
     <!-- JavaScript -->
-    <script src="js/main.js"></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>
