@@ -71,10 +71,13 @@
                 </h1>
                 
                 <p class="hero-description">
-                    Étudiant en <strong>BTS CIEL</strong> (Cybersécurité, Informatique et Réseaux, Électronique), 
-                    je me spécialise en administration système, réseaux et cybersécurité. Fort de 6 stages 
-                    en entreprise, je recherche une alternance pour renforcer mes compétences et contribuer 
+                    Étudiant en <strong>BTS CIEL</strong> (Cybersécurité, Informatique et Réseaux, Électronique),
+                    je me spécialise en administration système, réseaux et cybersécurité. Fort de 6 stages
+                    en entreprise, je recherche une alternance pour renforcer mes compétences et contribuer
                     aux projets d'une équipe IT.
+                </p>
+                <p class="hero-target">
+                    Alternance 12-24 mois en administration systèmes &amp; réseaux / cybersécurité - Rentrée 2026 - Région Nantes (et alentours).
                 </p>
                 
                 <div class="hero-cta">
@@ -84,6 +87,9 @@
                     </a>
                     <a href="#contact" class="btn btn-secondary">
                         Me contacter
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        Télécharger mon CV
                     </a>
                 </div>
                 
@@ -101,53 +107,54 @@
 
                 <div class="hero-stats" aria-label="Chiffres clés">
                     <div class="stat-card">
-                        <span class="stat-number" data-counter="6" data-suffix="+">0</span>
-                        <span class="stat-label">Stages réalisés</span>
+                        <span class="stat-number">6 stages réalisés</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-number" data-counter="4">0</span>
-                        <span class="stat-label">Projets majeurs</span>
+                        <span class="stat-number">4 projets majeurs</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-number" data-counter="100" data-suffix="%">0</span>
-                        <span class="stat-label">Motivation</span>
+                        <span class="stat-number">Motivation : 100 %</span>
                     </div>
                 </div>
             </div>
             
             <div class="hero-visual">
-                <div class="visual-card">
-                    <div class="network-diagram">
-                        <div class="diagram-line center">╔═══════════════════╗</div>
-                        <div class="diagram-line center">║   <span class="firewall">🛡️ FIREWALL</span>     ║</div>
-                        <div class="diagram-line center">╚═══════════════════╝</div>
-                        <div class="diagram-line center">         ║</div>
-                        <div class="diagram-line center">╔═══════════════════╗</div>
-                        <div class="diagram-line center">║   <span class="router">🌐 ROUTER</span>       ║</div>
-                        <div class="diagram-line center">║   <span class="diagram-muted">192.168.1.1</span>   ║</div>
-                        <div class="diagram-line center">╚═══════════════════╝</div>
-                        <div class="diagram-line center">    ║        ║        ║</div>
-                        <div class="diagram-line">┌────────┴────┬───┴────┬───┴────┐</div>
-                        <div class="diagram-line"><span class="server">🖥️ Server</span>  <span class="client">💻 Client 1</span> <span class="client">💻 Client 2</span></div>
-                        <div class="diagram-line diagram-muted">.10        .20       .30</div>
+                <section class="network-demo" aria-label="Démonstration homelab">
+                    <p class="network-demo-caption">
+                        Démonstration visuelle : infrastructure type homelab (firewall, routeur, serveur, clients).
+                    </p>
+                    <div class="visual-card">
+                        <pre class="network-diagram" aria-label="Schéma réseau ASCII">+--------------------+
+|      FIREWALL      |
++--------------------+
+          |
++--------------------+
+|       ROUTER       |
+|     192.168.1.1    |
++--------------------+
+   |        |        |
++---------+ +---------+ +---------+
+| Server  | | Client1 | | Client2 |
+|  .10    | |   .20   | |   .30   |
++---------+ +---------+ +---------+</pre>
                     </div>
-                </div>
-                <div class="terminal-card">
-                    <div class="terminal-header">
-                        <span class="terminal-dot dot-red"></span>
-                        <span class="terminal-dot dot-yellow"></span>
-                        <span class="terminal-dot dot-green"></span>
-                        <span class="terminal-title">kader@homelab:~</span>
+                    <div class="terminal-card">
+                        <div class="terminal-header">
+                            <span class="terminal-dot dot-red"></span>
+                            <span class="terminal-dot dot-yellow"></span>
+                            <span class="terminal-dot dot-green"></span>
+                            <span class="terminal-title">kader@homelab:~</span>
+                        </div>
+                        <div class="terminal-body" id="terminalOutput">
+                            <div class="terminal-line muted">Initialisation de la démo...</div>
+                        </div>
+                        <div class="terminal-input-row">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-input" id="terminalInput"></span>
+                            <span class="terminal-cursor" aria-hidden="true"></span>
+                        </div>
                     </div>
-                    <div class="terminal-body" id="terminalOutput">
-                        <div class="terminal-line muted">Initialisation de la demo...</div>
-                    </div>
-                    <div class="terminal-input-row">
-                        <span class="terminal-prompt">$</span>
-                        <span class="terminal-input" id="terminalInput"></span>
-                        <span class="terminal-cursor" aria-hidden="true"></span>
-                    </div>
-                </div>
+                </section>
             </div>
         </div>
     </section>
@@ -163,8 +170,10 @@
             <div class="about-grid">
                 <div class="about-content">
                     <p class="about-text">
-                        Étudiant motivé et sérieux en <strong>BTS CIEL</strong> au Lycée de l'Hyrôme à Chemillé, 
+                        Étudiant motivé et sérieux en <strong>BTS CIEL</strong> au Lycée de l'Hyrôme à Chemillé,
                         je me spécialise dans les domaines des réseaux, de l'administration système et de la cybersécurité.
+                        Je souhaite mettre ces compétences au service d'une équipe IT pour contribuer à la gestion,
+                        la sécurisation et l'évolution de son infrastructure.
                     </p>
                     
                     <p class="about-text">
@@ -229,6 +238,7 @@
             <div class="section-header centered">
                 <span class="section-label">Mon expertise</span>
                 <h2 class="section-title">Compétences Techniques</h2>
+                <p class="skills-intro">Voici un aperçu des technologies et domaines sur lesquels je suis à l'aise au quotidien :</p>
             </div>
             
             <div class="skills-grid">
@@ -363,8 +373,7 @@
             </div>
             
             <div class="projects-grid">
-                <!-- Projet Proxmox -->
-                <div class="project-card" data-category="virtualisation">
+                <div class="project-card" data-category="virtualisation" data-category-label="Virtualisation">
                     <div class="project-icon-wrapper">
                         <div class="project-icon">
                             <i class='bx bx-cube-alt'></i>
@@ -378,27 +387,27 @@
                         </div>
                         <h3 class="project-title">Infrastructure Proxmox VE</h3>
                         <p class="project-description">
-                            Création d'une infrastructure réseau virtuelle complète avec Proxmox VE. 
-                            Gestion de VMs (Ubuntu, pfSense), conteneurs LXC, VLANs, services (Nginx, MySQL, 
-                            Prometheus/Grafana), backups et infrastructure-as-code. Compétences cloud/DevOps 
-                            demandées en industrie.
+                            Création d'une infrastructure virtuelle complète avec Proxmox VE, VMs Linux/Windows, VLANs,
+                            services applicatifs et sauvegardes planifiées.
                         </p>
+                        <ul class="project-points">
+                            <li>Simulation d'une petite infrastructure d'entreprise avec AD, serveur web et supervision centralisée.</li>
+                            <li>Validation de procédures d'exploitation (snapshot, reprise après incident, segmentation réseau).</li>
+                        </ul>
+                        <a href="#" class="project-link-btn" aria-label="Voir le projet Infrastructure Proxmox VE sur GitHub">Voir sur GitHub</a>
                         <div class="project-tech">
                             <span class="tech-badge">Proxmox VE</span>
                             <span class="tech-badge">KVM/QEMU</span>
                             <span class="tech-badge">LXC</span>
                             <span class="tech-badge">Ubuntu</span>
                             <span class="tech-badge">pfSense</span>
-                            <span class="tech-badge">Nginx</span>
-                            <span class="tech-badge">MySQL</span>
                             <span class="tech-badge">Grafana</span>
                         </div>
-                        <button type="button" class="project-open-btn">Voir le detail</button>
+                        <button type="button" class="project-open-btn">Voir le détail</button>
                     </div>
                 </div>
 
-                <!-- Homelab Active Directory -->
-                <div class="project-card" data-category="windows">
+                <div class="project-card" data-category="windows" data-category-label="Windows">
                     <div class="project-icon-wrapper project-icon-wrapper-green">
                         <div class="project-icon">
                             <i class='bx bxs-server'></i>
@@ -411,11 +420,14 @@
                         </div>
                         <h3 class="project-title">Homelab Active Directory</h3>
                         <p class="project-description">
-                            Configuration complète d'un environnement Windows Server 2022 avec Active Directory, 
-                            gestion d'utilisateurs et groupes, GPO pour sécurisation des postes clients, 
-                            DHCP/DNS intégrés, et serveur de fichiers avec quotas. Simulation d'un environnement 
-                            d'entreprise professionnel.
+                            Déploiement d'un environnement Windows Server 2022 avec Active Directory,
+                            DHCP/DNS intégrés, sécurisation et gestion des accès.
                         </p>
+                        <ul class="project-points">
+                            <li>Création d'utilisateurs/groupes simulant plusieurs services métiers (RH, finance, support).</li>
+                            <li>Mise en place de GPO de sécurité et d'un serveur de fichiers avec quotas par service.</li>
+                        </ul>
+                        <a href="#" class="project-link-btn" aria-label="Voir le projet Homelab Active Directory sur GitHub">Voir sur GitHub</a>
                         <div class="project-tech">
                             <span class="tech-badge">Windows Server 2022</span>
                             <span class="tech-badge">Active Directory</span>
@@ -423,12 +435,11 @@
                             <span class="tech-badge">DHCP/DNS</span>
                             <span class="tech-badge">PowerShell</span>
                         </div>
-                        <button type="button" class="project-open-btn">Voir le detail</button>
+                        <button type="button" class="project-open-btn">Voir le détail</button>
                     </div>
                 </div>
 
-                <!-- Serveur Web sécurisé -->
-                <div class="project-card" data-category="securite">
+                <div class="project-card" data-category="securite" data-category-label="Sécurité">
                     <div class="project-icon-wrapper project-icon-wrapper-red">
                         <div class="project-icon">
                             <i class='bx bxs-lock-alt'></i>
@@ -442,10 +453,14 @@
                         </div>
                         <h3 class="project-title">Serveur Web Sécurisé</h3>
                         <p class="project-description">
-                            Déploiement d'un stack LEMP (Linux, Nginx, MySQL, PHP) avec renforcement de la sécurité : 
-                            configuration pare-feu UFW, certificats SSL/TLS Let's Encrypt, fail2ban contre brute-force, 
-                            hardening système selon les standards OWASP. Monitoring avec logs centralisés.
+                            Déploiement d'un stack LEMP sécurisé (Nginx, MySQL, PHP) avec configuration pare-feu,
+                            certificats TLS et durcissement du système.
                         </p>
+                        <ul class="project-points">
+                            <li>Mise en ligne d'un site HTTPS accessible depuis Internet avec règles de filtrage strictes.</li>
+                            <li>Protection contre les attaques courantes via fail2ban, journalisation et revue de configuration.</li>
+                        </ul>
+                        <a href="#" class="project-link-btn" aria-label="Voir le projet Serveur Web Sécurisé sur GitHub">Voir sur GitHub</a>
                         <div class="project-tech">
                             <span class="tech-badge">Ubuntu Server</span>
                             <span class="tech-badge">Nginx</span>
@@ -454,12 +469,11 @@
                             <span class="tech-badge">UFW</span>
                             <span class="tech-badge">Fail2ban</span>
                         </div>
-                        <button type="button" class="project-open-btn">Voir le detail</button>
+                        <button type="button" class="project-open-btn">Voir le détail</button>
                     </div>
                 </div>
 
-                <!-- Monitoring réseau -->
-                <div class="project-card" data-category="monitoring">
+                <div class="project-card" data-category="monitoring" data-category-label="Monitoring">
                     <div class="project-icon-wrapper project-icon-wrapper-orange">
                         <div class="project-icon">
                             <i class='bx bx-line-chart'></i>
@@ -470,13 +484,16 @@
                             <span class="project-tag">Monitoring</span>
                             <span class="project-tag">Docker</span>
                         </div>
-                        <h3 class="project-title">Stack Monitoring & Alerting</h3>
+                        <h3 class="project-title">Stack Monitoring &amp; Alerting</h3>
                         <p class="project-description">
-                            Mise en place d'une solution de monitoring complète avec Prometheus pour la collecte 
-                            de métriques, Grafana pour la visualisation, et Alertmanager pour les notifications. 
-                            Conteneurisé avec Docker, permet le suivi en temps réel des performances serveurs, 
-                            services et réseau.
+                            Mise en place d'une solution de supervision complète avec Prometheus, Grafana et Alertmanager,
+                            conteneurisée avec Docker.
                         </p>
+                        <ul class="project-points">
+                            <li>Suivi des performances serveurs et services critiques pour anticiper les incidents.</li>
+                            <li>Envoi d'alertes automatisées pour accélérer la prise en charge en contexte de production.</li>
+                        </ul>
+                        <a href="#" class="project-link-btn" aria-label="Voir le projet Stack Monitoring et Alerting sur GitHub">Voir sur GitHub</a>
                         <div class="project-tech">
                             <span class="tech-badge">Prometheus</span>
                             <span class="tech-badge">Grafana</span>
@@ -484,7 +501,7 @@
                             <span class="tech-badge">Alertmanager</span>
                             <span class="tech-badge">Node Exporter</span>
                         </div>
-                        <button type="button" class="project-open-btn">Voir le detail</button>
+                        <button type="button" class="project-open-btn">Voir le détail</button>
                     </div>
                 </div>
             </div>
@@ -507,10 +524,11 @@
                         <h3>Stage - Chambre de Commerce de Konya</h3>
                         <h4>Turquie</h4>
                         <ul>
-                            <li>Développement application web (architecture MVC)</li>
-                            <li>Analyse des besoins et conception BDD</li>
+                            <li>Développement d'une application web (architecture MVC)</li>
+                            <li>Analyse des besoins et conception de base de données</li>
                             <li>Interface HTML/CSS/PHP</li>
                             <li>Collaboration en contexte international</li>
+                            <li>Impact : structuration d'un outil interne plus fiable et plus simple à maintenir.</li>
                         </ul>
                     </div>
                 </div>
@@ -525,6 +543,7 @@
                             <li>Création et optimisation de sites web</li>
                             <li>Amélioration UX/UI</li>
                             <li>Maintenance corrective</li>
+                            <li>Résultat : meilleure stabilité des sites livrés et réduction des retours utilisateurs.</li>
                         </ul>
                     </div>
                 </div>
@@ -539,6 +558,7 @@
                             <li>Dépannage informatique hardware/software</li>
                             <li>Configuration réseau et matériel</li>
                             <li>Gestion relation client</li>
+                            <li>Impact : amélioration de la continuité de service et de la satisfaction client.</li>
                         </ul>
                     </div>
                 </div>
@@ -550,9 +570,10 @@
                         <h3>Stage - Services 111</h3>
                         <h4>Nantes</h4>
                         <ul>
-                            <li>Réparation et entretien postes de travail</li>
-                            <li>Installation produits numériques</li>
-                            <li>Intervention technique chez clients</li>
+                            <li>Réparation et entretien de postes de travail</li>
+                            <li>Installation de produits numériques</li>
+                            <li>Intervention technique chez les clients</li>
+                            <li>Résultat : baisse du délai de résolution des incidents sur les postes utilisateurs.</li>
                         </ul>
                     </div>
                 </div>
@@ -564,9 +585,10 @@
                         <h3>Stage - Delia Technologies</h3>
                         <h4>Nantes</h4>
                         <ul>
-                            <li>Projets développement web</li>
-                            <li>Correction bugs, mise à jour contenu</li>
-                            <li>Utilisation Git pour versionnage</li>
+                            <li>Projets de développement web</li>
+                            <li>Correction de bugs et mise à jour de contenu</li>
+                            <li>Utilisation de Git pour le versionnage</li>
+                            <li>Impact : amélioration de la qualité des livraisons et du suivi de versions.</li>
                         </ul>
                     </div>
                 </div>
@@ -578,10 +600,11 @@
                         <h3>Stage - Lycée Aristide Briand</h3>
                         <h4>Saint-Nazaire</h4>
                         <ul>
-                            <li>Configuration réseau local (IP, câblage, partages)</li>
+                            <li>Configuration du réseau local (IP, câblage, partages)</li>
                             <li>Maintenance informatique</li>
-                            <li>Création/gestion comptes (Active Directory)</li>
-                            <li>Sécurisation postes clients</li>
+                            <li>Création et gestion de comptes (Active Directory)</li>
+                            <li>Sécurisation des postes clients</li>
+                            <li>Impact : amélioration de la fiabilité du réseau local et meilleure prise en charge des utilisateurs.</li>
                         </ul>
                     </div>
                 </div>
@@ -596,8 +619,8 @@
                 <span class="section-label">Restons en contact</span>
                 <h2 class="section-title">Contactez-moi</h2>
                 <p class="contact-intro">
-                    Je recherche activement une alternance en administration systèmes et réseaux. 
-                    N'hésitez pas à me contacter !
+                    Je recherche activement une alternance en administration systèmes et réseaux.
+                    N'hésitez pas à me contacter.
                 </p>
             </div>
             
@@ -608,7 +631,7 @@
                             <i class='bx bx-envelope'></i>
                         </div>
                         <div class="contact-details">
-                            <h4>Email</h4>
+                            <h3>Email</h3>
                             <a href="mailto:kaderbelem428@gmail.com">kaderbelem428@gmail.com</a>
                         </div>
                     </div>
@@ -618,7 +641,7 @@
                             <i class='bx bx-phone'></i>
                         </div>
                         <div class="contact-details">
-                            <h4>Téléphone</h4>
+                            <h3>Téléphone</h3>
                             <a href="tel:+33661402998">+33 6 61 40 29 98</a>
                         </div>
                     </div>
@@ -628,7 +651,7 @@
                             <i class='bx bx-map'></i>
                         </div>
                         <div class="contact-details">
-                            <h4>Localisation</h4>
+                            <h3>Localisation</h3>
                             <p>Nantes, France</p>
                         </div>
                     </div>
@@ -638,8 +661,8 @@
                             <i class='bx bx-briefcase'></i>
                         </div>
                         <div class="contact-details">
-                            <h4>Disponibilité</h4>
-                            <p>Immédiate (2026-2027)</p>
+                            <h3>Disponibilité</h3>
+                            <p>Disponibilité : alternance 2026-2027, début rentrée 2026.</p>
                         </div>
                     </div>
                 </div>
@@ -649,27 +672,26 @@
                         <input type="hidden" name="_subject" value="Nouveau message depuis le portfolio">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_template" value="table">
-                        <input type="text" name="_honey" class="honey-field" tabindex="-1" autocomplete="off" aria-hidden="true">
-                        
                         <div class="form-group">
                             <label for="name">Nom complet</label>
-                            <input type="text" id="name" name="name" required>
+                            <input type="text" id="name" name="name" required minlength="2" autocomplete="name">
                         </div>
                         
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
+                            <input type="email" id="email" name="email" required autocomplete="email">
                         </div>
                         
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <textarea id="message" name="message" rows="5" required minlength="10"></textarea>
                         </div>
                         
                         <button type="submit" class="btn btn-primary btn-full">
                             Envoyer le message
                             <i class='bx bx-send'></i>
                         </button>
+                        <p class="contact-form-status" id="contactFormStatus" role="status" aria-live="polite"></p>
                     </form>
                 </div>
             </div>
@@ -679,16 +701,20 @@
     <div class="project-modal" id="projectModal" aria-hidden="true">
         <div class="project-modal-backdrop" data-close-modal="true"></div>
         <div class="project-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
-            <button type="button" class="project-modal-close" id="projectModalClose" aria-label="Fermer la fenetre">
+            <button type="button" class="project-modal-close" id="projectModalClose" aria-label="Fermer la fenêtre">
                 <i class='bx bx-x'></i>
             </button>
             <div class="project-modal-content">
-                <p class="project-modal-kicker">Detail du projet</p>
+                <p class="project-modal-kicker">Détail du projet</p>
                 <h3 id="projectModalTitle"></h3>
                 <p id="projectModalDescription"></p>
                 <div class="project-modal-block">
-                    <h4>Categories</h4>
-                    <div class="project-modal-tags" id="projectModalTags"></div>
+                    <h4>Catégorie</h4>
+                    <p id="projectModalCategory"></p>
+                </div>
+                <div class="project-modal-block">
+                    <h4>Points clés</h4>
+                    <ul class="project-modal-points" id="projectModalPoints"></ul>
                 </div>
                 <div class="project-modal-block">
                     <h4>Technologies</h4>
@@ -717,16 +743,18 @@
                     </div>
                 </div>
                 <div>
-                    <h4 class="footer-col-title">Contact</h4>
+                    <h4 class="footer-col-title">Réseaux</h4>
                     <div class="footer-link-list">
                         <a href="mailto:kaderbelem428@gmail.com" class="footer-link">Email</a>
                         <a href="tel:+33661402998" class="footer-link">Téléphone</a>
-                        <a href="https://www.linkedin.com/in/kader-belem-688699213/" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+                        <a href="https://www.linkedin.com/in/kader-belem-688699213/" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Profil LinkedIn de Kader Belem">LinkedIn</a>
+                        <a href="https://github.com/kablm" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Profil GitHub de Kader Belem">GitHub</a>
                     </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
+                <p>Portfolio développé en HTML, CSS et JavaScript - hébergé sur GitHub Pages.</p>
                 <p>&copy; 2026 Kader Belem. Tous droits réservés.</p>
             </div>
         </div>

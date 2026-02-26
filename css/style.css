@@ -349,13 +349,21 @@
         .hero-description {
             font-size: 18px;
             color: var(--text-secondary);
-            margin-bottom: 32px;
+            margin-bottom: 14px;
             line-height: 1.8;
+        }
+
+        .hero-target {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 28px;
         }
 
         .hero-cta {
             display: flex;
             gap: 16px;
+            flex-wrap: wrap;
             margin-bottom: 40px;
         }
 
@@ -424,15 +432,10 @@
 
         .stat-number {
             font-family: var(--font-display);
-            font-size: 26px;
-            font-weight: 800;
+            font-size: 22px;
+            font-weight: 700;
             line-height: 1;
             color: var(--primary-dark);
-        }
-
-        .stat-label {
-            font-size: 13px;
-            color: var(--text-secondary);
         }
 
         .social-link {
@@ -550,26 +553,23 @@
         .network-diagram {
             font-family: 'Courier New', monospace;
             font-size: 14px;
-            line-height: 2;
+            line-height: 1.5;
             color: var(--text-primary);
+            white-space: pre;
+            overflow-x: auto;
+            padding-bottom: 4px;
         }
 
-        .diagram-line {
-            padding: 4px 0;
+        .network-demo {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
-        .diagram-line.center {
-            text-align: center;
+        .network-demo-caption {
+            font-size: 14px;
+            color: var(--text-secondary);
         }
-
-        .diagram-muted {
-            color: #94a3b8;
-        }
-
-        .server { color: #0ea5e9; font-weight: bold; }
-        .client { color: #22c55e; font-weight: bold; }
-        .router { color: #f97316; font-weight: bold; }
-        .firewall { color: #ef4444; font-weight: bold; }
 
         /* Section Headers */
         .section-header {
@@ -617,6 +617,12 @@
             font-size: 17px;
             margin-bottom: 20px;
             color: var(--text-secondary);
+        }
+
+        .about-side {
+            margin-top: 8px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
         }
 
         .certifications {
@@ -684,6 +690,9 @@
             border-radius: 16px;
             text-align: center;
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .skill-card:hover {
@@ -705,16 +714,21 @@
         }
 
         .skill-name {
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 18px;
+            font-weight: 700;
             color: white;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .skill-list {
             font-size: 13px;
             color: #94a3b8;
             line-height: 1.6;
+        }
+
+        .skills-intro {
+            font-size: 17px;
+            color: #cbd5e1;
         }
 
         /* Projects */
@@ -845,7 +859,41 @@
 
         .project-description {
             color: var(--text-secondary);
-            margin-bottom: 16px;
+            margin-bottom: 12px;
+        }
+
+        .project-points {
+            list-style: none;
+            margin: 0 0 16px;
+            padding: 0;
+            display: grid;
+            gap: 6px;
+        }
+
+        .project-points li {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .project-points li::before {
+            content: "•";
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .project-link-btn {
+            display: inline-flex;
+            margin-bottom: 18px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
+        }
+
+        .project-link-btn:hover {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
         }
 
         .project-tech {
@@ -924,10 +972,14 @@
         }
 
         .timeline-date {
-            font-size: 14px;
-            font-weight: 600;
+            display: inline-block;
+            font-size: 15px;
+            font-weight: 800;
             color: var(--primary);
-            margin-bottom: 12px;
+            margin-bottom: 14px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(14, 165, 233, 0.14);
         }
 
         .timeline-content h3 {
@@ -993,7 +1045,7 @@
             font-size: 24px;
         }
 
-        .contact-details h4 {
+        .contact-details h3 {
             font-size: 16px;
             color: white;
             margin-bottom: 8px;
@@ -1037,13 +1089,15 @@
             border-color: var(--primary);
         }
 
-        .honey-field {
-            display: none;
-        }
-
         .btn-full {
             width: 100%;
             justify-content: center;
+        }
+
+        .contact-form-status {
+            margin-top: 14px;
+            color: #cbd5e1;
+            font-size: 14px;
         }
 
         /* Footer */
@@ -1150,11 +1204,28 @@
             font-size: 14px;
         }
 
-        .project-modal-tags,
         .project-modal-tech {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+        }
+
+        .project-modal-points {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 8px;
+        }
+
+        .project-modal-points li {
+            color: var(--text-secondary);
+        }
+
+        .project-modal-points li::before {
+            content: "•";
+            color: var(--primary);
+            margin-right: 8px;
         }
 
         .project-modal-close {
@@ -1260,11 +1331,26 @@
         }
 
         @media (max-width: 768px) {
+            .section {
+                padding: 72px 0;
+            }
             .hero-title {
                 font-size: 36px;
             }
             .hero-stats {
                 grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .hero-cta {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .hero-cta .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .network-diagram {
+                font-size: 13px;
             }
             .nav-menu {
                 position: fixed;

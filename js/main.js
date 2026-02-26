@@ -9,7 +9,8 @@ const projectModal = document.getElementById("projectModal");
 const projectModalClose = document.getElementById("projectModalClose");
 const projectModalTitle = document.getElementById("projectModalTitle");
 const projectModalDescription = document.getElementById("projectModalDescription");
-const projectModalTags = document.getElementById("projectModalTags");
+const projectModalCategory = document.getElementById("projectModalCategory");
+const projectModalPoints = document.getElementById("projectModalPoints");
 const projectModalTech = document.getElementById("projectModalTech");
 const terminalOutput = document.getElementById("terminalOutput");
 const terminalInput = document.getElementById("terminalInput");
@@ -79,25 +80,26 @@ if (mobileToggle && navMenu) {
 }
 
 const openModal = (card) => {
-    if (!projectModal || !projectModalTitle || !projectModalDescription || !projectModalTags || !projectModalTech) {
+    if (!projectModal || !projectModalTitle || !projectModalDescription || !projectModalCategory || !projectModalPoints || !projectModalTech) {
         return;
     }
 
     const title = card.querySelector(".project-title")?.textContent?.trim() || "Projet";
     const description = card.querySelector(".project-description")?.textContent?.trim() || "";
-    const tags = card.querySelectorAll(".project-tag");
+    const category = card.dataset.categoryLabel || card.dataset.category || "Non défini";
+    const points = card.querySelectorAll(".project-points li");
     const tech = card.querySelectorAll(".tech-badge");
 
     projectModalTitle.textContent = title;
     projectModalDescription.textContent = description;
-    projectModalTags.innerHTML = "";
+    projectModalCategory.textContent = category;
+    projectModalPoints.innerHTML = "";
     projectModalTech.innerHTML = "";
 
-    tags.forEach((tag) => {
-        const item = document.createElement("span");
-        item.className = "project-tag";
-        item.textContent = tag.textContent || "";
-        projectModalTags.appendChild(item);
+    points.forEach((point) => {
+        const item = document.createElement("li");
+        item.textContent = point.textContent || "";
+        projectModalPoints.appendChild(item);
     });
 
     tech.forEach((badge) => {
@@ -165,7 +167,7 @@ document.querySelectorAll(".project-open-btn").forEach((button) => {
 document.querySelectorAll(".project-card[data-category]").forEach((card) => {
     card.addEventListener("click", (event) => {
         const target = event.target;
-        if (target instanceof HTMLElement && target.closest(".project-open-btn")) {
+        if (target instanceof HTMLElement && (target.closest(".project-open-btn") || target.closest(".project-link-btn"))) {
             return;
         }
         openModal(card);
@@ -310,56 +312,6 @@ if (revealTargets.length) {
     }
 }
 
-const counters = document.querySelectorAll(".stat-number[data-counter]");
-if (counters.length) {
-    const animateCounter = (element) => {
-        const targetValue = Number(element.dataset.counter || "0");
-        const suffix = element.dataset.suffix || "";
-
-        if (!Number.isFinite(targetValue)) {
-            element.textContent = `0${suffix}`;
-            return;
-        }
-
-        if (reduceMotion) {
-            element.textContent = `${targetValue}${suffix}`;
-            return;
-        }
-
-        const duration = 1200;
-        const start = performance.now();
-
-        const step = (now) => {
-            const progress = Math.min((now - start) / duration, 1);
-            const value = Math.floor(targetValue * progress);
-            element.textContent = `${value}${suffix}`;
-
-            if (progress < 1) {
-                requestAnimationFrame(step);
-            } else {
-                element.textContent = `${targetValue}${suffix}`;
-            }
-        };
-
-        requestAnimationFrame(step);
-    };
-
-    const counterObserver = new IntersectionObserver(
-        (entries, observer) => {
-            entries.forEach((entry) => {
-                if (!entry.isIntersecting) {
-                    return;
-                }
-                animateCounter(entry.target);
-                observer.unobserve(entry.target);
-            });
-        },
-        { threshold: 0.5 }
-    );
-
-    counters.forEach((counter) => counterObserver.observe(counter));
-}
-
 if (terminalOutput && terminalInput) {
     const terminalScenes = [
         {
@@ -426,14 +378,17 @@ if (terminalOutput && terminalInput) {
 }
 
 const contactForm = document.getElementById("contactForm");
+const contactFormStatus = document.getElementById("contactFormStatus");
 if (contactForm) {
     contactForm.addEventListener("submit", () => {
         const submitButton = contactForm.querySelector('button[type="submit"]');
-        if (!(submitButton instanceof HTMLButtonElement)) {
-            return;
+        if (submitButton instanceof HTMLButtonElement) {
+            submitButton.disabled = true;
+            submitButton.textContent = "Envoi en cours...";
         }
 
-        submitButton.disabled = true;
-        submitButton.textContent = "Envoi en cours...";
+        if (contactFormStatus) {
+            contactFormStatus.textContent = "Envoi du message en cours...";
+        }
     });
 }
