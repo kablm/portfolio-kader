@@ -12,6 +12,9 @@ const projectModalDescription = document.getElementById("projectModalDescription
 const projectModalCategory = document.getElementById("projectModalCategory");
 const projectModalPoints = document.getElementById("projectModalPoints");
 const projectModalTech = document.getElementById("projectModalTech");
+// MISE À JOUR : Ajout du conteneur pour les détails
+const projectModalDetailedBody = document.getElementById("projectModalDetailedBody");
+
 const terminalOutput = document.getElementById("terminalOutput");
 const terminalInput = document.getElementById("terminalInput");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -87,12 +90,22 @@ const openModal = (card) => {
     const title = card.querySelector(".project-title")?.textContent?.trim() || "Projet";
     const description = card.querySelector(".project-description")?.textContent?.trim() || "";
     const category = card.dataset.categoryLabel || card.dataset.category || "Non défini";
+    
+    // MISE À JOUR : Récupération des détails cachés
+    const hiddenDetails = card.querySelector(".project-details-hidden")?.innerHTML || "";
+
     const points = card.querySelectorAll(".project-points li");
     const tech = card.querySelectorAll(".tech-badge");
 
     projectModalTitle.textContent = title;
     projectModalDescription.textContent = description;
     projectModalCategory.textContent = category;
+    
+    // MISE À JOUR : Injection du contenu HTML dans la modale
+    if (projectModalDetailedBody) {
+        projectModalDetailedBody.innerHTML = hiddenDetails;
+    }
+
     projectModalPoints.innerHTML = "";
     projectModalTech.innerHTML = "";
 

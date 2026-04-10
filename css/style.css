@@ -1386,3 +1386,55 @@
                 bottom: 16px;
             }
         }
+/* =========================================================================
+   MISE À JOUR : STYLES DES DÉTAILS DE LA MODALE & EFFET GLOW
+   ========================================================================= */
+
+/* --- Effet Glow et surbrillance sur les cartes projets --- */
+.project-card {
+    transition: all 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    /* Surbrillance bleue (glow) couplée à l'ombre classique */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 0 20px rgba(14, 165, 233, 0.3);
+    border-color: var(--primary);
+}
+
+/* --- Styles pour le nouveau contenu détaillé dans la modale --- */
+.project-modal-detailed-body {
+    margin: 24px 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+}
+
+.project-modal-detailed-body h4 {
+    color: var(--primary);
+    font-size: 16px;
+    margin-top: 24px;
+    margin-bottom: 8px;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.project-modal-detailed-body h4:first-child {
+    margin-top: 0;
+}
+
+.project-modal-detailed-body p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+/* --- Compatibilité Mode Sombre pour l'environnement technique --- */
+html[data-theme="dark"] .timeline-content li strong {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .project-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 0 20px rgba(14, 165, 233, 0.2);
+}
