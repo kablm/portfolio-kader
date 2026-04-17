@@ -1,5 +1,5 @@
 name: Mise a jour Veille Technologique
-uses: actions/checkout@v3
+
 on:
   schedule:
     - cron: "0 0 1,15 * *"
@@ -33,10 +33,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: "pip"
+          # Suppression du "cache: pip" pour eviter l'erreur requirements.txt introuvable
 
       - name: Installer les dependances
         run: pip install feedparser==6.0.11
+        # Si tu as besoin d'OpenAI plus tard, tu peux ajouter:
+        # pip install feedparser==6.0.11 openai
 
       - name: Executer update_veille.py
         env:
