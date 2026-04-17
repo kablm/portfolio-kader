@@ -141,6 +141,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 16px;
         }
 
         .logo-text {
@@ -292,7 +293,7 @@
             padding: 0 24px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            gap: clamp(32px, 5vw, 80px);
             align-items: center;
             position: relative;
             z-index: 1;
@@ -326,13 +327,13 @@
         }
 
         .hero-title {
-            font-size: 64px;
+            font-size: clamp(42px, 7vw, 64px);
             margin-bottom: 24px;
         }
 
         .title-line {
             display: block;
-            font-size: 24px;
+            font-size: clamp(18px, 3vw, 24px);
             font-weight: 400;
             color: var(--text-secondary);
             margin-bottom: 8px;
@@ -461,7 +462,7 @@
             background: var(--surface-elevated);
             backdrop-filter: blur(10px);
             border-radius: 24px;
-            padding: 40px;
+            padding: clamp(20px, 4vw, 40px);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
         }
 
@@ -593,7 +594,7 @@
         }
 
         .section-title {
-            font-size: 48px;
+            font-size: clamp(32px, 5vw, 48px);
             margin-bottom: 16px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             -webkit-background-clip: text;
@@ -676,6 +677,36 @@
             color: var(--text-secondary);
         }
 
+        .certifications-section {
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        }
+
+        .certifications-intro {
+            color: var(--text-secondary);
+        }
+
+        .credly-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            align-items: start;
+            justify-items: center;
+        }
+
+        .credly-badge-card {
+            width: 100%;
+            max-width: 280px;
+            min-height: 340px;
+            padding: 24px 20px;
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
         /* Skills */
         .skills-grid {
             display: grid;
@@ -732,6 +763,123 @@
         }
 
         /* Projects */
+        .veille {
+            background:
+                radial-gradient(circle at top right, rgba(14, 165, 233, 0.12), transparent 32%),
+                linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        }
+
+        .veille-intro {
+            max-width: 720px;
+            color: var(--text-secondary);
+        }
+
+        .veille-meta {
+            margin-bottom: 24px;
+        }
+
+        .veille-update-info {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: var(--surface-elevated);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .veille-card {
+            height: 100%;
+        }
+
+        .veille-icon-wrapper {
+            flex-shrink: 0;
+        }
+
+        .veille-tag {
+            border-color: transparent;
+            color: #ffffff;
+        }
+
+        .veille-tag.veille-tag-red {
+            background: #dc2626;
+        }
+
+        .veille-tag.veille-tag-blue {
+            background: #2563eb;
+        }
+
+        .veille-tag.veille-tag-green {
+            background: #16a34a;
+        }
+
+        .veille-tag.veille-tag-orange {
+            background: #ea580c;
+        }
+
+        .veille-date-tag {
+            background: rgba(15, 23, 42, 0.06);
+            color: var(--text-secondary);
+        }
+
+        html[data-theme="dark"] .veille-date-tag {
+            background: rgba(148, 163, 184, 0.14);
+            color: var(--text-primary);
+        }
+
+        .veille-title {
+            margin-bottom: 12px;
+        }
+
+        .veille-title-link:hover {
+            color: var(--primary);
+        }
+
+        .veille-source {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .veille-source a:hover {
+            color: var(--primary);
+        }
+
+        .veille-keypoints-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .veille-points {
+            margin-bottom: 20px;
+        }
+
+        .veille-placeholder {
+            min-height: 220px;
+            display: grid;
+            place-items: center;
+            gap: 10px;
+            padding: 32px;
+            border: 1px dashed var(--border-color);
+            border-radius: 24px;
+            background: var(--surface-elevated);
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .veille-placeholder i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -1174,6 +1322,8 @@
             border: 1px solid var(--border-color);
             border-radius: 16px;
             box-shadow: 0 30px 80px rgba(2, 6, 23, 0.35);
+            max-height: 88vh;
+            overflow-y: auto;
         }
 
         .project-modal-content {
@@ -1300,8 +1450,14 @@
 
         /* Responsive */
         @media (max-width: 1024px) {
+            .nav-menu {
+                gap: 24px;
+            }
             .hero-content {
                 grid-template-columns: 1fr;
+            }
+            .hero-visual {
+                order: -1;
             }
             .about-grid {
                 grid-template-columns: 1fr;
@@ -1328,18 +1484,69 @@
                 text-align: left;
                 padding: 24px;
             }
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .nav-menu {
+                position: fixed;
+                top: 78px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 78px);
+                background: var(--navbar-bg);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                padding: 40px 24px;
+                transition: left 0.3s ease;
+            }
+            .nav-menu.active {
+                left: 0;
+            }
+            .mobile-toggle {
+                display: flex;
+            }
+            .theme-toggle {
+                margin-left: auto;
+            }
         }
 
         @media (max-width: 768px) {
             .section {
                 padding: 72px 0;
             }
-            .hero-title {
-                font-size: 36px;
+            .container,
+            .hero-content,
+            .nav-container {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+            .hero {
+                min-height: auto;
+                padding-top: 112px;
+                padding-bottom: 56px;
+            }
+            .hero-content {
+                gap: 28px;
+            }
+            .hero-text,
+            .hero-visual {
+                min-width: 0;
+            }
+            .hero-description,
+            .contact-intro,
+            .about-text,
+            .skills-intro {
+                font-size: 16px;
             }
             .hero-stats {
                 grid-template-columns: 1fr;
                 gap: 14px;
+                max-width: none;
             }
             .hero-cta {
                 flex-direction: column;
@@ -1352,31 +1559,26 @@
             .network-diagram {
                 font-size: 13px;
             }
-            .nav-menu {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 70px);
-                background: var(--navbar-bg);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                justify-content: center;
-                padding: 40px;
-                transition: left 0.3s ease;
-            }
-            .nav-menu.active {
-                left: 0;
-            }
-            .mobile-toggle {
-                display: flex;
-            }
             .theme-toggle {
-                margin-left: auto;
                 margin-right: 12px;
             }
             .skills-grid {
                 grid-template-columns: 1fr;
+            }
+            .project-content,
+            .timeline-content,
+            .project-modal-content {
+                padding: 22px;
+            }
+            .project-icon-wrapper {
+                padding: 28px;
+            }
+            .project-icon {
+                font-size: 52px;
+            }
+            .contact-item {
+                gap: 14px;
+                margin-bottom: 24px;
             }
             .footer-content {
                 grid-template-columns: 1fr;
@@ -1384,6 +1586,121 @@
             .scroll-top-btn {
                 right: 16px;
                 bottom: 16px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .navbar {
+                overflow: visible;
+            }
+            .nav-container {
+                padding-top: 16px;
+                padding-bottom: 16px;
+            }
+            .hero-badge {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+                border-radius: 18px;
+            }
+            .hero-social {
+                flex-wrap: wrap;
+            }
+            .about-side,
+            .contact-form-wrapper {
+                min-width: 0;
+            }
+            .cert-item,
+            .contact-item {
+                align-items: flex-start;
+            }
+            .project-filters {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .credly-grid {
+                grid-template-columns: 1fr;
+            }
+            .filter-btn {
+                width: 100%;
+                text-align: center;
+            }
+            .timeline::before {
+                left: 18px;
+            }
+            .timeline-marker {
+                left: 18px;
+                width: 16px;
+                height: 16px;
+                border-width: 3px;
+            }
+            .timeline-item {
+                margin-bottom: 32px;
+            }
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                width: calc(100% - 42px);
+                margin-left: 42px;
+                padding: 18px;
+            }
+            .project-modal-dialog {
+                width: min(100% - 20px, 760px);
+                margin: 10px auto;
+                max-height: calc(100vh - 20px);
+            }
+            .project-modal-content h3 {
+                font-size: 24px;
+                padding-right: 28px;
+            }
+            .footer {
+                padding-top: 48px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container,
+            .hero-content,
+            .nav-container {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+            .section {
+                padding: 60px 0;
+            }
+            .hero {
+                padding-top: 104px;
+            }
+            .hero-cta .btn,
+            .project-open-btn,
+            .btn-full {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+            .visual-card {
+                border-radius: 18px;
+            }
+            .terminal-body,
+            .terminal-input-row,
+            .network-diagram {
+                font-size: 12px;
+            }
+            .project-filters {
+                grid-template-columns: 1fr;
+            }
+            .credly-badge-card {
+                min-height: 320px;
+                padding: 20px 16px;
+            }
+            .contact-item {
+                flex-direction: column;
+            }
+            .contact-icon,
+            .cert-icon {
+                width: 44px;
+                height: 44px;
+            }
+            .footer-bottom {
+                text-align: left;
             }
         }
 /* =========================================================================
