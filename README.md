@@ -19,15 +19,24 @@ Portfolio moderne et responsive présentant mes compétences en :
 ## 📁 Structure du projet
 
 ```
-portfolio/
-├── index.html          # Page principale
+portfolio-kader/
+├── index.html              # Page principale
 ├── css/
-│   └── style.css      # Styles CSS
+│   └── style.css           # Styles
 ├── js/
-│   └── main.js        # JavaScript
+│   └── main.js             # Interactions
 ├── assets/
-│   └── img/           # Images (à ajouter)
-└── README.md          # Ce fichier
+│   ├── CV_Kader_Belem.pdf  # CV téléchargeable (généré, voir tools/)
+│   ├── og-image.png        # Aperçu affiché lors d'un partage de lien
+│   ├── favicon.svg
+│   └── apple-touch-icon.png
+├── tools/
+│   ├── build_cv.py         # Génère le CV en PDF
+│   ├── badges/             # Badges Cisco intégrés au CV
+│   └── requirements.txt
+├── update_veille.py        # Régénère la section Veille technologique
+├── .github/workflows/      # Exécution planifiée de la veille
+└── README.md
 ```
 
 ## 🛠️ Technologies utilisées
@@ -190,6 +199,19 @@ Dans `index.html`, section `#projects`, ajoutez :
     </div>
 </div>
 ```
+
+### Mettre à jour le CV
+
+Le PDF proposé au téléchargement est **généré**, il ne s'édite pas
+directement. Le contenu se modifie dans `tools/build_cv.py` :
+
+```bash
+pip install -r tools/requirements.txt
+python tools/build_cv.py
+```
+
+Le script réécrit `assets/CV_Kader_Belem.pdf` et resserre l'interlignage
+au besoin pour que le CV tienne sur une page. Voir `tools/README.md`.
 
 ### Ajouter une expérience
 
