@@ -297,7 +297,6 @@ const revealSelectors = [
     ".timeline-item",
     ".contact-item",
     ".cert-item",
-    ".stat-card",
     ".terminal-card"
 ];
 

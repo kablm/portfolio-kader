@@ -234,7 +234,7 @@ Dans `index.html`, section `#experience`, ajoutez dans `.timeline` :
 
 ## 📝 Licence
 
-© 2025 Kader Belem. Tous droits réservés.
+© 2026 Kader Belem. Tous droits réservés.
 
 Ce portfolio est un projet personnel. Vous pouvez vous en inspirer mais merci de ne pas le copier tel quel.
 
