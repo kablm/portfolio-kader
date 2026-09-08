@@ -790,14 +790,18 @@
                     <div class="timeline-content">
                         <div class="timeline-date">2026</div>
                         <h3>Stage Cybersécurité - Petroci Holding</h3>
-                        <h4>Côte d'Ivoire</h4>
+                        <h4>Abidjan, Côte d'Ivoire</h4>
                         <ul>
-                            <li>Supervision de la sécurité du réseau LAN/WAN</li>
-                            <li>Configuration d'un SIEM et analyse des menaces</li>
-                            <li>Mise en place de politiques de sécurité</li>
-                            <li>Rédaction des procédures d'intervention en cas d'incident</li>
-                            <li>Impact : des procédures formalisées et réutilisables face aux incidents de sécurité.</li>
-                            <li><strong>Environnement technique :</strong> SIEM, supervision réseau LAN/WAN, analyse de menaces, politiques de sécurité.</li>
+                            <li>Déploiement et supervision d'un SIEM/XDR Wazuh : enrôlement des agents, gestion du cycle de vie des clés d'authentification et validation de la chaîne de collecte de bout en bout</li>
+                            <li>Durcissement du manager : ouverture des seuls flux nécessaires avec firewall-cmd, et maintien de SELinux en mode actif via semanage plutôt que sa désactivation</li>
+                            <li>Analyse du tableau de bord de sécurité : événements d'authentification, surveillance d'intégrité des fichiers et cartographie MITRE ATT&amp;CK</li>
+                            <li>Intégration de Microsoft Defender Vulnerability Management dans Wazuh : application Entra ID, script Python d'appel API en OAuth 2.0, règle de détection des vulnérabilités critiques</li>
+                            <li>Structuration du déploiement des mises à jour Windows avec les anneaux Microsoft Intune, affectés par groupes d'appareils</li>
+                            <li>Administration de serveurs Linux RHEL en ligne de commande : application des correctifs et contrôle des services</li>
+                            <li>Mise en service d'un poste SIP sur autocommutateur Alcatel OmniPCX Enterprise, jusqu'à la vérification de l'enregistrement REGISTER</li>
+                            <li>Conception d'un support de sensibilisation à la cybersécurité destiné aux collaborateurs non techniques</li>
+                            <li>Impact : une supervision de sécurité centralisée et testée, mise en place sans affaiblir le durcissement des systèmes existants.</li>
+                            <li><strong>Environnement technique :</strong> Wazuh (SIEM/XDR), RHEL, SELinux, firewalld, Microsoft Intune, Microsoft Defender TVM, Entra ID, Python, SSH/MobaXterm, Alcatel OmniPCX Enterprise, SIP.</li>
                         </ul>
                     </div>
                 </div>
