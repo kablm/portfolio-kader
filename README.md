@@ -14,7 +14,7 @@ Portfolio moderne et responsive présentant mes compétences en :
 - ☁️ Virtualisation & Cloud (Proxmox, Docker, VMware)
 
 **Étudiant en BTS CIEL** (Cybersécurité, Informatique et Réseaux, Électronique)  
-**Recherche d'alternance** pour 2025-2026
+**Recherche d'alternance** Bac+3 pour la rentrée 2027 — Nantes, Angers, Cholet
 
 ## 📁 Structure du projet
 
