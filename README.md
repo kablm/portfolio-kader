@@ -25,6 +25,10 @@ portfolio-kader/
 │   └── style.css           # Styles
 ├── js/
 │   └── main.js             # Interactions
+├── jeu/                    # Version jeu du portfolio (voir ci-dessous)
+│   ├── index.html
+│   ├── jeu.css
+│   └── jeu.js
 ├── assets/
 │   ├── CV_Kader_Belem.pdf  # CV téléchargeable (généré, voir tools/)
 │   ├── og-image.png        # Aperçu affiché lors d'un partage de lien
@@ -38,6 +42,22 @@ portfolio-kader/
 ├── .github/workflows/      # Exécution planifiée de la veille
 └── README.md
 ```
+
+## 🎮 Version jeu
+
+`jeu/` propose le portfolio sous forme de jeu d'exploration en pixel art
+(https://kablm.github.io/portfolio-kader/jeu/). Chaque bâtiment ouvre une section :
+Maison (À propos), Datacenter (Compétences), Homelab (Projets), Salle des trophées
+(Certifications), Gare des stages (Expériences), Tour radio (Veille) et Bureau de poste
+(Contact). Le CV est dans le coffre de la place centrale.
+
+**Le contenu n'est pas dupliqué** : le jeu lit `index.html` au chargement. Modifier le
+site classique (ou laisser `update_veille.py` réécrire la veille) met donc le jeu à jour
+automatiquement. Garder les classes existantes (`.skill-card`, `.project-card`,
+`.timeline-item`, `.contact-item`…) pour que le jeu continue de les trouver.
+
+Pour tester en local, `fetch` ne fonctionne pas en `file://` : lancer un serveur à la
+racine du dépôt (`python -m http.server`) puis ouvrir http://localhost:8000/jeu/.
 
 ## 🛠️ Technologies utilisées
 

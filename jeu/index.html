@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0b1020">
+    <title>Kader Belem | Le portfolio jouable</title>
+    <meta name="description" content="Explorez le portfolio de Kader Belem, administrateur systèmes et réseaux, sous forme de jeu : compétences, projets, expériences, certifications et contact.">
+    <link rel="canonical" href="https://kablm.github.io/portfolio-kader/jeu/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:site_name" content="Kader Belem">
+    <meta property="og:title" content="Kader Belem | Le portfolio jouable">
+    <meta property="og:description" content="Explorez le portfolio de Kader Belem sous forme de jeu : chaque bâtiment révèle une partie de son parcours.">
+    <meta property="og:url" content="https://kablm.github.io/portfolio-kader/jeu/">
+    <meta property="og:image" content="https://kablm.github.io/portfolio-kader/assets/og-image.png">
+
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="jeu.css">
+</head>
+<body>
+    <canvas id="world" tabindex="-1" aria-hidden="true"></canvas>
+
+    <header class="hud" id="hud" hidden>
+        <div class="hud-stats">
+            <span class="hud-chip" id="hudPlaces"></span>
+            <span class="hud-chip" id="hudChips"></span>
+        </div>
+        <div class="hud-actions">
+            <button class="px-btn" id="btnMap" type="button">Carte <kbd class="hide-touch">M</kbd></button>
+            <button class="px-btn" id="btnSound" type="button" aria-pressed="true" aria-label="Son">🔊</button>
+            <a class="px-btn" href="../"><span class="hide-sm">Version </span>classique</a>
+        </div>
+    </header>
+
+    <button class="prompt" id="prompt" type="button" hidden></button>
+
+    <div class="dialog" id="dialog" hidden>
+        <div class="dialog-name" id="dialogName"></div>
+        <p class="dialog-text" id="dialogText" aria-live="polite"></p>
+        <div class="dialog-choices" id="dialogChoices"></div>
+        <span class="dialog-next" id="dialogNext" aria-hidden="true">▼</span>
+    </div>
+
+    <div class="overlay" id="panelWrap" hidden>
+        <div class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="panelTitle">
+            <header class="panel-head">
+                <span class="panel-icon" id="panelIcon" aria-hidden="true"></span>
+                <div>
+                    <p class="panel-kicker" id="panelKicker"></p>
+                    <h2 id="panelTitle"></h2>
+                </div>
+                <button class="px-btn" id="panelClose" type="button" aria-label="Fermer">✕ <kbd class="hide-touch">Échap</kbd></button>
+            </header>
+            <div class="panel-body" id="panelBody"></div>
+        </div>
+    </div>
+
+    <div class="overlay" id="mapWrap" hidden>
+        <div class="panel" role="dialog" aria-modal="true" aria-labelledby="mapTitle">
+            <header class="panel-head">
+                <span class="panel-icon" aria-hidden="true">🗺️</span>
+                <div>
+                    <p class="panel-kicker">Accès rapide</p>
+                    <h2 id="mapTitle">Carte du monde</h2>
+                </div>
+                <button class="px-btn" id="mapClose" type="button" aria-label="Fermer">✕ <kbd class="hide-touch">Échap</kbd></button>
+            </header>
+            <div class="panel-body" id="mapBody"></div>
+        </div>
+    </div>
+
+    <section class="title" id="title" aria-labelledby="gameTitle">
+        <div class="title-box">
+            <p class="title-kicker">Portfolio jouable</p>
+            <h1 id="gameTitle">Kader Belem</h1>
+            <p class="title-sub" id="titleSub">Administrateur systèmes &amp; réseaux</p>
+
+            <div class="avatar">
+                <canvas id="avatarPreview" width="64" height="64" aria-hidden="true"></canvas>
+                <div class="avatar-rows">
+                    <p class="avatar-label">Ton personnage</p>
+                    <div class="avatar-row" role="group" aria-label="Couleur de peau" id="skinSwatches"></div>
+                    <div class="avatar-row" role="group" aria-label="Tenue" id="outfitSwatches"></div>
+                </div>
+            </div>
+
+            <div class="title-actions">
+                <button class="px-btn primary big" id="btnStart" type="button" disabled>Chargement…</button>
+                <button class="px-btn small" id="btnReset" type="button" hidden>Nouvelle partie</button>
+            </div>
+            <p class="title-help" id="titleHelp"></p>
+            <p class="title-status" id="loadStatus" role="status"></p>
+            <a class="title-alt" href="../">Préférer la version classique du portfolio →</a>
+        </div>
+    </section>
+
+    <div class="toasts" id="toasts" aria-live="polite"></div>
+
+    <div class="touch" id="touch" hidden>
+        <div class="stick" id="stick" aria-hidden="true"><div class="stick-knob" id="stickKnob"></div></div>
+        <button class="touch-a" id="touchA" type="button" aria-label="Interagir">A</button>
+    </div>
+
+    <noscript>
+        <p class="noscript">Ce jeu nécessite JavaScript. <a href="../">Voir la version classique du portfolio</a>.</p>
+    </noscript>
+
+    <script src="jeu.js"></script>
+</body>
+</html>
