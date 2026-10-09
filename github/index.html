@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="description" content="Les projets GitHub de Kader Belem : bots Discord en Python, automatisation avec GitHub Actions et le code de ce portfolio.">
+    <meta name="author" content="Kader Belem">
+    <title>Projets GitHub | Kader Belem</title>
+    <link rel="canonical" href="https://kablm.github.io/portfolio-kader/github/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:site_name" content="Kader Belem">
+    <meta property="og:title" content="Projets GitHub | Kader Belem">
+    <meta property="og:description" content="Les projets GitHub de Kader Belem : bots Discord en Python, automatisation avec GitHub Actions et le code de ce portfolio.">
+    <meta property="og:url" content="https://kablm.github.io/portfolio-kader/github/">
+    <meta property="og:image" content="https://kablm.github.io/portfolio-kader/assets/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="../" class="logo">
+                <span class="logo-text">KB</span>
+            </a>
+            <div class="nav-menu" id="navMenu">
+                <a href="../#about" class="nav-link">À propos</a>
+                <a href="../#certifications" class="nav-link">Certifications</a>
+                <a href="../#skills" class="nav-link">Compétences</a>
+                <a href="../#projects" class="nav-link">Projets</a>
+                <a href="./" class="nav-link active" aria-current="page">GitHub</a>
+                <a href="../#veille" class="nav-link">Veille</a>
+                <a href="../#experience" class="nav-link">Expériences</a>
+                <a href="../#contact" class="nav-link">Contact</a>
+                <a href="../jeu/" class="nav-link">🎮 Jeu</a>
+            </div>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Basculer le theme clair/sombre" aria-pressed="false">
+                <i class='bx bx-moon'></i>
+            </button>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu mobile" aria-controls="navMenu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <main id="main-content">
+
+    <section id="github-projects" class="projects section github-page">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Mon code</span>
+                <h1 class="section-title">Projets GitHub</h1>
+                <p class="github-intro">
+                    Les dépôts de mon compte <a href="https://github.com/kablm" target="_blank" rel="noopener noreferrer" class="github-intro-link">@kablm</a> :
+                    des <strong>bots Discord en Python</strong> et le code de ce site,
+                    automatisés avec <strong>GitHub Actions</strong>.
+                </p>
+                <a href="https://github.com/kablm" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                    <i class='bx bxl-github'></i> Voir mon profil GitHub
+                </a>
+            </div>
+
+            <div class="project-filters" role="group" aria-label="Filtrer les dépôts">
+                <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">Tous</button>
+                <button class="filter-btn" type="button" data-filter="discord" aria-pressed="false">Bots Discord</button>
+                <button class="filter-btn" type="button" data-filter="web" aria-pressed="false">Web</button>
+            </div>
+
+            <div class="projects-grid">
+
+                <div class="project-card" data-category="web" data-category-label="Web">
+                    <div class="project-icon-wrapper">
+                        <div class="project-icon">
+                            <i class='bx bx-globe'></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Web</span>
+                            <span class="project-tag">GitHub Pages</span>
+                        </div>
+                        <h2 class="project-title">portfolio-kader</h2>
+                        <div class="repo-meta">
+                            <span class="repo-visibility repo-public"><i class='bx bx-lock-open-alt'></i> Public</span>
+                            <span class="repo-lang"><span class="repo-lang-dot repo-lang-js"></span>JavaScript</span>
+                            <span>Mis à jour en oct. 2026</span>
+                        </div>
+                        <p class="project-description">
+                            Le site que vous consultez : un portfolio statique en HTML, CSS et JavaScript, hébergé sur GitHub Pages, dont une partie du contenu se régénère toute seule.
+                        </p>
+
+                        <div class="project-details-hidden" style="display:none;">
+                            <h4>Objectifs</h4>
+                            <p>Présenter mon parcours sans framework ni étape de build, avec un site rapide et simple à maintenir.</p>
+                            <h4>Réalisation technique</h4>
+                            <p>Un script Python relit des flux RSS et réécrit la section Veille ; un workflow GitHub Actions le lance les 1er et 15 du mois. Le CV en PDF est lui aussi généré par script. Une version « jeu » en pixel art lit la page principale au chargement, sans dupliquer le contenu.</p>
+                            <h4>Résultats/Apports</h4>
+                            <p>Un site qui reste à jour sans intervention manuelle, et une première pratique de l'intégration continue sur un projet réel.</p>
+                        </div>
+
+                        <ul class="project-points">
+                            <li>Veille technologique mise à jour automatiquement par GitHub Actions.</li>
+                            <li>CV PDF généré par script, thème clair/sombre, version jeu en pixel art.</li>
+                        </ul>
+                        <a href="https://github.com/kablm/portfolio-kader" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="Voir le dépôt portfolio-kader sur GitHub">Voir sur GitHub</a>
+                        <div class="project-tech">
+                            <span class="tech-badge">HTML</span>
+                            <span class="tech-badge">CSS</span>
+                            <span class="tech-badge">JavaScript</span>
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">GitHub Actions</span>
+                            <span class="tech-badge">GitHub Pages</span>
+                        </div>
+                        <button type="button" class="project-open-btn">Voir le détail</button>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="discord" data-category-label="Bots Discord">
+                    <div class="project-icon-wrapper project-icon-wrapper-orange">
+                        <div class="project-icon">
+                            <i class='bx bxs-gas-pump'></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Bot Discord</span>
+                            <span class="project-tag">Open data</span>
+                        </div>
+                        <h2 class="project-title">bot-carburant</h2>
+                        <div class="repo-meta">
+                            <span class="repo-visibility"><i class='bx bx-lock-alt'></i> Privé</span>
+                            <span class="repo-lang"><span class="repo-lang-dot repo-lang-python"></span>Python</span>
+                            <span>Mis à jour en oct. 2026</span>
+                        </div>
+                        <p class="project-description">
+                            Bot Discord qui publie chaque matin le prix de l'essence et du diesel en France, à partir des données ouvertes de prix-carburants.gouv.fr.
+                        </p>
+
+                        <div class="project-details-hidden" style="display:none;">
+                            <h4>Objectifs</h4>
+                            <p>Recevoir chaque jour une information utile sans avoir à la chercher, et sans payer d'hébergement.</p>
+                            <h4>Réalisation technique</h4>
+                            <p>Deux modes : une publication quotidienne planifiée par GitHub Actions via un webhook Discord, et un bot interactif avec les commandes <code>/prix</code> et <code>/moyenne</code>. Le lieu et les carburants suivis se règlent par variables du dépôt. D'autres modules réutilisent le même principe : alerte sur les bons plans Dealabs toutes les heures et relevé quotidien du prix des vols.</p>
+                            <h4>Résultats/Apports</h4>
+                            <p>Pratique des API ouvertes, des webhooks, de la planification par cron et de la gestion des secrets dans GitHub Actions.</p>
+                        </div>
+
+                        <ul class="project-points">
+                            <li>Publication quotidienne planifiée par GitHub Actions, sans serveur.</li>
+                            <li>Modules complémentaires : alertes bons plans et suivi du prix des vols.</li>
+                        </ul>
+                        <span class="project-link-btn repo-private-note"><i class='bx bx-lock-alt'></i> Dépôt privé, code présenté sur demande</span>
+                        <div class="project-tech">
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">Discord</span>
+                            <span class="tech-badge">Webhooks</span>
+                            <span class="tech-badge">GitHub Actions</span>
+                            <span class="tech-badge">API open data</span>
+                        </div>
+                        <button type="button" class="project-open-btn">Voir le détail</button>
+                    </div>
+                </div>
+
+
+
+                <div class="project-card" data-category="discord" data-category-label="Bots Discord">
+                    <div class="project-icon-wrapper">
+                        <div class="project-icon">
+                            <i class='bx bxl-discord-alt'></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Bot Discord</span>
+                            <span class="project-tag">Veille</span>
+                        </div>
+                        <h2 class="project-title">discord_bot</h2>
+                        <div class="repo-meta">
+                            <span class="repo-visibility"><i class='bx bx-lock-alt'></i> Privé</span>
+                            <span class="repo-lang"><span class="repo-lang-dot repo-lang-python"></span>Python</span>
+                            <span>Mis à jour en avr. 2026</span>
+                        </div>
+                        <p class="project-description">
+                            Bot Discord qui surveille les nouvelles offres d'alternance et les publie dans un salon, classées par secteur.
+                        </p>
+
+                        <div class="project-details-hidden" style="display:none;">
+                            <h4>Objectifs</h4>
+                            <p>Être prévenu des nouvelles offres dès leur parution, directement sur Discord.</p>
+                            <h4>Réalisation technique</h4>
+                            <p>Bot écrit avec discord.py : une tâche planifiée interroge régulièrement les offres, ne garde que les nouvelles et les publie sous forme de messages enrichis, colorés selon le secteur. Quatre commandes permettent de lancer une recherche, d'afficher des statistiques, de réinitialiser l'historique et d'obtenir de l'aide. Le bot est déployé sur Render.</p>
+                            <h4>Résultats/Apports</h4>
+                            <p>Mon premier bot hébergé en continu : gestion d'une tâche de fond, d'un état persistant et d'un déploiement décrit dans un fichier de configuration.</p>
+                        </div>
+
+                        <ul class="project-points">
+                            <li>Recherche planifiée et publication des seules nouvelles offres.</li>
+                            <li>Commandes de pilotage et déploiement sur Render.</li>
+                        </ul>
+                        <span class="project-link-btn repo-private-note"><i class='bx bx-lock-alt'></i> Dépôt privé, code présenté sur demande</span>
+                        <div class="project-tech">
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">discord.py</span>
+                            <span class="tech-badge">API REST</span>
+                            <span class="tech-badge">Render</span>
+                        </div>
+                        <button type="button" class="project-open-btn">Voir le détail</button>
+                    </div>
+                </div>
+            </div>
+
+            <p class="github-back">
+                <a href="../#projects" class="btn btn-secondary"><i class='bx bx-left-arrow-alt'></i> Retour aux projets d'infrastructure</a>
+            </p>
+        </div>
+    </section>
+
+    <div class="project-modal" id="projectModal" aria-hidden="true">
+        <div class="project-modal-backdrop" data-close-modal="true"></div>
+        <div class="project-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+            <button type="button" class="project-modal-close" id="projectModalClose" aria-label="Fermer la fenêtre">
+                <i class='bx bx-x'></i>
+            </button>
+            <div class="project-modal-content">
+                <p class="project-modal-kicker">Détail du dépôt</p>
+                <h3 id="projectModalTitle"></h3>
+                <p id="projectModalDescription"></p>
+
+                <div class="project-modal-detailed-body" id="projectModalDetailedBody"></div>
+
+                <div class="project-modal-block">
+                    <h4>Catégorie</h4>
+                    <p id="projectModalCategory"></p>
+                </div>
+                <div class="project-modal-block">
+                    <h4>Points clés</h4>
+                    <ul class="project-modal-points" id="projectModalPoints"></ul>
+                </div>
+                <div class="project-modal-block">
+                    <h4>Technologies</h4>
+                    <div class="project-modal-tech" id="projectModalTech"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3 class="footer-brand-title">Kader Belem</h3>
+                    <p class="footer-muted">Administrateur Systèmes et Réseaux</p>
+                    <p class="footer-muted">BTS CIEL - En recherche d'alternance Bac+3 pour la rentrée 2027</p>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Navigation</h4>
+                    <div class="footer-link-list">
+                        <a href="../#about" class="footer-link">À propos</a>
+                        <a href="../#certifications" class="footer-link">Certifications</a>
+                        <a href="../#skills" class="footer-link">Compétences</a>
+                        <a href="../#projects" class="footer-link">Projets</a>
+                        <a href="./" class="footer-link">Projets GitHub</a>
+                        <a href="../#experience" class="footer-link">Expériences</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Réseaux</h4>
+                    <div class="footer-link-list">
+                        <a href="mailto:kaderbelem428@gmail.com" class="footer-link">Email</a>
+                        <a href="tel:+33661402998" class="footer-link">Téléphone</a>
+                        <a href="https://www.linkedin.com/in/kader-belem-688699213/" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Profil LinkedIn de Kader Belem">LinkedIn</a>
+                        <a href="https://github.com/kablm" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Profil GitHub de Kader Belem">GitHub</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Portfolio développé en HTML, CSS et JavaScript - hébergé sur GitHub Pages.</p>
+                <p>&copy; 2026 Kader Belem. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    <button class="scroll-top-btn" id="scrollTopBtn" type="button" aria-label="Revenir en haut">
+        <i class='bx bx-up-arrow-alt'></i>
+    </button>
+    </main>
+
+    <script src="../js/main.js" defer></script>
+</body>
+</html>
