@@ -17,7 +17,7 @@
     const WALK = 80;   // px/s
     const RUN = 135;
     const SAVE_KEY = 'kb-portfolio-jeu-v1';
-    const INDEX_URL = new URL('../index.html', location.href);
+    const INDEX_URL = new URL('../', location.href);
     const CREDLY_SCRIPT = 'https://cdn.credly.com/assets/utilities/embed.js';
     const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const IS_TOUCH = matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
@@ -631,33 +631,43 @@
     let contentError = false;
 
     async function loadContent() {
-        const res = await fetch(INDEX_URL, { cache: 'no-cache' });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const doc = new DOMParser().parseFromString(await res.text(), 'text/html');
-        const one = (sel, root = doc) => root.querySelector(sel);
-        const all = (sel, root = doc) => [...root.querySelectorAll(sel)];
-        const cvLink = one('a[href$=".pdf"]');
-        const form = one('#contactForm');
+        // Le portfolio est réparti sur plusieurs pages : on les lit toutes en parallèle.
+        const getDoc = async (path) => {
+            const url = new URL(path, INDEX_URL);
+            const res = await fetch(url, { cache: 'no-cache' });
+            if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + url.pathname);
+            return new DOMParser().parseFromString(await res.text(), 'text/html');
+        };
+        const [home, projets, experiences, competences, veille, contact] = await Promise.all(
+            ['./', 'projets/', 'experiences/', 'competences/', 'veille/', 'contact/'].map(getDoc));
+        const one = (sel, root) => root.querySelector(sel);
+        const all = (sel, root) => [...root.querySelectorAll(sel)];
+        const cvLink = one('a[href$=".pdf"]', home);
+        const form = one('#contactForm', contact);
+        const fiche = all('.fiche-row', home).map((r) => [txt(one('dt', r)).toLowerCase(), txt(one('dd', r))]);
+        const pick = (label) => (fiche.find(([k]) => k.startsWith(label)) || ['', ''])[1];
+        const heroTarget = fiche.length
+            ? `alternance ${pick('dipl')} en ${pick('domaine').toLowerCase()}, rentrée ${pick('rentr').toLowerCase()}, ${pick('dur')}, à ${pick('zone')}.`
+            : '';
 
         return {
-            name: txt(one('.title-name')) || 'Kader Belem',
-            role: txt(one('.footer-muted')),
-            badge: txt(one('.hero-badge')),
-            heroDesc: one('.hero-description'),
-            heroTarget: txt(one('.hero-target')),
-            socials: all('.hero-social a').map((a) => ({ label: a.getAttribute('aria-label') || txt(a), href: a.getAttribute('href') })),
+            name: txt(one('.title-name', home)) || 'Kader Belem',
+            role: txt(one('.footer-muted', home)),
+            badge: txt(one('.hero-badge', home)),
+            heroDesc: one('.hero-description', home),
+            heroTarget,
+            socials: all('.hero-social a', home).map((a) => ({ label: a.getAttribute('aria-label') || txt(a), href: a.getAttribute('href') })),
             cv: cvLink ? cvLink.getAttribute('href') : null,
-            about: all('#about .about-text'),
-            formations: all('#about .cert-item').map((i) => ({ title: txt(one('.cert-title', i)), meta: txt(one('.cert-meta', i)) })),
-            badges: all('[data-share-badge-id]').map((d) => d.getAttribute('data-share-badge-id')).filter((id) => /^[\w-]+$/.test(id)),
-            certIntro: txt(one('#certifications .certifications-intro')),
-            skillsIntro: txt(one('#skills .skills-intro')),
-            skills: all('#skills .skill-card').map((c) => ({
-                name: txt(one('.skill-name', c)),
-                items: [...(one('.skill-list', c) || { childNodes: [] }).childNodes]
-                    .filter((n) => n.nodeType === 3).map((n) => clean(n.textContent)).filter(Boolean),
+            about: all('#about .about-text', competences),
+            formations: all('#about .cert-item', competences).map((i) => ({ title: txt(one('.cert-title', i)), meta: txt(one('.cert-meta', i)) })),
+            badges: all('[data-share-badge-id]', competences).map((d) => d.getAttribute('data-share-badge-id')).filter((id) => /^[\w-]+$/.test(id)),
+            certIntro: txt(one('#certifications .certifications-intro', competences)),
+            skillsIntro: txt(one('#skills .skills-intro', competences)),
+            skills: all('#skills .skill-group', competences).map((g) => ({
+                name: txt(one('.skill-group-title', g)),
+                items: all('.skill-chip', g).map((c) => c.dataset.skill || txt(c)),
             })),
-            projects: all('#projects .project-card').map((c) => ({
+            projects: all('#projects .project-card', projets).map((c) => ({
                 title: txt(one('.project-title', c)),
                 desc: txt(one('.project-description', c)),
                 tags: all('.project-tag', c).map(txt),
@@ -667,30 +677,29 @@
                 link: (one('.project-link-btn', c) || { getAttribute: () => null }).getAttribute('href'),
             })),
             veille: {
-                info: txt(one('#veille .veille-update-info')),
-                items: all('#veille .veille-card').map((c) => ({
-                    title: txt(one('.veille-title', c)),
-                    href: (one('.veille-title a', c) || { getAttribute: () => null }).getAttribute('href'),
-                    source: txt(one('.veille-source', c)),
-                    tag: txt(one('.veille-tag', c)),
-                    date: txt(one('.veille-date-tag', c)),
-                    points: all('.veille-points li', c).map(txt),
-                })),
+                info: txt(one('#veille .veille-update-info', veille)),
+                items: all('#veille .veille-card', veille).map((c) => {
+                    const kws = all('.veille-kw', c).map(txt);
+                    return {
+                        title: txt(one('.veille-title', c)),
+                        href: (one('.veille-title a', c) || { getAttribute: () => null }).getAttribute('href'),
+                        source: txt(one('.veille-source-name', c)),
+                        tag: txt(one('.veille-tag', c)),
+                        date: txt(one('.veille-date-tag', c)),
+                        points: [txt(one('.veille-summary', c)), kws.length ? 'Mots-clés : ' + kws.join(', ') : ''].filter(Boolean),
+                    };
+                }),
             },
-            experiences: all('#experience .timeline-item').map((i) => {
-                const items = all('li', i).map(txt);
-                const env = items.find((t) => /^Environnement technique/i.test(t)) || '';
-                return {
-                    date: txt(one('.timeline-date', i)),
-                    title: txt(one('h3', i)),
-                    place: txt(one('h4', i)),
-                    points: items.filter((t) => t !== env),
-                    env: env.replace(/^Environnement technique\s*:\s*/i, ''),
-                };
-            }),
+            experiences: all('#experience .xp', experiences).map((i) => ({
+                date: i.dataset.year || txt(one('.xp-year', i)),
+                title: txt(one('.xp-title', i)),
+                place: txt(one('.xp-place', i)),
+                points: all('.xp-points li', i).map(txt),
+                env: all('.xp-env .tech-badge', i).map(txt).join(', '),
+            })),
             contact: {
-                intro: txt(one('#contact .contact-intro')),
-                items: all('#contact .contact-item').map((i) => {
+                intro: txt(one('#contact .contact-intro', contact)),
+                items: all('#contact .contact-item', contact).map((i) => {
                     const a = one('.contact-details a', i), p = one('.contact-details p', i);
                     return { label: txt(one('h3', i)), value: txt(a || p), href: a ? a.getAttribute('href') : null, node: p };
                 }),

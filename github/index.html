@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0f172a">
+    <meta name="theme-color" content="#f8fafc">
     <meta name="description" content="Les projets GitHub de Kader Belem : bots Discord en Python, automatisation avec GitHub Actions et le code de ce portfolio.">
     <meta name="author" content="Kader Belem">
     <title>Projets GitHub | Kader Belem</title>
@@ -23,35 +23,30 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
+<body class="page-github">
     <a class="skip-link" href="#main-content">Aller au contenu principal</a>
 
-    <nav class="navbar" id="navbar">
+    <nav class="navbar" id="navbar" aria-label="Navigation principale">
         <div class="nav-container">
-            <a href="../" class="logo">
+            <a href="../" class="logo" aria-label="Accueil du portfolio">
                 <span class="logo-text">KB</span>
             </a>
             <div class="nav-menu" id="navMenu">
-                <a href="../#about" class="nav-link">À propos</a>
-                <a href="../#certifications" class="nav-link">Certifications</a>
-                <a href="../#skills" class="nav-link">Compétences</a>
-                <a href="../#projects" class="nav-link">Projets</a>
-                <a href="./" class="nav-link active" aria-current="page">GitHub</a>
-                <a href="../#veille" class="nav-link">Veille</a>
-                <a href="../#experience" class="nav-link">Expériences</a>
-                <a href="../#contact" class="nav-link">Contact</a>
-                <a href="../jeu/" class="nav-link">🎮 Jeu</a>
+                <a href="../" class="nav-link"><span class="nav-label">Accueil</span><span class="nav-desc">Présentation et fiche alternance.</span></a>
+                <a href="../projets/" class="nav-link"><span class="nav-label">Projets</span><span class="nav-desc">4 projets de homelab, chacun avec son résultat.</span></a>
+                <a href="../experiences/" class="nav-link"><span class="nav-label">Expériences</span><span class="nav-desc">Petroci en étude de cas, puis 6 stages précédents.</span></a>
+                <a href="../competences/" class="nav-link"><span class="nav-label">Compétences</span><span class="nav-desc">Outils reliés à leurs preuves, formations et badges.</span></a>
+                <a href="../veille/" class="nav-link"><span class="nav-label">Veille</span><span class="nav-desc">Articles retenus automatiquement, deux fois par mois.</span></a>
+                <a href="../contact/" class="nav-link"><span class="nav-label">Contact</span><span class="nav-desc">Email, téléphone et formulaire.</span></a>
+                <a href="../assets/CV_Kader_Belem.pdf" class="btn btn-primary nav-cv" download="CV_Kader_Belem.pdf"><i class='bx bx-download' aria-hidden="true"></i> CV (PDF)</a>
             </div>
-            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Basculer le theme clair/sombre" aria-pressed="false">
-                <i class='bx bx-moon'></i>
-            </button>
-            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu mobile" aria-controls="navMenu" aria-expanded="false">
+            <button class="mobile-toggle" id="mobileToggle" type="button" aria-label="Ouvrir le menu" aria-controls="navMenu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -61,8 +56,7 @@
     <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
     <main id="main-content">
-
-    <section id="github-projects" class="projects section github-page">
+    <section id="github-projects" class="projects section page-section github-page">
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Mon code</span>
@@ -227,10 +221,11 @@
             </div>
 
             <p class="github-back">
-                <a href="../#projects" class="btn btn-secondary"><i class='bx bx-left-arrow-alt'></i> Retour aux projets d'infrastructure</a>
+                <a href="../projets/" class="btn btn-secondary"><i class='bx bx-left-arrow-alt'></i> Retour aux projets d'infrastructure</a>
             </p>
         </div>
     </section>
+    </main>
 
     <div class="project-modal" id="projectModal" aria-hidden="true">
         <div class="project-modal-backdrop" data-close-modal="true"></div>
@@ -265,43 +260,40 @@
         <div class="container">
             <div class="footer-content">
                 <div>
-                    <h3 class="footer-brand-title">Kader Belem</h3>
-                    <p class="footer-muted">Administrateur Systèmes et Réseaux</p>
-                    <p class="footer-muted">BTS CIEL - En recherche d'alternance Bac+3 pour la rentrée 2027</p>
+                    <h2 class="footer-brand-title">Kader Belem</h2>
+                    <p class="footer-muted">Administrateur systèmes et réseaux</p>
+                    <p class="footer-muted">BTS CIEL, en recherche d'alternance Bac+3 pour la rentrée 2027</p>
                 </div>
                 <div>
-                    <h4 class="footer-col-title">Navigation</h4>
+                    <h2 class="footer-col-title">Pages</h2>
                     <div class="footer-link-list">
-                        <a href="../#about" class="footer-link">À propos</a>
-                        <a href="../#certifications" class="footer-link">Certifications</a>
-                        <a href="../#skills" class="footer-link">Compétences</a>
-                        <a href="../#projects" class="footer-link">Projets</a>
-                        <a href="./" class="footer-link">Projets GitHub</a>
-                        <a href="../#experience" class="footer-link">Expériences</a>
+                        <a href="../" class="footer-link">Accueil</a>
+                        <a href="../projets/" class="footer-link">Projets</a>
+                        <a href="../experiences/" class="footer-link">Expériences</a>
+                        <a href="../competences/" class="footer-link">Compétences</a>
+                        <a href="../veille/" class="footer-link">Veille</a>
+                        <a href="../contact/" class="footer-link">Contact</a>
                     </div>
                 </div>
                 <div>
-                    <h4 class="footer-col-title">Réseaux</h4>
+                    <h2 class="footer-col-title">Ailleurs</h2>
                     <div class="footer-link-list">
-                        <a href="mailto:kaderbelem428@gmail.com" class="footer-link">Email</a>
-                        <a href="tel:+33661402998" class="footer-link">Téléphone</a>
-                        <a href="https://www.linkedin.com/in/kader-belem-688699213/" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Profil LinkedIn de Kader Belem">LinkedIn</a>
-                        <a href="https://github.com/kablm" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Profil GitHub de Kader Belem">GitHub</a>
+                        <a href="https://github.com/kablm" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+                        <a href="https://www.linkedin.com/in/kader-belem-688699213/" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+                        <a href="../github/" class="footer-link">Projets GitHub</a>
+                        <a href="../jeu/" class="footer-link">Version jeu</a>
                     </div>
                 </div>
             </div>
-
             <div class="footer-bottom">
-                <p>Portfolio développé en HTML, CSS et JavaScript - hébergé sur GitHub Pages.</p>
-                <p>&copy; 2026 Kader Belem. Tous droits réservés.</p>
+                <p>Portfolio en HTML, CSS et JavaScript, hébergé sur GitHub Pages.</p>
+                <p>&copy; 2026 Kader Belem.</p>
             </div>
         </div>
     </footer>
     <button class="scroll-top-btn" id="scrollTopBtn" type="button" aria-label="Revenir en haut">
         <i class='bx bx-up-arrow-alt'></i>
     </button>
-    </main>
-
     <script src="../js/main.js" defer></script>
 </body>
 </html>

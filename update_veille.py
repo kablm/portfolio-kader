@@ -4,8 +4,8 @@ update_veille.py
 ----------------
 Script de mise à jour automatique de la section "Veille Technologique" du portfolio.
 Récupère les flux RSS, sélectionne les 3 articles les plus pertinents des 14 derniers jours,
-génère un résumé (via OpenAI si disponible, sinon extraction RSS propre),
-puis injecte le HTML entre les balises commentaires dans index.html.
+ajoute un résumé d'une phrase si une clé OpenAI est fournie,
+puis injecte le HTML entre les balises commentaires dans veille/index.html.
 
 Usage :
     python update_veille.py [--html-file path/to/index.html] [--dry-run]
@@ -222,43 +222,26 @@ def summarize_with_openai(article: dict, api_key: str) -> list[str]:
         if len(points) == 3:
             return points
 
-        log.warning("OpenAI n'a pas renvoyé exactement 3 points, fallback RSS.")
+        log.warning("OpenAI n'a pas renvoyé exactement 3 points, pas de résumé.")
     except Exception as e:
-        log.warning(f"OpenAI indisponible ({e}), fallback extraction RSS.")
+        log.warning(f"OpenAI indisponible ({e}), pas de résumé.")
 
-    return extract_points_from_rss(article)
+    return []
 
 
-def extract_points_from_rss(article: dict) -> list[str]:
-    """
-    Extraction heuristique de 3 points clés depuis la description RSS.
-    Découpe le texte en phrases et sélectionne les 3 les plus informatives.
-    """
-    text = article["summary"]
-    if not text:
-        return [
-            f"Article publié par {article['source']}.",
-            "Consulter le lien source pour les détails complets.",
-            "Thématique : systèmes, réseaux ou cybersécurité.",
-        ]
+EN_SOURCES = {"The Hacker News", "Bleeping Computer"}
 
-    # Découpage en phrases
-    sentences = re.split(r"(?<=[.!?])\s+", text)
-    sentences = [s.strip() for s in sentences if len(s.strip()) > 30]
 
-    # Score chaque phrase par présence de mots-clés
-    def sentence_score(s: str) -> int:
-        sl = s.lower()
-        return sum(1 for kw in KEYWORDS if kw in sl)
-
-    sentences.sort(key=sentence_score, reverse=True)
-    top = sentences[:3]
-
-    # Compléter si moins de 3 phrases
-    while len(top) < 3:
-        top.append(f"Source : {article['source']} — voir l'article complet pour plus de détails.")
-
-    return [truncate(s, 160) for s in top]
+def matched_keywords(article: dict, limit: int = 4) -> list[str]:
+    """Mots-clés de KEYWORDS trouvés dans le titre et le résumé, par ordre de priorité."""
+    text = (article["title"] + " " + article["summary"]).lower()
+    found = []
+    for kw in KEYWORDS:
+        if kw in text and kw.replace(" ", "-") not in found:
+            found.append(kw)
+        if len(found) >= limit:
+            break
+    return found
 
 # ── Génération HTML ────────────────────────────────────────────────────────────
 
@@ -271,65 +254,41 @@ def format_date(dt: Optional[datetime]) -> str:
 
 
 def article_to_html(article: dict, points: list[str], index: int) -> str:
-    """Génère le HTML d'une carte de veille."""
-    title_escaped   = html.escape(article["title"])
-    source_escaped  = html.escape(article["source"])
-    link_escaped    = html.escape(article["link"])
-    date_str        = format_date(article.get("date"))
+    """Génère le HTML d'une ligne de veille (date, thème, titre, source, mots-clés)."""
+    title_escaped  = html.escape(article["title"])
+    source_escaped = html.escape(article["source"])
+    link_escaped   = html.escape(article["link"])
+    date_str       = format_date(article.get("date"))
+    english        = article["source"] in EN_SOURCES
 
-    # Icône selon la catégorie détectée
     text_lower = (article["title"] + " " + article["summary"]).lower()
     if any(k in text_lower for k in ["cyberattaque", "ransomware", "vulnérabilité", "cve", "zero-day", "malware", "phishing"]):
-        icon, tag_label, tag_class = "bx-shield-x", "Sécurité", "tag-red"
+        tag_label, tag_class = "Sécurité", "tag-red"
     elif any(k in text_lower for k in ["réseau", "network", "vlan", "routeur", "dns", "vpn", "bgp"]):
-        icon, tag_label, tag_class = "bx-network-chart", "Réseau", "tag-blue"
+        tag_label, tag_class = "Réseau", "tag-blue"
     elif any(k in text_lower for k in ["linux", "windows server", "proxmox", "docker", "kubernetes", "virtualisation"]):
-        icon, tag_label, tag_class = "bx-server", "Système", "tag-green"
+        tag_label, tag_class = "Système", "tag-green"
     else:
-        icon, tag_label, tag_class = "bx-news", "IT & Infra", "tag-orange"
+        tag_label, tag_class = "IT et infra", "tag-orange"
 
-    points_html = "\n".join(
-        f'                        <li>{html.escape(p)}</li>'
-        for p in points
-    )
+    lang_attr = ' lang="en"' if english else ""
+    lang_note = '<span class="veille-lang">, en anglais</span>' if english else ""
+    summary_html = f'\n                    <p class="veille-summary">{html.escape(points[0])}</p>' if points else ""
+    keywords = "".join(f'<span class="veille-kw">{html.escape(k)}</span>' for k in matched_keywords(article))
+    kw_html = (f'<span class="veille-sep" aria-hidden="true">·</span><span class="veille-kw-label">Mots-clés trouvés :</span>{keywords}'
+               if keywords else "")
 
     return f"""
-            <!-- Carte veille #{index + 1} : {source_escaped} -->
-            <div class="project-card veille-card" data-veille-index="{index}">
-                <div class="project-icon-wrapper veille-icon-wrapper veille-icon-{tag_class}">
-                    <div class="project-icon">
-                        <i class='bx {icon}'></i>
-                    </div>
+            <li class="veille-card" data-veille-index="{index}">
+                <div class="veille-when">
+                    <span class="veille-date-tag">{date_str}</span>
+                    <span class="veille-tag veille-{tag_class}">{tag_label}</span>
                 </div>
-                <div class="project-content">
-                    <div class="project-tags">
-                        <span class="project-tag veille-tag veille-{tag_class}">{tag_label}</span>
-                        <span class="project-tag veille-date-tag">{date_str}</span>
-                    </div>
-                    <h3 class="project-title veille-title">
-                        <a href="{link_escaped}" target="_blank" rel="noopener noreferrer" class="veille-title-link">
-                            {title_escaped}
-                        </a>
-                    </h3>
-                    <div class="veille-source">
-                        <i class='bx bx-link-external'></i>
-                        <a href="{link_escaped}" target="_blank" rel="noopener noreferrer">{source_escaped}</a>
-                    </div>
-                    <div class="veille-keypoints">
-                        <h4 class="veille-keypoints-title">
-                            <i class='bx bx-bulb'></i> À retenir
-                        </h4>
-                        <ul class="project-points veille-points">
-{points_html}
-                        </ul>
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-badge">RSS</span>
-                        <span class="tech-badge">{tag_label}</span>
-                        <span class="tech-badge">{source_escaped}</span>
-                    </div>
+                <div class="veille-main">
+                    <h3 class="veille-title"><a href="{link_escaped}" target="_blank" rel="noopener noreferrer" class="veille-title-link"{lang_attr}>{title_escaped}</a></h3>{summary_html}
+                    <p class="veille-source"><span class="veille-source-name">{source_escaped}</span>{lang_note}{kw_html}</p>
                 </div>
-            </div>"""
+            </li>"""
 
 
 def build_html_block(articles_with_points: list[tuple]) -> str:
@@ -346,13 +305,13 @@ def build_html_block(articles_with_points: list[tuple]) -> str:
         <div class="veille-meta">
             <p class="veille-update-info">
                 <i class='bx bx-time-five'></i>
-                Dernière mise à jour : <strong>{update_date}</strong>
-                &mdash; Articles des {LOOKBACK_DAYS} derniers jours sélectionnés automatiquement.
+                <span>Dernière mise à jour : <strong>{update_date}</strong>.
+                Articles des {LOOKBACK_DAYS} derniers jours, sélectionnés automatiquement.</span>
             </p>
         </div>
-        <div class="projects-grid veille-grid">
+        <ul class="veille-list">
 {cards_html}
-        </div>"""
+        </ul>"""
 
 # ── Injection HTML ─────────────────────────────────────────────────────────────
 
@@ -407,8 +366,8 @@ def inject_into_html(html_path: str, block: str, dry_run: bool = False) -> bool:
 def main():
     parser = argparse.ArgumentParser(description="Mise à jour automatique de la veille technologique.")
     parser.add_argument(
-        "--html-file", default="index.html",
-        help="Chemin vers le fichier index.html (défaut : index.html)"
+        "--html-file", default="veille/index.html",
+        help="Chemin vers le fichier index.html (défaut : veille/index.html)"
     )
     parser.add_argument(
         "--dry-run", action="store_true",
@@ -418,7 +377,7 @@ def main():
 
     openai_key = os.environ.get("OPENAI_API_KEY", "").strip()
     use_openai = bool(openai_key)
-    log.info(f"Mode résumé : {'OpenAI (GPT-4o-mini)' if use_openai else 'extraction RSS heuristique'}")
+    log.info(f"Mode résumé : {'OpenAI (GPT-4o-mini)' if use_openai else 'sans résumé'}")
 
     # 1. Collecte
     raw_articles = fetch_articles()
@@ -438,7 +397,7 @@ def main():
         if use_openai:
             points = summarize_with_openai(art, openai_key)
         else:
-            points = extract_points_from_rss(art)
+            points = []
         articles_with_points.append((art, points))
 
     # 4. Génération + injection HTML

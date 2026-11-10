@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f8fafc">
+    <meta name="description" content="Les projets de homelab de Kader Belem : Proxmox VE, Active Directory, serveur web sécurisé et supervision avec Prometheus et Grafana.">
+    <meta name="author" content="Kader Belem">
+    <title>Projets | Kader Belem</title>
+    <link rel="canonical" href="https://kablm.github.io/portfolio-kader/projets/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:site_name" content="Kader Belem">
+    <meta property="og:title" content="Projets | Kader Belem">
+    <meta property="og:description" content="Les projets de homelab de Kader Belem : Proxmox VE, Active Directory, serveur web sécurisé et supervision avec Prometheus et Grafana.">
+    <meta property="og:url" content="https://kablm.github.io/portfolio-kader/projets/">
+    <meta property="og:image" content="https://kablm.github.io/portfolio-kader/assets/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="page-projets">
+    <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+    <nav class="navbar" id="navbar" aria-label="Navigation principale">
+        <div class="nav-container">
+            <a href="../" class="logo" aria-label="Accueil du portfolio">
+                <span class="logo-text">KB</span>
+            </a>
+            <div class="nav-menu" id="navMenu">
+                <a href="../" class="nav-link"><span class="nav-label">Accueil</span><span class="nav-desc">Présentation et fiche alternance.</span></a>
+                <a href="../projets/" class="nav-link active" aria-current="page"><span class="nav-label">Projets</span><span class="nav-desc">4 projets de homelab, chacun avec son résultat.</span></a>
+                <a href="../experiences/" class="nav-link"><span class="nav-label">Expériences</span><span class="nav-desc">Petroci en étude de cas, puis 6 stages précédents.</span></a>
+                <a href="../competences/" class="nav-link"><span class="nav-label">Compétences</span><span class="nav-desc">Outils reliés à leurs preuves, formations et badges.</span></a>
+                <a href="../veille/" class="nav-link"><span class="nav-label">Veille</span><span class="nav-desc">Articles retenus automatiquement, deux fois par mois.</span></a>
+                <a href="../contact/" class="nav-link"><span class="nav-label">Contact</span><span class="nav-desc">Email, téléphone et formulaire.</span></a>
+                <a href="../assets/CV_Kader_Belem.pdf" class="btn btn-primary nav-cv" download="CV_Kader_Belem.pdf"><i class='bx bx-download' aria-hidden="true"></i> CV (PDF)</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle" type="button" aria-label="Ouvrir le menu" aria-controls="navMenu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <main id="main-content">
+    <section id="projects" class="page-section projects section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Mes réalisations</span>
+                <h1 class="section-title">Projets personnels</h1>
+            </div>
+
+            <div class="project-filters" role="group" aria-label="Filtrer les projets">
+                <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">Tous</button>
+                <button class="filter-btn" type="button" data-filter="virtualisation" aria-pressed="false">Virtualisation</button>
+                <button class="filter-btn" type="button" data-filter="windows" aria-pressed="false">Windows</button>
+                <button class="filter-btn" type="button" data-filter="securite" aria-pressed="false">Sécurité</button>
+                <button class="filter-btn" type="button" data-filter="monitoring" aria-pressed="false">Monitoring</button>
+            </div>
+            
+            <div class="projects-grid">
+                
+                <div class="project-card" data-category="virtualisation" data-category-label="Virtualisation">
+                    <div class="project-icon-wrapper">
+                        <div class="project-icon">
+                            <i class='bx bx-cube-alt'></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Virtualisation</span>
+                            <span class="project-tag">DevOps</span>
+                            <span class="project-tag">Cloud</span>
+                        </div>
+                        <h3 class="project-title">Infrastructure Proxmox VE</h3>
+                        <p class="project-description">
+                            Infrastructure virtuelle sous Proxmox VE : VMs Linux et Windows, VLANs, services applicatifs et sauvegardes planifiées.
+                        </p>
+                        <p class="project-result"><i class='bx bx-check' aria-hidden="true"></i> Réseau découpé en VLANs et filtré par pfSense</p>
+
+                        <div class="project-details-hidden" style="display:none;">
+                            <h4>Objectifs</h4>
+                            <p>Reproduire chez moi un environnement de production d'entreprise pour m'entraîner à l'administrer.</p>
+                            <h4>Réalisation technique</h4>
+                            <p>Installation et configuration du bare-metal Proxmox VE. Création et gestion de machines virtuelles (Windows/Linux) et de conteneurs LXC. Mise en place du routage inter-VLANs et du filtrage réseau via un pare-feu pfSense virtualisé.</p>
+                            <h4>Résultats/Apports</h4>
+                            <p>Le réseau du lab est découpé en VLANs et filtré par pfSense. Je m'en sers pour tester des déploiements, des attaques et des défenses sans toucher à mon réseau domestique.</p>
+                        </div>
+                        
+                        <ul class="project-points">
+                            <li>Simulation d'une petite infrastructure d'entreprise avec AD, serveur web et supervision centralisée.</li>
+                            <li>Test de procédures d'exploitation : snapshots, reprise après incident, segmentation réseau.</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span class="tech-badge">Proxmox VE</span>
+                            <span class="tech-badge">KVM/QEMU</span>
+                            <span class="tech-badge">LXC</span>
+                            <span class="tech-badge">Ubuntu</span>
+                            <span class="tech-badge">pfSense</span>
+                            <span class="tech-badge">Grafana</span>
+                        </div>
+                        <button type="button" class="project-open-btn">Voir le détail</button>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="windows" data-category-label="Windows">
+                    <div class="project-icon-wrapper project-icon-wrapper-green">
+                        <div class="project-icon">
+                            <i class='bx bxs-server'></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Windows Server</span>
+                            <span class="project-tag">Active Directory</span>
+                        </div>
+                        <h3 class="project-title">Homelab Active Directory</h3>
+                        <p class="project-description">
+                            Déploiement d'un environnement Windows Server 2022 avec Active Directory, DHCP/DNS intégrés, sécurisation et gestion des accès.
+                        </p>
+                        <p class="project-result"><i class='bx bx-check' aria-hidden="true"></i> GPO de sécurité et quotas par service</p>
+                        
+                        <div class="project-details-hidden" style="display:none;">
+                            <h4>Objectifs</h4>
+                            <p>Apprendre à administrer et sécuriser un parc Windows depuis un contrôleur de domaine.</p>
+                            <h4>Réalisation technique</h4>
+                            <p>Installation de Windows Server 2022 et promotion en contrôleur de domaine. Implémentation des rôles DHCP et DNS. Création d'une arborescence d'Unités Organisationnelles (OU) et déploiement de GPO (restrictions locales, lecteurs réseau, politique de mots de passe).</p>
+                            <h4>Résultats/Apports</h4>
+                            <p>Le domaine fonctionne comme un réseau d'entreprise : à la connexion, chaque poste reçoit son adresse IP, ses lecteurs réseau et ses restrictions. J'ai écrit un script PowerShell qui crée les comptes utilisateurs automatiquement.</p>
+                        </div>
+
+                        <ul class="project-points">
+                            <li>Création d'utilisateurs/groupes simulant plusieurs services métiers (RH, finance, support).</li>
+                            <li>Mise en place de GPO de sécurité et d'un serveur de fichiers avec quotas par service.</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span class="tech-badge">Windows Server 2022</span>
+                            <span class="tech-badge">Active Directory</span>
+                            <span class="tech-badge">GPO</span>
+                            <span class="tech-badge">DHCP/DNS</span>
+                            <span class="tech-badge">PowerShell</span>
+                        </div>
+                        <button type="button" class="project-open-btn">Voir le détail</button>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="securite" data-category-label="Sécurité">
+                    <div class="project-icon-wrapper project-icon-wrapper-red">
+                        <div class="project-icon">
+                            <i class='bx bxs-lock-alt'></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Linux</span>
+                            <span class="project-tag">Sécurité</span>
+                            <span class="project-tag">Web</span>
+                        </div>
+                        <h3 class="project-title">Serveur web sécurisé</h3>
+                        <p class="project-description">
+                            Déploiement d'un stack LEMP sécurisé (Nginx, MySQL, PHP) avec configuration pare-feu, certificats TLS et durcissement du système.
+                        </p>
+                        <p class="project-result"><i class='bx bx-check' aria-hidden="true"></i> Note A sur SSL Labs</p>
+                        
+                        <div class="project-details-hidden" style="display:none;">
+                            <h4>Objectifs</h4>
+                            <p>Héberger un service web en respectant les bonnes pratiques de cybersécurité et de durcissement (hardening).</p>
+                            <h4>Réalisation technique</h4>
+                            <p>Déploiement d'une stack LEMP (Nginx, MySQL, PHP) sur Ubuntu Server. Configuration stricte du pare-feu UFW, mise en place de certificats SSL/TLS via Let's Encrypt, et protection contre le brute-force avec Fail2ban. Revue des droits système.</p>
+                            <h4>Résultats/Apports</h4>
+                            <p>Note A sur SSL Labs. Fail2ban bannit automatiquement les adresses IP qui accumulent les échecs de connexion.</p>
+                        </div>
+
+                        <ul class="project-points">
+                            <li>Mise en ligne d'un site HTTPS accessible depuis Internet avec règles de filtrage strictes.</li>
+                            <li>Blocage des attaques par force brute avec Fail2ban, journalisation et revue de configuration.</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span class="tech-badge">Ubuntu Server</span>
+                            <span class="tech-badge">Nginx</span>
+                            <span class="tech-badge">MySQL</span>
+                            <span class="tech-badge">SSL/TLS</span>
+                            <span class="tech-badge">UFW</span>
+                            <span class="tech-badge">Fail2ban</span>
+                        </div>
+                        <button type="button" class="project-open-btn">Voir le détail</button>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="monitoring" data-category-label="Monitoring">
+                    <div class="project-icon-wrapper project-icon-wrapper-orange">
+                        <div class="project-icon">
+                            <i class='bx bx-line-chart'></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Monitoring</span>
+                            <span class="project-tag">Docker</span>
+                        </div>
+                        <h3 class="project-title">Stack monitoring &amp; alerting</h3>
+                        <p class="project-description">
+                            Supervision du lab avec Prometheus, Grafana et Alertmanager, déployés en conteneurs Docker.
+                        </p>
+                        <p class="project-result"><i class='bx bx-check' aria-hidden="true"></i> Alertes sur seuils CPU, RAM et disque</p>
+
+                        <div class="project-details-hidden" style="display:none;">
+                            <h4>Objectifs</h4>
+                            <p>Être prévenu d'un problème sur le lab avant de le constater moi-même.</p>
+                            <h4>Réalisation technique</h4>
+                            <p>Déploiement via Docker Compose de Prometheus (collecte des métriques via Node Exporter), Grafana (création de tableaux de bord personnalisés) et Alertmanager (gestion des notifications). Configuration des seuils d'alerte (CPU, RAM, disque).</p>
+                            <h4>Résultats/Apports</h4>
+                            <p>Les tableaux de bord Grafana montrent l'état de chaque machine du lab. Alertmanager envoie une notification dès qu'un seuil CPU, RAM ou disque est dépassé.</p>
+                        </div>
+
+                        <ul class="project-points">
+                            <li>Suivi des performances des serveurs et des services.</li>
+                            <li>Alerte automatique dès qu'un seuil est dépassé.</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span class="tech-badge">Prometheus</span>
+                            <span class="tech-badge">Grafana</span>
+                            <span class="tech-badge">Docker</span>
+                            <span class="tech-badge">Alertmanager</span>
+                            <span class="tech-badge">Node Exporter</span>
+                        </div>
+                        <button type="button" class="project-open-btn">Voir le détail</button>
+                    </div>
+                </div>
+            </div>
+
+            <p class="projects-more">
+                <a href="../github/" class="btn btn-secondary"><i class='bx bxl-github'></i> Voir aussi mes projets GitHub</a>
+            </p>
+        </div>
+    </section>
+
+    <nav class="page-nav container" aria-label="Pages voisines">
+        <a class="page-nav-link" href="../"><span>Page précédente</span><strong>Accueil</strong></a>
+        <a class="page-nav-link next" href="../experiences/"><span>Page suivante</span><strong>Expériences</strong></a>
+    </nav>
+    </main>
+
+    <div class="project-modal" id="projectModal" aria-hidden="true">
+        <div class="project-modal-backdrop" data-close-modal="true"></div>
+        <div class="project-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+            <button type="button" class="project-modal-close" id="projectModalClose" aria-label="Fermer la fenêtre">
+                <i class='bx bx-x'></i>
+            </button>
+            <div class="project-modal-content">
+                <p class="project-modal-kicker">Détail du projet</p>
+                <h3 id="projectModalTitle"></h3>
+                <p id="projectModalDescription"></p>
+                
+                <div class="project-modal-detailed-body" id="projectModalDetailedBody"></div>
+
+                <div class="project-modal-block">
+                    <h4>Catégorie</h4>
+                    <p id="projectModalCategory"></p>
+                </div>
+                <div class="project-modal-block">
+                    <h4>Points clés</h4>
+                    <ul class="project-modal-points" id="projectModalPoints"></ul>
+                </div>
+                <div class="project-modal-block">
+                    <h4>Technologies</h4>
+                    <div class="project-modal-tech" id="projectModalTech"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h2 class="footer-brand-title">Kader Belem</h2>
+                    <p class="footer-muted">Administrateur systèmes et réseaux</p>
+                    <p class="footer-muted">BTS CIEL, en recherche d'alternance Bac+3 pour la rentrée 2027</p>
+                </div>
+                <div>
+                    <h2 class="footer-col-title">Pages</h2>
+                    <div class="footer-link-list">
+                        <a href="../" class="footer-link">Accueil</a>
+                        <a href="../projets/" class="footer-link">Projets</a>
+                        <a href="../experiences/" class="footer-link">Expériences</a>
+                        <a href="../competences/" class="footer-link">Compétences</a>
+                        <a href="../veille/" class="footer-link">Veille</a>
+                        <a href="../contact/" class="footer-link">Contact</a>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="footer-col-title">Ailleurs</h2>
+                    <div class="footer-link-list">
+                        <a href="https://github.com/kablm" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+                        <a href="https://www.linkedin.com/in/kader-belem-688699213/" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+                        <a href="../github/" class="footer-link">Projets GitHub</a>
+                        <a href="../jeu/" class="footer-link">Version jeu</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Portfolio en HTML, CSS et JavaScript, hébergé sur GitHub Pages.</p>
+                <p>&copy; 2026 Kader Belem.</p>
+            </div>
+        </div>
+    </footer>
+    <button class="scroll-top-btn" id="scrollTopBtn" type="button" aria-label="Revenir en haut">
+        <i class='bx bx-up-arrow-alt'></i>
+    </button>
+    <script src="../js/main.js" defer></script>
+</body>
+</html>

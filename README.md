@@ -1,271 +1,101 @@
-# Portfolio - Kader Belem
+# Portfolio de Kader Belem
 
-🎯 **Portfolio professionnel d'un administrateur systèmes et réseaux**
+Portfolio d'un étudiant en BTS CIEL (Cybersécurité, Informatique et Réseaux, Électronique) qui cherche une alternance Bac+3 en administration systèmes, réseaux et cybersécurité pour la rentrée 2027, à Nantes, Angers ou Cholet.
 
-[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue)](https://github.com)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+Site en ligne : https://kablm.github.io/portfolio-kader/
 
-## 📋 À propos
+## Pages
 
-Portfolio moderne et responsive présentant mes compétences en :
-- 🖥️ Administration système (Windows Server, Linux)
-- 🌐 Réseaux (LAN, DHCP/DNS, Switch/Router)
-- 🔒 Cybersécurité (Firewalling, OWASP)
-- ☁️ Virtualisation & Cloud (Proxmox, Docker, VMware)
+Chaque partie du portfolio a sa propre page. Le menu du haut mène à chacune ; sur téléphone, il devient un menu burger.
 
-**Étudiant en BTS CIEL** (Cybersécurité, Informatique et Réseaux, Électronique)  
-**Recherche d'alternance** Bac+3 pour la rentrée 2027 — Nantes, Angers, Cholet
+| Adresse | Contenu |
+| --- | --- |
+| `/` | Présentation, fiche alternance et homelab cliquable |
+| `/projets/` | Les 4 projets du homelab, avec filtres et fenêtre de détail |
+| `/experiences/` | Le stage chez Petroci en étude de cas, puis les 6 stages précédents |
+| `/competences/` | Les outils reliés à leurs preuves, le parcours, les formations et les badges Credly |
+| `/veille/` | La veille technologique, mise à jour automatiquement |
+| `/contact/` | Coordonnées et formulaire de contact |
+| `/github/` | Les dépôts GitHub |
+| `/jeu/` | Le portfolio sous forme de jeu en pixel art |
 
-## 📁 Structure du projet
+Les anciens liens de la version une page (`/#projects`, `/#contact`…) redirigent vers la bonne page.
+
+## Structure du dépôt
 
 ```
-portfolio-kader/
-├── index.html              # Page principale
-├── css/
-│   └── style.css           # Styles
-├── js/
-│   └── main.js             # Interactions
-├── jeu/                    # Version jeu du portfolio (voir ci-dessous)
-│   ├── index.html
-│   ├── jeu.css
-│   └── jeu.js
-├── assets/
-│   ├── CV_Kader_Belem.pdf  # CV téléchargeable (généré, voir tools/)
-│   ├── og-image.png        # Aperçu affiché lors d'un partage de lien
-│   ├── favicon.svg
-│   └── apple-touch-icon.png
-├── tools/
-│   ├── build_cv.py         # Génère le CV en PDF
-│   ├── badges/             # Badges Cisco intégrés au CV
-│   └── requirements.txt
-├── update_veille.py        # Régénère la section Veille technologique
-├── .github/workflows/      # Exécution planifiée de la veille
-└── README.md
+├── index.html                # Accueil
+├── projets/index.html
+├── experiences/index.html
+├── competences/index.html
+├── veille/index.html         # Réécrite par update_veille.py
+├── contact/index.html
+├── github/index.html
+├── css/style.css             # Styles de toutes les pages (thème clair)
+├── js/main.js                # Menu, homelab, compétences, projets, formulaire
+├── jeu/                      # Version jeu du portfolio
+├── assets/                   # CV en PDF, image de partage, icônes
+├── tools/build_cv.py         # Génère le CV en PDF
+├── update_veille.py          # Met à jour la veille
+└── .github/workflows/update-veille.yml
 ```
 
-## 🎮 Version jeu
+Le site n'a ni framework ni étape de build : chaque page est un fichier HTML qu'on modifie directement.
 
-`jeu/` propose le portfolio sous forme de jeu d'exploration en pixel art
-(https://kablm.github.io/portfolio-kader/jeu/). Chaque bâtiment ouvre une section :
-Maison (À propos), Datacenter (Compétences), Homelab (Projets), Salle des trophées
-(Certifications), Gare des stages (Expériences), Tour radio (Veille) et Bureau de poste
-(Contact). Le CV est dans le coffre de la place centrale.
+## Modifier le contenu
 
-**Le contenu n'est pas dupliqué** : le jeu lit `index.html` au chargement. Modifier le
-site classique (ou laisser `update_veille.py` réécrire la veille) met donc le jeu à jour
-automatiquement. Garder les classes existantes (`.skill-card`, `.project-card`,
-`.timeline-item`, `.contact-item`…) pour que le jeu continue de les trouver.
+- **Menu et pied de page.** Ils sont recopiés dans chaque page. Pour ajouter une page ou changer un lien, modifie les 7 fichiers `index.html`.
+- **Ajouter un projet.** Dans `projets/index.html`, copie une `.project-card`. Le texte de la fenêtre de détail va dans `.project-details-hidden`, le résultat mis en avant dans `.project-result`.
+- **Ajouter un stage.** Dans `experiences/index.html`, copie un bloc `<details class="xp xp-row">`.
+- **Ajouter une compétence.** Dans `competences/index.html`, ajoute un bouton `.skill-chip` avec `data-skill="Nom"`, puis ses preuves dans le JSON `#skillProofsData`. Le chiffre affiché sur le bouton se calcule à partir de ce JSON.
+- **Homelab de l'accueil.** Le texte de chaque machine est dans le JSON `#homelabData` de `index.html`. Le bouton « Voir le projet » ouvre `projets/?projet=Nom du projet` avec la fenêtre du projet déjà ouverte.
 
-Pour tester en local, `fetch` ne fonctionne pas en `file://` : lancer un serveur à la
-racine du dépôt (`python -m http.server`) puis ouvrir http://localhost:8000/jeu/.
+## Veille automatique
 
-## 🛠️ Technologies utilisées
+`update_veille.py` lit plusieurs flux RSS, note les articles des 14 derniers jours selon une liste de mots-clés et garde les 3 mieux notés. Il réécrit la zone entre `<!-- VEILLE_START -->` et `<!-- VEILLE_END -->` de `veille/index.html`. Chaque ligne affiche la date, le thème, le titre, la source et les mots-clés trouvés. Si le secret `OPENAI_API_KEY` est défini, il ajoute un résumé d'une phrase.
 
-- **HTML5** - Structure sémantique
-- **CSS3** - Design responsive (Grid, Flexbox, Animations)
-- **JavaScript** - Interactions et navigation
-- **Google Fonts** - Syne & DM Sans
-- **Boxicons** - Iconographie
+Le workflow `.github/workflows/update-veille.yml` lance le script le 1er et le 15 de chaque mois, puis commite `veille/index.html`.
 
-## ✨ Fonctionnalités
-
-### Design
-- ✅ Design moderne et professionnel
-- ✅ Palette de couleurs cohérente (cyan, vert, orange)
-- ✅ Animations fluides et transitions
-- ✅ Effets visuels (orbes animés, hover states)
-
-### Responsive
-- ✅ 100% responsive (mobile, tablette, desktop)
-- ✅ Menu hamburger mobile
-- ✅ Breakpoints optimisés (768px, 1024px)
-
-### Sections
-1. **Hero** - Présentation avec diagramme réseau ASCII
-2. **À propos** - Parcours et formations
-3. **Compétences** - 8 catégories techniques
-4. **Projets** - 4 projets personnels détaillés
-5. **Expériences** - Timeline de 6 stages
-6. **Contact** - Formulaire et coordonnées
-
-## 🚀 Déploiement
-
-### Option 1 : GitHub Pages (Recommandé)
+Pour l'essayer en local sans modifier la page :
 
 ```bash
-# 1. Cloner le repository
-git clone https://github.com/votre-username/portfolio.git
-cd portfolio
-
-# 2. Initialiser Git (si nouveau projet)
-git init
-git add .
-git commit -m "Initial commit"
-
-# 3. Pousser sur GitHub
-git remote add origin https://github.com/votre-username/portfolio.git
-git branch -M main
-git push -u origin main
+pip install feedparser==6.0.11
+python update_veille.py --dry-run
 ```
 
-Puis dans les **Settings** du repo :
-1. Allez dans **Pages**
-2. Source : **Deploy from a branch**
-3. Branch : **main** / **/ (root)**
-4. Sauvegardez
+## Version jeu
 
-🌐 Votre site sera disponible à : `https://votre-username.github.io/portfolio/`
+`jeu/` présente le portfolio comme un jeu d'exploration : chaque bâtiment ouvre une partie du parcours, et le CV est dans le coffre de la place centrale.
 
-### Option 2 : Netlify
+Le contenu n'est pas dupliqué : au chargement, le jeu lit les pages du site (accueil, projets, expériences, compétences, veille, contact). Modifier une page met donc le jeu à jour. Garde les identifiants de section (`#projects`, `#experience`, `#skills`, `#about`, `#certifications`, `#veille`, `#contact`) et les classes lues par `loadContent()` dans `jeu/jeu.js`.
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start)
+## Tester en local
 
-1. Connectez votre repo GitHub
-2. Build settings :
-   - **Build command** : (vide)
-   - **Publish directory** : `/`
-3. Deploy !
+Le jeu et certaines pages chargent du contenu avec `fetch`, qui ne fonctionne pas en `file://`. Lance un serveur à la racine du dépôt :
 
-### Option 3 : Hébergement classique
-
-Uploadez tous les fichiers sur votre serveur web via FTP.
-
-## 🎨 Personnalisation
-
-### Couleurs
-
-Modifiez les variables CSS dans `css/style.css` :
-
-```css
-:root {
-    --primary: #0ea5e9;        /* Bleu principal */
-    --secondary: #22c55e;      /* Vert secondaire */
-    --accent: #f97316;         /* Orange accent */
-}
+```bash
+python -m http.server 8000
 ```
 
-### Contenu
+puis ouvre http://localhost:8000/.
 
-Éditez directement `index.html` :
-- Informations personnelles
-- Compétences techniques
-- Projets et expériences
+## Mettre à jour le CV
 
-### Images
-
-Ajoutez vos images dans `assets/img/` et mettez à jour les chemins dans le HTML.
-
-## 📊 Contenu du Portfolio
-
-### Projets mis en avant
-
-1. **Infrastructure Proxmox VE**
-   - VMs, conteneurs LXC, VLANs
-   - Stack : Proxmox, KVM/QEMU, pfSense, Nginx, MySQL, Grafana
-
-2. **Homelab Active Directory**
-   - Windows Server 2022, GPO
-   - DHCP/DNS, PowerShell
-
-3. **Serveur Web Sécurisé**
-   - LEMP Stack (Linux, Nginx, MySQL, PHP)
-   - SSL/TLS, UFW, Fail2ban
-
-4. **Stack Monitoring & Alerting**
-   - Prometheus, Grafana, Docker
-   - Monitoring temps réel
-
-### Compétences
-
-- Administration Système
-- Réseaux
-- Sécurité & Cybersécurité
-- Virtualisation & Cloud
-- Développement & Scripting
-- Support & Maintenance
-- Bases de données
-- Services Web
-
-## 📧 Contact
-
-- **Email** : [kaderbelem428@gmail.com](mailto:kaderbelem428@gmail.com)
-- **Téléphone** : +33 6 61 40 29 98
-- **LinkedIn** : [Kader Belem](https://www.linkedin.com/in/kader-belem-688699213/)
-- **GitHub** : [@kablm](https://github.com/kablm)
-- **Localisation** : Nantes, France
-
-## 🔧 Maintenance
-
-### Ajouter un projet
-
-Dans `index.html`, section `#projects`, ajoutez :
-
-```html
-<div class="project-card">
-    <div class="project-icon-wrapper">
-        <div class="project-icon">
-            <i class='bx bx-votre-icone'></i>
-        </div>
-    </div>
-    <div class="project-content">
-        <div class="project-tags">
-            <span class="project-tag">Tag1</span>
-        </div>
-        <h3 class="project-title">Nom du Projet</h3>
-        <p class="project-description">Description...</p>
-        <div class="project-tech">
-            <span class="tech-badge">Tech1</span>
-        </div>
-    </div>
-</div>
-```
-
-### Mettre à jour le CV
-
-Le PDF proposé au téléchargement est **généré**, il ne s'édite pas
-directement. Le contenu se modifie dans `tools/build_cv.py` :
+Le PDF proposé au téléchargement est généré : il ne s'édite pas directement. Le contenu se modifie dans `tools/build_cv.py` :
 
 ```bash
 pip install -r tools/requirements.txt
 python tools/build_cv.py
 ```
 
-Le script réécrit `assets/CV_Kader_Belem.pdf` et resserre l'interlignage
-au besoin pour que le CV tienne sur une page. Voir `tools/README.md`.
+Le script réécrit `assets/CV_Kader_Belem.pdf` et resserre l'interlignage au besoin pour que le CV tienne sur une page. Voir `tools/README.md`.
 
-### Ajouter une expérience
+## Technologies
 
-Dans `index.html`, section `#experience`, ajoutez dans `.timeline` :
+HTML, CSS et JavaScript sans framework, Python pour la veille et le CV, GitHub Actions pour la mise à jour planifiée, GitHub Pages pour l'hébergement. Polices Syne et DM Sans (Google Fonts), icônes Boxicons.
 
-```html
-<div class="timeline-item">
-    <div class="timeline-marker"></div>
-    <div class="timeline-content">
-        <div class="timeline-date">Année</div>
-        <h3>Poste</h3>
-        <h4>Entreprise</h4>
-        <ul>
-            <li>Mission 1</li>
-            <li>Mission 2</li>
-        </ul>
-    </div>
-</div>
-```
-
-## 📝 Licence
+## Licence
 
 © 2026 Kader Belem. Tous droits réservés.
 
-Ce portfolio est un projet personnel. Vous pouvez vous en inspirer mais merci de ne pas le copier tel quel.
-
-## 🙏 Remerciements
-
-- **Fonts** : [Google Fonts](https://fonts.google.com/)
-- **Icons** : [Boxicons](https://boxicons.com/)
-- **Inspiration** : Design system moderne et clean
-
----
-
-**Made with ❤️ by Kader Belem**
-
-*Dernière mise à jour : Février 2025*
+Ce portfolio est un projet personnel. Vous pouvez vous en inspirer, mais merci de ne pas le copier tel quel.

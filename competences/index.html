@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f8fafc">
+    <meta name="description" content="Les outils de Kader Belem reliés à leurs preuves, ses formations (BTS CIEL, BTS SIO) et ses badges vérifiables.">
+    <meta name="author" content="Kader Belem">
+    <title>Compétences | Kader Belem</title>
+    <link rel="canonical" href="https://kablm.github.io/portfolio-kader/competences/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:site_name" content="Kader Belem">
+    <meta property="og:title" content="Compétences | Kader Belem">
+    <meta property="og:description" content="Les outils de Kader Belem reliés à leurs preuves, ses formations (BTS CIEL, BTS SIO) et ses badges vérifiables.">
+    <meta property="og:url" content="https://kablm.github.io/portfolio-kader/competences/">
+    <meta property="og:image" content="https://kablm.github.io/portfolio-kader/assets/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="page-competences">
+    <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+    <nav class="navbar" id="navbar" aria-label="Navigation principale">
+        <div class="nav-container">
+            <a href="../" class="logo" aria-label="Accueil du portfolio">
+                <span class="logo-text">KB</span>
+            </a>
+            <div class="nav-menu" id="navMenu">
+                <a href="../" class="nav-link"><span class="nav-label">Accueil</span><span class="nav-desc">Présentation et fiche alternance.</span></a>
+                <a href="../projets/" class="nav-link"><span class="nav-label">Projets</span><span class="nav-desc">4 projets de homelab, chacun avec son résultat.</span></a>
+                <a href="../experiences/" class="nav-link"><span class="nav-label">Expériences</span><span class="nav-desc">Petroci en étude de cas, puis 6 stages précédents.</span></a>
+                <a href="../competences/" class="nav-link active" aria-current="page"><span class="nav-label">Compétences</span><span class="nav-desc">Outils reliés à leurs preuves, formations et badges.</span></a>
+                <a href="../veille/" class="nav-link"><span class="nav-label">Veille</span><span class="nav-desc">Articles retenus automatiquement, deux fois par mois.</span></a>
+                <a href="../contact/" class="nav-link"><span class="nav-label">Contact</span><span class="nav-desc">Email, téléphone et formulaire.</span></a>
+                <a href="../assets/CV_Kader_Belem.pdf" class="btn btn-primary nav-cv" download="CV_Kader_Belem.pdf"><i class='bx bx-download' aria-hidden="true"></i> CV (PDF)</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle" type="button" aria-label="Ouvrir le menu" aria-controls="navMenu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <main id="main-content">
+    <section id="skills" class="page-section skills section">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-label">Outils et domaines</span>
+                <h1 class="section-title">Compétences techniques</h1>
+                <p class="skills-intro">Clique sur un outil pour voir où je l'ai utilisé : en stage, dans un projet ou sur GitHub. Le chiffre indique le nombre d'endroits.</p>
+            </div>
+
+            <div class="skills-layout">
+                <div class="skills-groups">
+                    <div class="skill-group">
+                        <h3 class="skill-group-title">Systèmes</h3>
+                        <div class="skill-chips">
+                            <button type="button" class="skill-chip" data-skill="Windows Server" aria-pressed="false">Windows Server <span class="skill-count">2</span></button>
+                            <button type="button" class="skill-chip" data-skill="Active Directory" aria-pressed="false">Active Directory <span class="skill-count">2</span></button>
+                            <button type="button" class="skill-chip" data-skill="GPO" aria-pressed="false">GPO <span class="skill-count">1</span></button>
+                            <button type="button" class="skill-chip" data-skill="PowerShell" aria-pressed="false">PowerShell <span class="skill-count">1</span></button>
+                            <button type="button" class="skill-chip" data-skill="RHEL" aria-pressed="false">RHEL <span class="skill-count">1</span></button>
+                            <button type="button" class="skill-chip" data-skill="Ubuntu Server" aria-pressed="false">Ubuntu Server <span class="skill-count">2</span></button>
+                            <button type="button" class="skill-chip" data-skill="Microsoft Intune" aria-pressed="false">Microsoft Intune <span class="skill-count">1</span></button>
+                        </div>
+                    </div>
+                    <div class="skill-group">
+                        <h3 class="skill-group-title">Réseaux</h3>
+                        <div class="skill-chips">
+                            <button type="button" class="skill-chip" data-skill="pfSense" aria-pressed="false">pfSense <span class="skill-count">1</span></button>
+                            <button type="button" class="skill-chip" data-skill="VLAN" aria-pressed="false">VLAN <span class="skill-count">1</span></button>
+                            <button type="button" class="skill-chip" data-skill="DHCP / DNS" aria-pressed="false">DHCP / DNS <span class="skill-count">2</span></button>
+                            <button type="button" class="skill-chip" data-skill="Switchs Cisco" aria-pressed="false">Switchs Cisco <span class="skill-count">1</span></button>
+                            <button type="button" class="skill-chip" data-skill="Câblage RJ45" aria-pressed="false">Câblage RJ45 <span class="skill-count">1</span></button>
+                        </div>
+                    </div>
+                    <div class="skill-group">
+                        <h3 class="skill-group-title">Sécurité</h3>
+                        <div class="skill-chips">
+                            <button type="button" class="skill-chip" data-skill="Wazuh" aria-pressed="false">Wazuh <span class="skill-count">1</span></button>
+                            <button type="button" class="skill-chip" data-skill="SELinux" aria-pressed="false">SELinux <span class="skill-count">1</span></button>
+                            <button type="button" class="skill-chip" data-skill="Fail2ban" aria-pressed="false">Fail2ban <span class="skill-count">1</span></button>
+                            <button type="button" class="skill-chip" data-skill="UFW" aria-pressed="false">UFW <span class="skill-count">1</span></button>
+                            <button type="button" class="skill-chip" data-skill="TLS" aria-pressed="false">TLS <span class="skill-count">1</span></button>
+                        </div>
+                    </div>
+                    <div class="skill-group">
+                        <h3 class="skill-group-title">Virtualisation et conteneurs</h3>
+                        <div class="skill-chips">
+                            <button type="button" class="skill-chip" data-skill="Proxmox VE" aria-pressed="false">Proxmox VE <span class="skill-count">1</span></button>
+                            <button type="button" class="skill-chip" data-skill="LXC" aria-pressed="false">LXC <span class="skill-count">1</span></button>
+                            <button type="button" class="skill-chip" data-skill="Docker" aria-pressed="false">Docker <span class="skill-count">1</span></button>
+                        </div>
+                    </div>
+                    <div class="skill-group">
+                        <h3 class="skill-group-title">Supervision</h3>
+                        <div class="skill-chips">
+                            <button type="button" class="skill-chip" data-skill="Prometheus" aria-pressed="false">Prometheus <span class="skill-count">1</span></button>
+                            <button type="button" class="skill-chip" data-skill="Grafana" aria-pressed="false">Grafana <span class="skill-count">2</span></button>
+                            <button type="button" class="skill-chip" data-skill="Alertmanager" aria-pressed="false">Alertmanager <span class="skill-count">1</span></button>
+                        </div>
+                    </div>
+                    <div class="skill-group">
+                        <h3 class="skill-group-title">Développement</h3>
+                        <div class="skill-chips">
+                            <button type="button" class="skill-chip is-active" data-skill="Python" aria-pressed="true">Python <span class="skill-count">3</span></button>
+                            <button type="button" class="skill-chip" data-skill="PHP" aria-pressed="false">PHP <span class="skill-count">2</span></button>
+                            <button type="button" class="skill-chip" data-skill="MySQL" aria-pressed="false">MySQL <span class="skill-count">2</span></button>
+                            <button type="button" class="skill-chip" data-skill="Git" aria-pressed="false">Git <span class="skill-count">2</span></button>
+                        </div>
+                    </div>
+                    <div class="skill-group">
+                        <h3 class="skill-group-title">Support et web</h3>
+                        <div class="skill-chips">
+                            <button type="button" class="skill-chip" data-skill="Dépannage" aria-pressed="false">Dépannage <span class="skill-count">2</span></button>
+                            <button type="button" class="skill-chip" data-skill="Relation client" aria-pressed="false">Relation client <span class="skill-count">2</span></button>
+                            <button type="button" class="skill-chip" data-skill="HTML/CSS" aria-pressed="false">HTML/CSS <span class="skill-count">3</span></button>
+                        </div>
+                    </div>
+                    <p class="skills-also">Aussi pratiqué : VMware, VirtualBox, GLPI, OWASP Top 10, scripts Bash, documentation technique.</p>
+                </div>
+
+                <aside class="skill-proofs" aria-live="polite">
+                    <span class="skill-proofs-kicker">Où je l'ai utilisé</span>
+                    <h3 class="skill-proofs-title" id="skillProofsTitle">Python</h3>
+                    <p class="skill-proofs-count" id="skillProofsCount">Utilisé à 3 endroits.</p>
+                    <ul class="skill-proofs-list" id="skillProofsList">
+                        <li class="skill-proof"><span class="skill-proof-head"><span class="skill-proof-type is-stage">Stage 2026</span><span class="skill-proof-name">Petroci Holding</span></span><span class="skill-proof-what">Script d'appel à l'API Defender en OAuth 2.0.</span></li>
+                        <li class="skill-proof"><span class="skill-proof-head"><span class="skill-proof-type is-github">GitHub</span><span class="skill-proof-name">bot-carburant</span></span><span class="skill-proof-what">Bot Discord planifié par GitHub Actions.</span></li>
+                        <li class="skill-proof"><span class="skill-proof-head"><span class="skill-proof-type is-github">GitHub</span><span class="skill-proof-name">discord_bot</span></span><span class="skill-proof-what">Bot qui publie les nouvelles offres d'alternance.</span></li>
+                    </ul>
+                </aside>
+            </div>
+            <script type="application/json" id="skillProofsData">
+            {
+                "Windows Server": [
+                    { "type": "Projet", "name": "Homelab Active Directory", "what": "Windows Server 2022 promu contrôleur de domaine." },
+                    { "type": "Stage 2020", "name": "Lycée Aristide Briand", "what": "Création et gestion de comptes sur le domaine." }
+                ],
+                "Active Directory": [
+                    { "type": "Projet", "name": "Homelab Active Directory", "what": "Unités d'organisation, groupes par service (RH, finance, support) et GPO." },
+                    { "type": "Stage 2020", "name": "Lycée Aristide Briand", "what": "Création et gestion de comptes utilisateurs." }
+                ],
+                "GPO": [
+                    { "type": "Projet", "name": "Homelab Active Directory", "what": "Restrictions locales, lecteurs réseau, politique de mots de passe." }
+                ],
+                "PowerShell": [
+                    { "type": "Projet", "name": "Homelab Active Directory", "what": "Automatisation de la création des utilisateurs." }
+                ],
+                "RHEL": [
+                    { "type": "Stage 2026", "name": "Petroci Holding", "what": "Administration en ligne de commande : correctifs, services et manager Wazuh." }
+                ],
+                "Ubuntu Server": [
+                    { "type": "Projet", "name": "Serveur web sécurisé", "what": "Stack LEMP durcie." },
+                    { "type": "Projet", "name": "Infrastructure Proxmox VE", "what": "VMs Linux du lab." }
+                ],
+                "Microsoft Intune": [
+                    { "type": "Stage 2026", "name": "Petroci Holding", "what": "Anneaux de mises à jour Windows par groupes d'appareils." }
+                ],
+                "pfSense": [
+                    { "type": "Projet", "name": "Infrastructure Proxmox VE", "what": "Pare-feu virtualisé, routage inter-VLAN." }
+                ],
+                "VLAN": [
+                    { "type": "Projet", "name": "Infrastructure Proxmox VE", "what": "Segmentation du réseau du lab." }
+                ],
+                "DHCP / DNS": [
+                    { "type": "Projet", "name": "Homelab Active Directory", "what": "Rôles DHCP et DNS du contrôleur de domaine." },
+                    { "type": "Stage 2020", "name": "Lycée Aristide Briand", "what": "Configuration du réseau local : adressage IP et partages." }
+                ],
+                "Switchs Cisco": [
+                    { "type": "Stage 2020", "name": "Lycée Aristide Briand", "what": "Configuration du réseau local." }
+                ],
+                "Câblage RJ45": [
+                    { "type": "Stage 2020", "name": "Lycée Aristide Briand", "what": "Câblage et partages du réseau local." }
+                ],
+                "Wazuh": [
+                    { "type": "Stage 2026", "name": "Petroci Holding", "what": "Déploiement du SIEM, enrôlement des agents, tableau de bord MITRE ATT&CK." }
+                ],
+                "SELinux": [
+                    { "type": "Stage 2026", "name": "Petroci Holding", "what": "Gardé en mode actif sur le manager, règles ajoutées avec semanage." }
+                ],
+                "Fail2ban": [
+                    { "type": "Projet", "name": "Serveur web sécurisé", "what": "Bannissement des adresses IP après des échecs de connexion." }
+                ],
+                "UFW": [
+                    { "type": "Projet", "name": "Serveur web sécurisé", "what": "Filtrage strict des ports ouverts." }
+                ],
+                "TLS": [
+                    { "type": "Projet", "name": "Serveur web sécurisé", "what": "Certificats Let's Encrypt, note A sur SSL Labs." }
+                ],
+                "Proxmox VE": [
+                    { "type": "Projet", "name": "Infrastructure Proxmox VE", "what": "Hôte bare-metal, VMs et sauvegardes planifiées." }
+                ],
+                "LXC": [
+                    { "type": "Projet", "name": "Infrastructure Proxmox VE", "what": "Conteneurs du lab." }
+                ],
+                "Docker": [
+                    { "type": "Projet", "name": "Stack monitoring & alerting", "what": "Prometheus, Grafana et Alertmanager en Docker Compose." }
+                ],
+                "Prometheus": [
+                    { "type": "Projet", "name": "Stack monitoring & alerting", "what": "Collecte des métriques avec Node Exporter." }
+                ],
+                "Grafana": [
+                    { "type": "Projet", "name": "Stack monitoring & alerting", "what": "Tableaux de bord du lab." },
+                    { "type": "Projet", "name": "Infrastructure Proxmox VE", "what": "Supervision des machines du lab." }
+                ],
+                "Alertmanager": [
+                    { "type": "Projet", "name": "Stack monitoring & alerting", "what": "Alertes sur seuils CPU, RAM et disque." }
+                ],
+                "Python": [
+                    { "type": "Stage 2026", "name": "Petroci Holding", "what": "Script d'appel à l'API Defender en OAuth 2.0." },
+                    { "type": "GitHub", "name": "bot-carburant", "what": "Bot Discord planifié par GitHub Actions." },
+                    { "type": "GitHub", "name": "discord_bot", "what": "Bot qui publie les nouvelles offres d'alternance." }
+                ],
+                "PHP": [
+                    { "type": "Stage 2025", "name": "CCI de Konya", "what": "Application web en architecture MVC." },
+                    { "type": "Projet", "name": "Serveur web sécurisé", "what": "Stack LEMP." }
+                ],
+                "MySQL": [
+                    { "type": "Stage 2025", "name": "CCI de Konya", "what": "Conception de la base de données." },
+                    { "type": "Projet", "name": "Serveur web sécurisé", "what": "Stack LEMP." }
+                ],
+                "Git": [
+                    { "type": "Stage 2021", "name": "Delia Technologies", "what": "Versionnage des projets web." },
+                    { "type": "Stage 2025", "name": "CCI de Konya", "what": "Suivi de version du projet." }
+                ],
+                "Dépannage": [
+                    { "type": "Stage 2023", "name": "Espaces Mobile", "what": "Dépannage informatique hardware et software." },
+                    { "type": "Stage 2023", "name": "Services 111", "what": "Réparation et entretien de postes de travail." }
+                ],
+                "Relation client": [
+                    { "type": "Stage 2023", "name": "Espaces Mobile", "what": "Accueil et suivi des clients." },
+                    { "type": "Stage 2023", "name": "Services 111", "what": "Intervention technique chez les clients." }
+                ],
+                "HTML/CSS": [
+                    { "type": "Stage 2024", "name": "Aube Multitech", "what": "Création et optimisation de sites web." },
+                    { "type": "Stage 2025", "name": "CCI de Konya", "what": "Interface HTML/CSS/PHP." },
+                    { "type": "Stage 2021", "name": "Delia Technologies", "what": "Projets de développement web." }
+                ]
+            }
+            </script>
+        </div>
+    </section>
+
+    <section id="about" class="about section page-subsection">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Formations</span>
+                <h2 class="section-title">Parcours</h2>
+            </div>
+            
+            <div class="about-grid">
+                <div class="about-content">
+                    <p class="about-text">
+                        Je suis en <strong>BTS CIEL</strong> au Lycée de l'Hyrôme à Chemillé, où je me spécialise
+                        en réseaux, administration système et cybersécurité. En alternance, je veux administrer
+                        des serveurs Windows et Linux, gérer un annuaire Active Directory et suivre les alertes de sécurité.
+                    </p>
+
+                    <p class="about-text">
+                        En 7 stages, j'ai pratiqué la configuration réseau, l'administration Windows Server et Linux,
+                        la virtualisation et la sécurité informatique.
+                    </p>
+
+                    <p class="about-text">
+                        J'ai commencé par un <strong>Bac Pro Systèmes Numériques</strong>, puis un
+                        <strong>BTS SIO option SLAM</strong> (développement). Je me suis ensuite réorienté vers
+                        le BTS CIEL pour me consacrer à l'infrastructure et à la cybersécurité.
+                    </p>
+
+                    <p class="about-text">
+                        <strong>Permis B</strong>, véhiculé. <strong>Anglais B2</strong> à l'écrit et à l'oral.
+                    </p>
+                </div>
+                
+                <div class="about-side">
+                    <h3 class="about-side-title">Formations</h3>
+                    <div class="certifications">
+                        <div class="cert-item">
+                            <div class="cert-icon">
+                                <i class='bx bx-chip'></i>
+                            </div>
+                            <div>
+                                <h4 class="cert-title">BTS CIEL</h4>
+                                <p class="cert-meta">2025-2027 | Lycée de l'Hyrôme</p>
+                            </div>
+                        </div>
+                        
+                        <div class="cert-item">
+                            <div class="cert-icon">
+                                <i class='bx bx-code-alt'></i>
+                            </div>
+                            <div>
+                                <h4 class="cert-title">BTS SIO SLAM</h4>
+                                <p class="cert-meta">2023-2025 | Lycée La Colinière</p>
+                            </div>
+                        </div>
+                        
+                        <div class="cert-item">
+                            <div class="cert-icon">
+                                <i class='bx bx-devices'></i>
+                            </div>
+                            <div>
+                                <h4 class="cert-title">Bac Pro SN</h4>
+                                <p class="cert-meta">2020-2023 | Lycée François Arago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="certifications-section section page-subsection">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-label">Badges & preuves</span>
+                <h2 class="section-title">Certifications</h2>
+                <p class="skills-intro certifications-intro">Retrouvez ici mes badges Credly vérifiables.</p>
+            </div>
+
+            <div class="credly-grid">
+                <div class="credly-badge-card">
+                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="3d4a459b-c0bb-4ebd-92b3-0cb5e3a09cea" data-share-badge-host="https://www.credly.com"></div>
+                </div>
+                <div class="credly-badge-card">
+                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="2cce0875-96ef-4626-ab8e-6fb9b443b581" data-share-badge-host="https://www.credly.com"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="page-nav container" aria-label="Pages voisines">
+        <a class="page-nav-link" href="../experiences/"><span>Page précédente</span><strong>Expériences</strong></a>
+        <a class="page-nav-link next" href="../veille/"><span>Page suivante</span><strong>Veille</strong></a>
+    </nav>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h2 class="footer-brand-title">Kader Belem</h2>
+                    <p class="footer-muted">Administrateur systèmes et réseaux</p>
+                    <p class="footer-muted">BTS CIEL, en recherche d'alternance Bac+3 pour la rentrée 2027</p>
+                </div>
+                <div>
+                    <h2 class="footer-col-title">Pages</h2>
+                    <div class="footer-link-list">
+                        <a href="../" class="footer-link">Accueil</a>
+                        <a href="../projets/" class="footer-link">Projets</a>
+                        <a href="../experiences/" class="footer-link">Expériences</a>
+                        <a href="../competences/" class="footer-link">Compétences</a>
+                        <a href="../veille/" class="footer-link">Veille</a>
+                        <a href="../contact/" class="footer-link">Contact</a>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="footer-col-title">Ailleurs</h2>
+                    <div class="footer-link-list">
+                        <a href="https://github.com/kablm" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+                        <a href="https://www.linkedin.com/in/kader-belem-688699213/" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+                        <a href="../github/" class="footer-link">Projets GitHub</a>
+                        <a href="../jeu/" class="footer-link">Version jeu</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Portfolio en HTML, CSS et JavaScript, hébergé sur GitHub Pages.</p>
+                <p>&copy; 2026 Kader Belem.</p>
+            </div>
+        </div>
+    </footer>
+    <button class="scroll-top-btn" id="scrollTopBtn" type="button" aria-label="Revenir en haut">
+        <i class='bx bx-up-arrow-alt'></i>
+    </button>
+    <script async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+    <script src="../js/main.js" defer></script>
+</body>
+</html>

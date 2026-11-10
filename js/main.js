@@ -1,64 +1,40 @@
 const navbar = document.getElementById("navbar");
 const mobileToggle = document.getElementById("mobileToggle");
 const navMenu = document.getElementById("navMenu");
-const navLinks = document.querySelectorAll(".nav-link");
-const themeToggle = document.getElementById("themeToggle");
 const scrollProgress = document.getElementById("scrollProgress");
 const scrollTopBtn = document.getElementById("scrollTopBtn");
-const projectModal = document.getElementById("projectModal");
-const projectModalClose = document.getElementById("projectModalClose");
-const projectModalTitle = document.getElementById("projectModalTitle");
-const projectModalDescription = document.getElementById("projectModalDescription");
-const projectModalCategory = document.getElementById("projectModalCategory");
-const projectModalPoints = document.getElementById("projectModalPoints");
-const projectModalTech = document.getElementById("projectModalTech");
-// MISE À JOUR : Ajout du conteneur pour les détails
-const projectModalDetailedBody = document.getElementById("projectModalDetailedBody");
-
-const terminalOutput = document.getElementById("terminalOutput");
-const terminalInput = document.getElementById("terminalInput");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const setTheme = (theme) => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-
-    if (!themeToggle) {
-        return;
-    }
-
-    const isDark = theme === "dark";
-    themeToggle.setAttribute("aria-pressed", String(isDark));
-    themeToggle.innerHTML = isDark ? "<i class='bx bx-sun'></i>" : "<i class='bx bx-moon'></i>";
+// Les anciens liens de la version une page (#projects, #contact...) mènent vers la nouvelle page.
+const OLD_ANCHORS = {
+    "#about": "competences/#about",
+    "#certifications": "competences/#certifications",
+    "#skills": "competences/",
+    "#projects": "projets/",
+    "#veille": "veille/",
+    "#experience": "experiences/",
+    "#contact": "contact/"
 };
-
-const initializeTheme = () => {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme === "dark" || storedTheme === "light") {
-        setTheme(storedTheme);
-        return;
-    }
-
-    const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setTheme(systemDark ? "dark" : "light");
-};
-
-initializeTheme();
-
-if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-        const currentTheme = document.documentElement.getAttribute("data-theme");
-        setTheme(currentTheme === "dark" ? "light" : "dark");
-    });
+if (document.body.classList.contains("page-accueil") && OLD_ANCHORS[location.hash]) {
+    location.replace(OLD_ANCHORS[location.hash]);
 }
+
+const setNavHeight = () => {
+    if (navbar) {
+        document.documentElement.style.setProperty("--nav-h", `${navbar.offsetHeight}px`);
+    }
+};
+setNavHeight();
+window.addEventListener("resize", setNavHeight);
 
 const setMenuState = (isOpen) => {
     if (!navMenu || !mobileToggle) {
         return;
     }
-
     navMenu.classList.toggle("active", isOpen);
     mobileToggle.setAttribute("aria-expanded", String(isOpen));
+    mobileToggle.setAttribute("aria-label", isOpen ? "Fermer le menu" : "Ouvrir le menu");
+    document.body.style.overflow = isOpen ? "hidden" : "";
 };
 
 if (mobileToggle && navMenu) {
@@ -67,144 +43,145 @@ if (mobileToggle && navMenu) {
     });
 
     document.addEventListener("click", (event) => {
-        if (!navMenu.classList.contains("active")) {
-            return;
-        }
-
         const target = event.target;
-        if (!(target instanceof Node)) {
+        if (!navMenu.classList.contains("active") || !(target instanceof Node)) {
             return;
         }
-
         if (!navMenu.contains(target) && !mobileToggle.contains(target)) {
             setMenuState(false);
         }
     });
+
+    navMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => setMenuState(false));
+    });
 }
 
+/* Fenêtre de détail des projets */
+const projectModal = document.getElementById("projectModal");
+const projectModalClose = document.getElementById("projectModalClose");
+let lastFocus = null;
+
 const openModal = (card) => {
-    if (!projectModal || !projectModalTitle || !projectModalDescription || !projectModalCategory || !projectModalPoints || !projectModalTech) {
+    const title = document.getElementById("projectModalTitle");
+    const description = document.getElementById("projectModalDescription");
+    const category = document.getElementById("projectModalCategory");
+    const points = document.getElementById("projectModalPoints");
+    const tech = document.getElementById("projectModalTech");
+    const detailed = document.getElementById("projectModalDetailedBody");
+    if (!projectModal || !title || !description || !category || !points || !tech) {
         return;
     }
 
-    const title = card.querySelector(".project-title")?.textContent?.trim() || "Projet";
-    const description = card.querySelector(".project-description")?.textContent?.trim() || "";
-    const category = card.dataset.categoryLabel || card.dataset.category || "Non défini";
-    
-    // MISE À JOUR : Récupération des détails cachés
-    const hiddenDetails = card.querySelector(".project-details-hidden")?.innerHTML || "";
-
-    const points = card.querySelectorAll(".project-points li");
-    const tech = card.querySelectorAll(".tech-badge");
-
-    projectModalTitle.textContent = title;
-    projectModalDescription.textContent = description;
-    projectModalCategory.textContent = category;
-    
-    // MISE À JOUR : Injection du contenu HTML dans la modale
-    if (projectModalDetailedBody) {
-        projectModalDetailedBody.innerHTML = hiddenDetails;
+    title.textContent = card.querySelector(".project-title")?.textContent?.trim() || "Projet";
+    description.textContent = card.querySelector(".project-description")?.textContent?.trim() || "";
+    category.textContent = card.dataset.categoryLabel || card.dataset.category || "Non défini";
+    if (detailed) {
+        detailed.innerHTML = card.querySelector(".project-details-hidden")?.innerHTML || "";
     }
 
-    projectModalPoints.innerHTML = "";
-    projectModalTech.innerHTML = "";
-
-    points.forEach((point) => {
+    points.replaceChildren(...[...card.querySelectorAll(".project-points li")].map((point) => {
         const item = document.createElement("li");
         item.textContent = point.textContent || "";
-        projectModalPoints.appendChild(item);
-    });
-
-    tech.forEach((badge) => {
+        return item;
+    }));
+    tech.replaceChildren(...[...card.querySelectorAll(".tech-badge")].map((badge) => {
         const item = document.createElement("span");
         item.className = "tech-badge";
         item.textContent = badge.textContent || "";
-        projectModalTech.appendChild(item);
-    });
+        return item;
+    }));
 
+    lastFocus = document.activeElement;
     projectModal.classList.add("active");
     projectModal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
+    projectModalClose?.focus();
 };
 
 const closeModal = () => {
-    if (!projectModal) {
+    if (!projectModal || !projectModal.classList.contains("active")) {
         return;
     }
     projectModal.classList.remove("active");
     projectModal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
+    if (lastFocus instanceof HTMLElement) {
+        lastFocus.focus();
+    }
 };
 
 document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-        if (projectModal?.classList.contains("active")) {
-            closeModal();
-            return;
-        }
-        setMenuState(false);
+    if (event.key !== "Escape") {
+        return;
     }
+    if (projectModal?.classList.contains("active")) {
+        closeModal();
+        return;
+    }
+    setMenuState(false);
 });
 
 if (projectModal) {
     projectModal.addEventListener("click", (event) => {
-        const target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        if (target.dataset.closeModal === "true") {
+        if (event.target instanceof HTMLElement && event.target.dataset.closeModal === "true") {
             closeModal();
         }
     });
 }
+projectModalClose?.addEventListener("click", closeModal);
 
-if (projectModalClose) {
-    projectModalClose.addEventListener("click", closeModal);
-}
-
-navLinks.forEach((link) => {
-    link.addEventListener("click", () => setMenuState(false));
-});
-
-document.querySelectorAll(".project-open-btn").forEach((button) => {
-    button.addEventListener("click", () => {
-        const card = button.closest(".project-card");
-        if (!card) {
-            return;
-        }
-        openModal(card);
-    });
-});
-
-document.querySelectorAll(".project-card[data-category]").forEach((card) => {
+const projectCards = document.querySelectorAll(".project-card[data-category]");
+projectCards.forEach((card) => {
     card.addEventListener("click", (event) => {
         const target = event.target;
-        if (target instanceof HTMLElement && (target.closest(".project-open-btn") || target.closest(".project-link-btn"))) {
+        if (target instanceof HTMLElement && target.closest("a")) {
             return;
         }
         openModal(card);
     });
 });
 
+// Lien direct vers un projet depuis l'accueil : projets/?projet=Nom du projet
+const wantedProject = new URLSearchParams(location.search).get("projet");
+if (wantedProject) {
+    const card = [...projectCards].find((c) => c.querySelector(".project-title")?.textContent.trim() === wantedProject);
+    if (card) {
+        card.scrollIntoView({ block: "center" });
+        openModal(card);
+    }
+}
+
+/* Filtres des projets */
+const filterButtons = document.querySelectorAll(".filter-btn");
+filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        const filter = button.dataset.filter || "all";
+        filterButtons.forEach((b) => {
+            const isActive = b === button;
+            b.classList.toggle("active", isActive);
+            b.setAttribute("aria-pressed", String(isActive));
+        });
+        projectCards.forEach((card) => {
+            const show = filter === "all" || card.dataset.category === filter;
+            card.classList.toggle("is-hidden", !show);
+            card.setAttribute("aria-hidden", String(!show));
+        });
+    });
+});
+
+/* Défilement : barre de progression et retour en haut */
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", (event) => {
         const href = anchor.getAttribute("href");
-        if (!href || href === "#") {
-            return;
-        }
-
-        const target = document.querySelector(href);
+        const target = href && href.length > 1 ? document.querySelector(href) : null;
         if (!target) {
             return;
         }
-
         event.preventDefault();
         const offset = navbar ? navbar.offsetHeight + 12 : 0;
-        const targetPosition = target.getBoundingClientRect().top + window.scrollY - offset;
-
         window.scrollTo({
-            top: targetPosition,
+            top: target.getBoundingClientRect().top + window.scrollY - offset,
             behavior: reduceMotion ? "auto" : "smooth"
         });
     });
@@ -214,193 +191,112 @@ const updateScrollUI = () => {
     const scrollTop = window.scrollY;
     const scrollRange = document.documentElement.scrollHeight - window.innerHeight;
     const progress = scrollRange > 0 ? Math.min(scrollTop / scrollRange, 1) : 0;
-
-    if (navbar) {
-        navbar.classList.toggle("is-scrolled", scrollTop > 16);
-    }
-
+    navbar?.classList.toggle("is-scrolled", scrollTop > 16);
     if (scrollProgress) {
         scrollProgress.style.transform = `scaleX(${progress})`;
     }
-
-    if (scrollTopBtn) {
-        scrollTopBtn.classList.toggle("visible", scrollTop > 450);
-    }
+    scrollTopBtn?.classList.toggle("visible", scrollTop > 450);
 };
-
 window.addEventListener("scroll", updateScrollUI, { passive: true });
 updateScrollUI();
+scrollTopBtn?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+});
 
-if (scrollTopBtn) {
-    scrollTopBtn.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
-    });
-}
+/* Accueil : homelab cliquable */
+const homelabData = document.getElementById("homelabData");
+if (homelabData) {
+    const machines = JSON.parse(homelabData.textContent);
+    const nodes = document.querySelectorAll(".homelab-node[data-node]");
+    const title = document.getElementById("homelabDetailTitle");
+    const role = document.getElementById("homelabDetailRole");
+    const tech = document.getElementById("homelabDetailTech");
+    const link = document.getElementById("homelabDetailLink");
 
-const sections = document.querySelectorAll("section[id]");
-if (sections.length && navLinks.length) {
-    const activeSectionObserver = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (!entry.isIntersecting) {
-                    return;
-                }
-
-                navLinks.forEach((link) => {
-                    const isActive = link.getAttribute("href") === `#${entry.target.id}`;
-                    link.classList.toggle("active", isActive);
-                    if (isActive) {
-                        link.setAttribute("aria-current", "page");
-                    } else {
-                        link.removeAttribute("aria-current");
-                    }
-                });
-            });
-        },
-        { rootMargin: "-40% 0px -50% 0px", threshold: 0.1 }
-    );
-
-    sections.forEach((section) => activeSectionObserver.observe(section));
-}
-
-const filterButtons = document.querySelectorAll(".filter-btn");
-const projectCards = document.querySelectorAll(".project-card[data-category]");
-
-if (filterButtons.length && projectCards.length) {
-    const setActiveFilter = (filter) => {
-        filterButtons.forEach((button) => {
-            const isActive = button.dataset.filter === filter;
-            button.classList.toggle("active", isActive);
-            button.setAttribute("aria-pressed", String(isActive));
-        });
-
-        projectCards.forEach((card) => {
-            const category = card.dataset.category;
-            const show = filter === "all" || category === filter;
-            card.classList.toggle("is-hidden", !show);
-            card.setAttribute("aria-hidden", String(!show));
-        });
-    };
-
-    filterButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-            const filter = button.dataset.filter || "all";
-            setActiveFilter(filter);
-        });
-    });
-}
-
-const revealSelectors = [
-    ".section-header",
-    ".skill-card",
-    ".project-card",
-    ".timeline-item",
-    ".contact-item",
-    ".cert-item",
-    ".terminal-card"
-];
-
-const revealTargets = document.querySelectorAll(revealSelectors.join(", "));
-if (revealTargets.length) {
-    revealTargets.forEach((item) => item.classList.add("reveal-item"));
-
-    if (reduceMotion) {
-        revealTargets.forEach((item) => item.classList.add("is-visible"));
-    } else {
-        const revealObserver = new IntersectionObserver(
-            (entries, observer) => {
-                entries.forEach((entry) => {
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
-                    entry.target.classList.add("is-visible");
-                    observer.unobserve(entry.target);
-                });
-            },
-            { threshold: 0.1, rootMargin: "0px 0px -8% 0px" }
-        );
-
-        revealTargets.forEach((item) => revealObserver.observe(item));
-    }
-}
-
-if (terminalOutput && terminalInput) {
-    const terminalScenes = [
-        {
-            cmd: "nmap -sV 192.168.1.0/24",
-            output: ["Host 192.168.1.10 open ssh", "Host 192.168.1.20 open https"]
-        },
-        {
-            cmd: "docker compose up -d monitoring",
-            output: ["Creating prometheus ... done", "Creating grafana ... done"]
-        },
-        {
-            cmd: "ufw status",
-            output: ["Status: active", "80/tcp ALLOW 443/tcp ALLOW"]
-        }
-    ];
-
-    const appendTerminalLine = (text, className = "") => {
-        const line = document.createElement("div");
-        line.className = `terminal-line ${className}`.trim();
-        line.textContent = text;
-        terminalOutput.appendChild(line);
-
-        while (terminalOutput.children.length > 8) {
-            terminalOutput.removeChild(terminalOutput.firstChild);
-        }
-
-        terminalOutput.scrollTop = terminalOutput.scrollHeight;
-    };
-
-    const typeTerminalInput = (text, callback) => {
-        if (reduceMotion) {
-            terminalInput.textContent = text;
-            callback();
+    const select = (id) => {
+        const machine = machines[id];
+        if (!machine) {
             return;
         }
-
-        let index = 0;
-        terminalInput.textContent = "";
-        const typingTimer = setInterval(() => {
-            index += 1;
-            terminalInput.textContent = text.slice(0, index);
-            if (index >= text.length) {
-                clearInterval(typingTimer);
-                callback();
-            }
-        }, 35);
-    };
-
-    let sceneIndex = 0;
-    const runScene = () => {
-        const scene = terminalScenes[sceneIndex % terminalScenes.length];
-        typeTerminalInput(scene.cmd, () => {
-            appendTerminalLine(`$ ${scene.cmd}`, "command");
-            terminalInput.textContent = "";
-            scene.output.forEach((line, idx) => {
-                setTimeout(() => appendTerminalLine(line), idx * 180);
-            });
-            sceneIndex += 1;
-            setTimeout(runScene, 2300);
+        nodes.forEach((node) => {
+            const isActive = node.dataset.node === id;
+            node.classList.toggle("is-active", isActive);
+            node.setAttribute("aria-pressed", String(isActive));
         });
+        title.textContent = machine.title;
+        role.textContent = machine.role;
+        tech.replaceChildren(...machine.tech.map((name) => {
+            const badge = document.createElement("span");
+            badge.className = "tech-badge";
+            badge.textContent = name;
+            return badge;
+        }));
+        link.textContent = `Voir le projet : ${machine.project}`;
+        link.href = `projets/?projet=${encodeURIComponent(machine.project)}`;
     };
 
-    setTimeout(runScene, 800);
+    nodes.forEach((node) => node.addEventListener("click", () => select(node.dataset.node)));
 }
 
-const contactForm = document.getElementById("contactForm");
-const contactFormStatus = document.getElementById("contactFormStatus");
-if (contactForm) {
-    contactForm.addEventListener("submit", () => {
-        const submitButton = contactForm.querySelector('button[type="submit"]');
-        if (submitButton instanceof HTMLButtonElement) {
-            submitButton.disabled = true;
-            submitButton.textContent = "Envoi en cours...";
-        }
+/* Compétences : chaque outil montre où il a été utilisé */
+const proofsData = document.getElementById("skillProofsData");
+if (proofsData) {
+    const proofs = JSON.parse(proofsData.textContent);
+    const chips = document.querySelectorAll(".skill-chip[data-skill]");
+    const title = document.getElementById("skillProofsTitle");
+    const count = document.getElementById("skillProofsCount");
+    const list = document.getElementById("skillProofsList");
+    const kind = (type) => (type.startsWith("Stage") ? "is-stage" : type === "GitHub" ? "is-github" : "is-projet");
 
-        if (contactFormStatus) {
-            contactFormStatus.textContent = "Envoi du message en cours...";
+    chips.forEach((chip) => {
+        const counter = chip.querySelector(".skill-count");
+        if (counter) {
+            counter.textContent = String((proofs[chip.dataset.skill] || []).length);
         }
     });
+
+    const show = (skill) => {
+        const items = proofs[skill] || [];
+        chips.forEach((chip) => {
+            const isActive = chip.dataset.skill === skill;
+            chip.classList.toggle("is-active", isActive);
+            chip.setAttribute("aria-pressed", String(isActive));
+        });
+        title.textContent = skill;
+        count.textContent = items.length === 1 ? "Utilisé à 1 endroit." : `Utilisé à ${items.length} endroits.`;
+        list.replaceChildren(...items.map((proof) => {
+            const li = document.createElement("li");
+            li.className = "skill-proof";
+            const head = document.createElement("span");
+            head.className = "skill-proof-head";
+            const type = document.createElement("span");
+            type.className = `skill-proof-type ${kind(proof.type)}`;
+            type.textContent = proof.type;
+            const name = document.createElement("span");
+            name.className = "skill-proof-name";
+            name.textContent = proof.name;
+            head.append(type, name);
+            const what = document.createElement("span");
+            what.className = "skill-proof-what";
+            what.textContent = proof.what;
+            li.append(head, what);
+            return li;
+        }));
+    };
+
+    chips.forEach((chip) => chip.addEventListener("click", () => show(chip.dataset.skill)));
 }
+
+/* Contact : retour pendant l'envoi */
+const contactForm = document.getElementById("contactForm");
+const contactFormStatus = document.getElementById("contactFormStatus");
+contactForm?.addEventListener("submit", () => {
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    if (submitButton instanceof HTMLButtonElement) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Envoi en cours...";
+    }
+    if (contactFormStatus) {
+        contactFormStatus.textContent = "Envoi du message en cours...";
+    }
+});
