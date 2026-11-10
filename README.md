@@ -2,7 +2,7 @@
 
 Portfolio d'un étudiant en BTS CIEL (Cybersécurité, Informatique et Réseaux, Électronique) qui cherche une alternance Bac+3 en administration systèmes, réseaux et cybersécurité pour la rentrée 2027, à Nantes, Angers ou Cholet.
 
-Site en ligne : https://kablm.github.io/portfolio-kader/
+Site en ligne : https://portfolio-kader-ten.vercel.app/
 
 ## Pages
 
@@ -37,6 +37,7 @@ Les anciens liens de la version une page (`/#projects`, `/#contact`…) redirige
 ├── assets/                   # CV en PDF, image de partage, icônes
 ├── tools/build_cv.py         # Génère le CV en PDF
 ├── update_veille.py          # Met à jour la veille
+├── vercel.json               # Réglages de Vercel (barre finale des adresses, en-têtes)
 └── .github/workflows/update-veille.yml
 ```
 
@@ -69,6 +70,14 @@ python update_veille.py --dry-run
 
 Le contenu n'est pas dupliqué : au chargement, le jeu lit les pages du site (accueil, projets, expériences, compétences, veille, contact). Modifier une page met donc le jeu à jour. Garde les identifiants de section (`#projects`, `#experience`, `#skills`, `#about`, `#certifications`, `#veille`, `#contact`) et les classes lues par `loadContent()` dans `jeu/jeu.js`.
 
+## Hébergement
+
+Le site est hébergé sur Vercel, relié à ce dépôt GitHub. Chaque push sur `main` est mis en ligne automatiquement, y compris les commits de la veille.
+
+`vercel.json` force la barre finale des adresses (`/jeu` devient `/jeu/`). Sans elle, les pages qui chargent des fichiers relatifs, comme `jeu/jeu.js`, ne les trouvent pas.
+
+L'ancienne adresse https://kablm.github.io/portfolio-kader/ reste active : un script en tête de chaque page renvoie le visiteur vers la même page sur Vercel. Si tu crées une page, copie ce script avec le reste du `<head>`.
+
 ## Tester en local
 
 Le jeu et certaines pages chargent du contenu avec `fetch`, qui ne fonctionne pas en `file://`. Lance un serveur à la racine du dépôt :
@@ -92,7 +101,7 @@ Le script réécrit `assets/CV_Kader_Belem.pdf` et resserre l'interlignage au be
 
 ## Technologies
 
-HTML, CSS et JavaScript sans framework, Python pour la veille et le CV, GitHub Actions pour la mise à jour planifiée, GitHub Pages pour l'hébergement. Polices Syne et DM Sans (Google Fonts), icônes Boxicons.
+HTML, CSS et JavaScript sans framework, Python pour la veille et le CV, GitHub Actions pour la mise à jour planifiée, Vercel pour l'hébergement. Polices Syne et DM Sans (Google Fonts), icônes Boxicons.
 
 ## Licence
 

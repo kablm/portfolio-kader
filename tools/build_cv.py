@@ -74,7 +74,7 @@ def register_fonts():
 
 # ---------------------------------------------------------------- contenu ---
 
-URL = "https://kablm.github.io/portfolio-kader"
+URL = "https://portfolio-kader-ten.vercel.app"
 
 TITRE   = "Administrateur Systèmes et Réseaux — Alternance Bac+3 2027"
 CONTACT = ("44400 Rezé / Nantes / Angers / Cholet  •  06 61 40 29 98  •  "
@@ -178,8 +178,8 @@ def render(path, s=1.0):
     c.setFont("Calibri", 9)
     c.drawString(68.1, at(113.5), CONTACT)
     c.setFillColor(LINKCOL)
-    c.drawString(68.1, at(126.5), "kablm.github.io/portfolio-kader")
-    w = c.stringWidth("kablm.github.io/portfolio-kader", "Calibri", 9)
+    c.drawString(68.1, at(126.5), "portfolio-kader-ten.vercel.app")
+    w = c.stringWidth("portfolio-kader-ten.vercel.app", "Calibri", 9)
     c.setStrokeColor(LINKCOL)
     c.setLineWidth(0.6)
     c.line(68.1, at(129.6), 68.1 + w, at(129.6))
