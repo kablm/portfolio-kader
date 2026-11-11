@@ -2,7 +2,7 @@
 
 Portfolio d'un étudiant en BTS CIEL (Cybersécurité, Informatique et Réseaux, Électronique) qui cherche une alternance Bac+3 en administration systèmes, réseaux et cybersécurité pour la rentrée 2027, à Nantes, Angers ou Cholet.
 
-Site en ligne : https://portfolio-kader-ten.vercel.app/
+Site en ligne : https://portfolio-kaderr.vercel.app/
 
 ## Pages
 
@@ -18,6 +18,7 @@ Chaque partie du portfolio a sa propre page. Le menu du haut mène à chacune ; 
 | `/contact/` | Coordonnées et formulaire de contact |
 | `/github/` | Les dépôts GitHub |
 | `/jeu/` | Le portfolio sous forme de jeu en pixel art |
+| `/stats/` | Tableau de bord privé, protégé par mot de passe (non indexé) |
 
 Les anciens liens de la version une page (`/#projects`, `/#contact`…) redirigent vers la bonne page.
 
@@ -31,17 +32,22 @@ Les anciens liens de la version une page (`/#projects`, `/#contact`…) redirige
 ├── veille/index.html         # Réécrite par update_veille.py
 ├── contact/index.html
 ├── github/index.html
+├── stats/index.html          # Tableau de bord privé
+├── api/                      # Fonctions Vercel : cv.js, contact.js, stats.js (+ _lib.js partagé)
 ├── css/style.css             # Styles de toutes les pages (thème clair)
+├── css/stats.css             # Styles du tableau de bord
 ├── js/main.js                # Menu, homelab, compétences, projets, formulaire
+├── js/stats.js               # Tableau de bord
 ├── jeu/                      # Version jeu du portfolio
 ├── assets/                   # CV en PDF, image de partage, icônes
 ├── tools/build_cv.py         # Génère le CV en PDF
 ├── update_veille.py          # Met à jour la veille
-├── vercel.json               # Réglages de Vercel (barre finale des adresses, en-têtes)
+├── vercel.json               # Réglages de Vercel (barre finale, /cv/, en-têtes)
+├── robots.txt                # Écarte /api/, /cv/ et /stats/ des moteurs de recherche
 └── .github/workflows/update-veille.yml
 ```
 
-Le site n'a ni framework ni étape de build : chaque page est un fichier HTML qu'on modifie directement.
+Le site n'a ni framework ni étape de build : chaque page est un fichier HTML qu'on modifie directement. Les fonctions de `api/` n'ont aucune dépendance : elles parlent à Redis et à Resend avec `fetch`.
 
 ## Modifier le contenu
 
@@ -76,7 +82,28 @@ Le site est hébergé sur Vercel, relié à ce dépôt GitHub. Chaque push sur `
 
 `vercel.json` force la barre finale des adresses (`/jeu` devient `/jeu/`). Sans elle, les pages qui chargent des fichiers relatifs, comme `jeu/jeu.js`, ne les trouvent pas.
 
-L'ancienne adresse https://kablm.github.io/portfolio-kader/ reste active : un script en tête de chaque page renvoie le visiteur vers la même page sur Vercel. Si tu crées une page, copie ce script avec le reste du `<head>`.
+L'ancienne adresse https://kablm.github.io/portfolio-kader/ reste active : un script en tête de chaque page renvoie le visiteur vers la même page sur Vercel. Si tu crées une page, copie ce script avec le reste du `<head>`, ainsi que celui de Vercel Web Analytics.
+
+## Fonctions dynamiques
+
+| Fonction | Ce qu'elle fait |
+| --- | --- |
+| `/cv/?c=source` (`api/cv.js`) | Compte le téléchargement puis renvoie vers le PDF. `c=site` pour les boutons du portfolio, `c=jeu` pour le jeu, `c=nom-entreprise` pour un lien de candidature. Ignore les robots et les aperçus de lien (LinkedIn…), ne compte qu'une fois un double clic, ne stocke aucune adresse IP. |
+| `/api/contact/` (`api/contact.js`) | Reçoit le formulaire de contact : champ piège contre les robots, 5 messages par heure et par visiteur, copie dans la base puis envoi par email avec Resend. |
+| `/api/stats/` (`api/stats.js`) | Données du tableau de bord, et création des liens de candidature. Mot de passe obligatoire, 10 essais ratés bloquent 15 minutes. |
+
+Les visites des pages sont mesurées par Vercel Web Analytics (sans cookies), à consulter dans l'onglet Analytics du projet Vercel.
+
+Variables à définir dans Vercel (Settings, Environment Variables, pour Production et Preview) :
+
+| Variable | Rôle |
+| --- | --- |
+| `KV_REST_API_URL`, `KV_REST_API_TOKEN` | Base Upstash Redis, ajoutées automatiquement quand la base est reliée au projet |
+| `RESEND_API_KEY` | Clé d'envoi Resend |
+| `CONTACT_TO` | Adresse qui reçoit les messages (celle du compte Resend tant qu'aucun domaine n'est vérifié) |
+| `STATS_PASSWORD` | Mot de passe du tableau de bord `/stats/` |
+
+Sans base, le CV se télécharge quand même mais rien n'est compté. Sans Resend, les messages restent visibles dans le tableau de bord.
 
 ## Tester en local
 
@@ -86,7 +113,7 @@ Le jeu et certaines pages chargent du contenu avec `fetch`, qui ne fonctionne pa
 python -m http.server 8000
 ```
 
-puis ouvre http://localhost:8000/.
+puis ouvre http://localhost:8000/. Ce serveur ne lance pas les fonctions de `api/` : le bouton CV, le formulaire de contact et `/stats/` ne marchent que sur Vercel (adresse d'aperçu d'une branche, ou site en ligne).
 
 ## Mettre à jour le CV
 

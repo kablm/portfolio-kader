@@ -2668,6 +2668,31 @@ a {
     color: var(--text-secondary);
 }
 
+.contact-form-status[data-state="ok"] {
+    color: var(--success);
+    font-weight: 600;
+}
+
+.contact-form-status[data-state="erreur"] {
+    color: #b91c1c;
+    font-weight: 600;
+}
+
+.contact-form-note {
+    margin-top: 6px;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+/* Champ piège du formulaire : hors de l'écran, mais pas display:none que certains robots repèrent */
+.form-trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
 .contact-details a:hover {
     color: var(--primary);
 }

@@ -642,7 +642,8 @@
             ['./', 'projets/', 'experiences/', 'competences/', 'veille/', 'contact/'].map(getDoc));
         const one = (sel, root) => root.querySelector(sel);
         const all = (sel, root) => [...root.querySelectorAll(sel)];
-        const cvLink = one('a[href$=".pdf"]', home);
+        // Le bouton CV passe par /cv/?c=... pour compter les téléchargements ; le jeu a sa propre source.
+        const cvLink = one('a[href*="cv/?c="], a[href$=".pdf"]', home);
         const form = one('#contactForm', contact);
         const fiche = all('.fiche-row', home).map((r) => [txt(one('dt', r)).toLowerCase(), txt(one('dd', r))]);
         const pick = (label) => (fiche.find(([k]) => k.startsWith(label)) || ['', ''])[1];
@@ -657,7 +658,7 @@
             heroDesc: one('.hero-description', home),
             heroTarget,
             socials: all('.hero-social a', home).map((a) => ({ label: a.getAttribute('aria-label') || txt(a), href: a.getAttribute('href') })),
-            cv: cvLink ? cvLink.getAttribute('href') : null,
+            cv: cvLink ? cvLink.getAttribute('href').replace('c=site', 'c=jeu') : null,
             about: all('#about .about-text', competences),
             formations: all('#about .cert-item', competences).map((i) => ({ title: txt(one('.cert-title', i)), meta: txt(one('.cert-meta', i)) })),
             badges: all('[data-share-badge-id]', competences).map((d) => d.getAttribute('data-share-badge-id')).filter((id) => /^[\w-]+$/.test(id)),
@@ -703,10 +704,7 @@
                     const a = one('.contact-details a', i), p = one('.contact-details p', i);
                     return { label: txt(one('h3', i)), value: txt(a || p), href: a ? a.getAttribute('href') : null, node: p };
                 }),
-                form: form ? {
-                    action: form.getAttribute('action'),
-                    hidden: all('input[type=hidden]', form).map((x) => [x.getAttribute('name'), x.getAttribute('value') || '']),
-                } : null,
+                form: form ? { action: form.getAttribute('action') } : null,
             },
         };
     }
@@ -1191,19 +1189,35 @@
             if (action) {
                 const status = h('p', { class: 'muted small', role: 'status' });
                 const submit = h('button', { class: 'px-btn primary', type: 'submit' }, '✉️ Envoyer le message');
-                form = h('form', { class: 'form', action, method: 'POST', target: '_blank' },
-                    c.form.hidden.map(([name, value]) => h('input', {
-                        type: 'hidden', name,
-                        value: name === '_subject' ? 'Nouveau message depuis le portfolio (version jeu)' : value,
-                    })),
+                form = h('form', { class: 'form', action, method: 'POST' },
                     h('label', null, 'Nom complet', h('input', { type: 'text', name: 'name', required: true, minlength: '2', autocomplete: 'name' })),
                     h('label', null, 'Email', h('input', { type: 'email', name: 'email', required: true, autocomplete: 'email' })),
                     h('label', null, 'Message', h('textarea', { name: 'message', rows: '5', required: true, minlength: '10' })),
                     submit, status);
-                form.addEventListener('submit', () => {
+                // Même fonction que le site (/api/contact/), avec origine "jeu" pour le savoir dans l'email.
+                form.addEventListener('submit', async (event) => {
+                    event.preventDefault();
                     submit.disabled = true;
-                    status.textContent = 'Envoi en cours… la confirmation s\'ouvre dans un nouvel onglet.';
-                    setTimeout(() => { form.reset(); submit.disabled = false; status.textContent = 'Merci ! Votre message a été transmis.'; }, 1500);
+                    status.textContent = 'Envoi en cours…';
+                    try {
+                        const body = { ...Object.fromEntries(new FormData(form)), origine: 'jeu' };
+                        const response = await fetch(action, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                            body: JSON.stringify(body),
+                        });
+                        const result = await response.json().catch(() => ({}));
+                        if (!response.ok) {
+                            status.textContent = result.erreur || 'Le message n\'a pas pu être envoyé.';
+                            return;
+                        }
+                        form.reset();
+                        status.textContent = 'Merci ! Votre message a été transmis.';
+                    } catch {
+                        status.textContent = 'Le message n\'a pas pu être envoyé. Réessayez plus tard.';
+                    } finally {
+                        submit.disabled = false;
+                    }
                 });
             }
             return h('div', null,

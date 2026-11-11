@@ -287,16 +287,56 @@ if (proofsData) {
     chips.forEach((chip) => chip.addEventListener("click", () => show(chip.dataset.skill)));
 }
 
-/* Contact : retour pendant l'envoi */
+/* Contact : envoi à /api/contact/ sans quitter la page */
 const contactForm = document.getElementById("contactForm");
 const contactFormStatus = document.getElementById("contactFormStatus");
-contactForm?.addEventListener("submit", () => {
+const CONTACT_OK = "Merci, votre message est bien parti. Je vous réponds rapidement.";
+const CONTACT_FAIL = "Le message n'a pas pu être envoyé. Vous pouvez m'écrire à l'adresse email indiquée sur cette page.";
+
+const setContactStatus = (text, state = "") => {
+    if (contactFormStatus) {
+        contactFormStatus.textContent = text;
+        contactFormStatus.dataset.state = state;
+    }
+};
+
+// Retour du formulaire envoyé sans JavaScript (la fonction redirige vers /contact/?envoye=1 ou ?erreur=1).
+const contactParams = new URLSearchParams(location.search);
+if (contactForm && contactParams.has("envoye")) {
+    setContactStatus(CONTACT_OK, "ok");
+} else if (contactForm && contactParams.has("erreur")) {
+    setContactStatus(CONTACT_FAIL, "erreur");
+}
+
+contactForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
     const submitButton = contactForm.querySelector('button[type="submit"]');
+    const buttonContent = submitButton?.innerHTML;
     if (submitButton instanceof HTMLButtonElement) {
         submitButton.disabled = true;
         submitButton.textContent = "Envoi en cours...";
     }
-    if (contactFormStatus) {
-        contactFormStatus.textContent = "Envoi du message en cours...";
+    setContactStatus("Envoi du message en cours...");
+    try {
+        const response = await fetch(contactForm.action, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify(Object.fromEntries(new FormData(contactForm)))
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) {
+            setContactStatus(result.erreur || CONTACT_FAIL, "erreur");
+            return;
+        }
+        contactForm.reset();
+        setContactStatus(CONTACT_OK, "ok");
+    } catch {
+        // Réseau coupé ou serveur injoignable.
+        setContactStatus(CONTACT_FAIL, "erreur");
+    } finally {
+        if (submitButton instanceof HTMLButtonElement) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = buttonContent || "Envoyer le message";
+        }
     }
 });

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#f8fafc">
+    <title>Tableau de bord | Kader Belem</title>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/stats.css">
+</head>
+<body>
+    <!-- Écran 1 : connexion -->
+    <main class="login-screen" id="loginScreen">
+        <form class="card login" id="loginForm">
+            <a class="logo" href="../">KB</a>
+            <h1>Tableau de bord</h1>
+            <p>Entre ton mot de passe pour voir les téléchargements du CV, tes liens de candidature et les messages reçus.</p>
+            <label for="password">Mot de passe</label>
+            <input class="input" id="password" type="password" autocomplete="current-password" required>
+            <button class="btn btn-primary" type="submit">Ouvrir le tableau de bord</button>
+            <p class="form-error" id="loginError" role="alert"></p>
+            <p class="small">Après 10 essais ratés, l'accès est bloqué 15 minutes.</p>
+        </form>
+    </main>
+
+    <!-- Écran 2 : tableau de bord -->
+    <div class="dashboard" id="dashboard" hidden>
+        <header class="top">
+            <a class="logo" href="../">KB</a>
+            <h1>Tableau de bord</h1>
+            <span class="badge-private">Privé</span>
+            <span class="spacer"></span>
+            <span class="updated" id="updated"></span>
+            <button class="btn btn-small" type="button" id="refresh">Actualiser</button>
+            <button class="btn btn-small" type="button" id="logout">Se déconnecter</button>
+        </header>
+
+        <main class="wrap">
+            <div class="status-row">
+                <span class="chip" id="chipBase"><span class="dot"></span><span></span></span>
+                <span class="chip" id="chipEmail"><span class="dot"></span><span></span></span>
+                <a href="https://vercel.com/kablms-projects/portfolio-kader/analytics" target="_blank" rel="noopener">Visites des pages : Vercel Analytics ↗</a>
+            </div>
+
+            <section class="kpis" aria-label="Chiffres clés">
+                <div class="card kpi"><div class="label">CV téléchargés</div><div class="num" id="kpiTotal">0</div><div class="sub">depuis la mise en place du compteur</div></div>
+                <div class="card kpi"><div class="label">Sur les 30 derniers jours</div><div class="num" id="kpi30">0</div><div class="sub" id="kpi30Sub"></div></div>
+                <div class="card kpi"><div class="label">Candidatures où le CV a été ouvert</div><div class="num" id="kpiLinks">0</div><div class="sub">liens de candidature envoyés</div></div>
+                <div class="card kpi"><div class="label">Messages reçus</div><div class="num" id="kpiMessages">0</div><div class="sub" id="kpiMessagesSub"></div></div>
+            </section>
+
+            <div class="two">
+                <section class="card panel">
+                    <div class="panel-head">
+                        <h2>Téléchargements du CV par jour</h2><span class="hint">30 derniers jours</span>
+                        <button class="link-btn right" type="button" id="toggleTable" aria-expanded="false">Voir en tableau</button>
+                    </div>
+                    <div class="chart" id="chart" role="img" aria-label="Téléchargements du CV par jour"></div>
+                    <div class="x-axis" id="xAxis" aria-hidden="true"></div>
+                    <table class="day-table" id="dayTable" hidden>
+                        <thead><tr><th>Jour</th><th class="num-col">Téléchargements</th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </section>
+                <section class="card panel">
+                    <div class="panel-head"><h2>D'où viennent les téléchargements</h2></div>
+                    <div id="sources"></div>
+                    <p class="note">« Boutons du site » regroupe le menu et la fiche alternance. « Lien direct » : quelqu'un a ouvert /cv/ sans source.</p>
+                </section>
+            </div>
+
+            <section class="card panel">
+                <div class="panel-head"><h2>Liens de candidature</h2><span class="hint">Un lien par entreprise : tu sais si elle a ouvert ton CV, et quand.</span></div>
+                <form class="create" id="createForm">
+                    <label class="sr-only" for="company">Nom de l'entreprise</label>
+                    <input class="input" id="company" placeholder="Nom de l'entreprise, ex. Atos Cholet" required maxlength="80">
+                    <button class="btn btn-primary btn-small" type="submit">Créer le lien</button>
+                    <div class="generated" id="generated" hidden><code></code><button class="link-btn" type="button">Copier</button></div>
+                </form>
+                <p class="form-error" id="createError" role="alert"></p>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Entreprise</th><th>Statut</th><th class="num-col">Ouvertures</th><th>Dernière ouverture</th><th><span class="sr-only">Lien</span></th></tr></thead>
+                        <tbody id="links"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="three">
+                <section class="card panel">
+                    <div class="panel-head"><h2>Derniers téléchargements</h2></div>
+                    <ul class="feed" id="feed"></ul>
+                </section>
+                <section class="card panel">
+                    <div class="panel-head"><h2>Messages reçus</h2><span class="hint">aussi envoyés sur ta boîte mail</span></div>
+                    <div id="messages"></div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/stats.js"></script>
+</body>
+</html>

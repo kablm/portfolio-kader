@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <!-- L'ancienne adresse GitHub Pages renvoie vers Vercel -->
-    <script>if (location.hostname === "kablm.github.io") location.replace("https://portfolio-kader-ten.vercel.app" + location.pathname.replace(/^\/portfolio-kader/, "") + location.search + location.hash);</script>
+    <script>if (location.hostname === "kablm.github.io") location.replace("https://portfolio-kaderr.vercel.app" + location.pathname.replace(/^\/portfolio-kader/, "") + location.search + location.hash);</script>
+    <!-- Mesure d'audience Vercel : sans cookies, active seulement sur Vercel -->
+    <script defer src="/_vercel/insights/script.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#f8fafc">
     <meta name="description" content="Contacter Kader Belem pour une alternance en administration systèmes et réseaux à partir de septembre 2027.">
     <meta name="author" content="Kader Belem">
     <title>Contact | Kader Belem</title>
-    <link rel="canonical" href="https://portfolio-kader-ten.vercel.app/contact/">
+    <link rel="canonical" href="https://portfolio-kaderr.vercel.app/contact/">
 
     <meta property="og:type" content="website">
     <meta property="og:locale" content="fr_FR">
     <meta property="og:site_name" content="Kader Belem">
     <meta property="og:title" content="Contact | Kader Belem">
     <meta property="og:description" content="Contacter Kader Belem pour une alternance en administration systèmes et réseaux à partir de septembre 2027.">
-    <meta property="og:url" content="https://portfolio-kader-ten.vercel.app/contact/">
-    <meta property="og:image" content="https://portfolio-kader-ten.vercel.app/assets/og-image.png">
+    <meta property="og:url" content="https://portfolio-kaderr.vercel.app/contact/">
+    <meta property="og:image" content="https://portfolio-kaderr.vercel.app/assets/og-image.png">
     <meta name="twitter:card" content="summary_large_image">
 
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
@@ -46,7 +48,7 @@
                 <a href="../competences/" class="nav-link"><span class="nav-label">Compétences</span><span class="nav-desc">Outils reliés à leurs preuves, formations et badges.</span></a>
                 <a href="../veille/" class="nav-link"><span class="nav-label">Veille</span><span class="nav-desc">Articles retenus automatiquement, deux fois par mois.</span></a>
                 <a href="../contact/" class="nav-link active" aria-current="page"><span class="nav-label">Contact</span><span class="nav-desc">Email, téléphone et formulaire.</span></a>
-                <a href="../assets/CV_Kader_Belem.pdf" class="btn btn-primary nav-cv" download="CV_Kader_Belem.pdf"><i class='bx bx-download' aria-hidden="true"></i> CV (PDF)</a>
+                <a href="../cv/?c=site" class="btn btn-primary nav-cv" download="CV_Kader_Belem.pdf"><i class='bx bx-download' aria-hidden="true"></i> CV (PDF)</a>
             </div>
             <button class="mobile-toggle" id="mobileToggle" type="button" aria-label="Ouvrir le menu" aria-controls="navMenu" aria-expanded="false">
                 <span></span>
@@ -113,10 +115,12 @@
                 </div>
                 
                 <div class="contact-form-wrapper">
-                    <form id="contactForm" action="https://formsubmit.co/kaderbelem428@gmail.com" method="POST" class="contact-form">
-                        <input type="hidden" name="_subject" value="Nouveau message depuis le portfolio">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_template" value="table">
+                    <form id="contactForm" action="/api/contact/" method="POST" class="contact-form">
+                        <!-- Champ piège : invisible pour les visiteurs, seuls les robots le remplissent -->
+                        <div class="form-trap" aria-hidden="true">
+                            <label for="site_web">Ne pas remplir ce champ</label>
+                            <input type="text" id="site_web" name="site_web" tabindex="-1" autocomplete="off">
+                        </div>
                         <div class="form-group">
                             <label for="name">Nom complet</label>
                             <input type="text" id="name" name="name" required minlength="2" autocomplete="name">
@@ -137,6 +141,7 @@
                             <i class='bx bx-send'></i>
                         </button>
                         <p class="contact-form-status" id="contactFormStatus" role="status" aria-live="polite"></p>
+                        <p class="contact-form-note">Votre message m'arrive par email et reste enregistré pour que je puisse vous répondre.</p>
                     </form>
                 </div>
             </div>
