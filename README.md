@@ -33,7 +33,7 @@ Les anciens liens de la version une page (`/#projects`, `/#contact`…) redirige
 ├── contact/index.html
 ├── github/index.html
 ├── stats/index.html          # Tableau de bord privé
-├── api/                      # Fonctions Vercel : cv.js, contact.js, stats.js, recap.js (+ _lib.js partagé)
+├── api/                      # Fonctions Vercel : cv.js, contact.js, stats.js (+ _lib.js partagé)
 ├── .well-known/security.txt  # Où signaler une faille (à renouveler avant le 1er novembre 2027)
 ├── css/style.css             # Styles de toutes les pages (thème clair)
 ├── css/stats.css             # Styles du tableau de bord
@@ -43,7 +43,7 @@ Les anciens liens de la version une page (`/#projects`, `/#contact`…) redirige
 ├── assets/                   # CV en PDF, image de partage, icônes
 ├── tools/build_cv.py         # Génère le CV en PDF
 ├── update_veille.py          # Met à jour la veille
-├── vercel.json               # Réglages de Vercel (barre finale, /cv/, résumé du lundi, en-têtes de sécurité)
+├── vercel.json               # Réglages de Vercel (barre finale, /cv/, en-têtes de sécurité)
 ├── robots.txt                # Écarte /api/, /cv/ et /stats/ des moteurs de recherche
 └── .github/workflows/update-veille.yml
 ```
@@ -98,7 +98,6 @@ Pour ajouter un service externe (police, script, cadre), ajoute son domaine à l
 | Fonction | Ce qu'elle fait |
 | --- | --- |
 | `/cv/?c=source` (`api/cv.js`) | Compte le téléchargement puis renvoie vers le PDF. `c=site` pour les boutons du portfolio, `c=jeu` pour le jeu, `c=nom-entreprise` pour un lien de candidature. Ignore les robots et les aperçus de lien (LinkedIn…), ne compte qu'une fois un double clic, ne stocke aucune adresse IP. Quand un lien de candidature est ouvert, envoie aussitôt un email d'alerte. |
-| `/api/recap/` (`api/recap.js`) | Résumé de la semaine par email, chaque lundi à 7 h UTC (Vercel Cron, voir `crons` dans `vercel.json`) : téléchargements, candidatures ouvertes, liens à relancer, messages. |
 | `/api/contact/` (`api/contact.js`) | Reçoit le formulaire de contact : champ piège contre les robots, 5 messages par heure et par visiteur, copie dans la base puis envoi par email avec Resend. |
 | `/api/stats/` (`api/stats.js`) | Données du tableau de bord, et création des liens de candidature. Mot de passe obligatoire, 10 essais ratés bloquent 15 minutes. |
 
@@ -112,7 +111,6 @@ Variables à définir dans Vercel (Settings, Environment Variables, pour Product
 | `RESEND_API_KEY` | Clé d'envoi Resend |
 | `CONTACT_TO` | Adresse qui reçoit les messages (celle du compte Resend tant qu'aucun domaine n'est vérifié) |
 | `STATS_PASSWORD` | Mot de passe du tableau de bord `/stats/` |
-| `CRON_SECRET` | Chaîne aléatoire que Vercel envoie au résumé du lundi ; sans elle, le résumé refuse de partir |
 
 Sans base, le CV se télécharge quand même mais rien n'est compté. Sans Resend, les messages restent visibles dans le tableau de bord.
 
