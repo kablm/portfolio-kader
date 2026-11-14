@@ -1,5 +1,5 @@
 // Formulaire de contact : garde le message dans la base, puis l'envoie par email avec Resend.
-const { redis, header, visitorHash, location } = require("./_lib");
+const { redis, header, visitorHash, location, sendEmail } = require("./_lib");
 
 const LIMIT_PER_HOUR = 5;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -15,31 +15,6 @@ function reply(req, res, status, body) {
         return res.status(status).json(body);
     }
     return res.redirect(303, status === 200 ? "/contact/?envoye=1" : "/contact/?erreur=1");
-}
-
-async function sendEmail(message) {
-    const key = process.env.RESEND_API_KEY;
-    const to = process.env.CONTACT_TO;
-    if (!key || !to) {
-        return false;
-    }
-    const from = message.ville ? `\nDepuis : ${message.ville} (${message.pays})` : "";
-    const response = await fetch(process.env.RESEND_API_URL || "https://api.resend.com/emails", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-        body: JSON.stringify({
-            from: process.env.CONTACT_FROM || "Portfolio <onboarding@resend.dev>",
-            to: [to],
-            reply_to: message.email,
-            subject: `Portfolio : message de ${message.nom}${message.origine === "jeu" ? " (version jeu)" : ""}`,
-            text: `${message.message}\n\nEnvoyé par ${message.nom} <${message.email}>${from}`
-        }),
-        signal: AbortSignal.timeout(8000)
-    });
-    if (!response.ok) {
-        throw new Error(`Resend a répondu ${response.status} : ${(await response.text()).slice(0, 200)}`);
-    }
-    return true;
 }
 
 module.exports = async (req, res) => {
@@ -79,7 +54,12 @@ module.exports = async (req, res) => {
 
     let sent = false;
     try {
-        sent = await sendEmail(saved);
+        const place = saved.ville ? `\nDepuis : ${saved.ville} (${saved.pays})` : "";
+        sent = await sendEmail({
+            subject: `Portfolio : message de ${saved.nom}${saved.origine === "jeu" ? " (version jeu)" : ""}`,
+            text: `${saved.message}\n\nEnvoyé par ${saved.nom} <${saved.email}>${place}`,
+            replyTo: saved.email
+        });
     } catch (error) {
         console.error("Contact (email) :", error.message);
     }

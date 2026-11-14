@@ -76,6 +76,60 @@ function slug(value) {
         .slice(0, 40);
 }
 
+// Adresse publique du site, pour les liens dans les emails.
+const SITE_URL = process.env.SITE_URL || "https://kaderbelem.com";
+
+// Sources utilisées par le site lui-même : tout le reste est un lien de candidature.
+const SITE_SOURCES = new Set(["site", "jeu", "direct"]);
+
+function parse(value) {
+    try {
+        return JSON.parse(value);
+    } catch {
+        return null;
+    }
+}
+
+// Les `count` derniers jours (UTC), du plus ancien au plus récent, au format AAAA-MM-JJ.
+function lastDays(count) {
+    const today = new Date();
+    return Array.from({ length: count }, (_, index) => {
+        const day = new Date(today);
+        day.setUTCDate(today.getUTCDate() - (count - 1 - index));
+        return day.toISOString().slice(0, 10);
+    });
+}
+
+// Date lisible à l'heure de Paris, pour les emails.
+function frenchDate(date) {
+    return date.toLocaleString("fr-FR", { timeZone: "Europe/Paris", weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" });
+}
+
+// Envoie un email à CONTACT_TO avec Resend. Renvoie false si Resend n'est pas configuré.
+async function sendEmail({ subject, text, replyTo }) {
+    const key = process.env.RESEND_API_KEY;
+    const to = process.env.CONTACT_TO;
+    if (!key || !to) {
+        return false;
+    }
+    const response = await fetch(process.env.RESEND_API_URL || "https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+            from: process.env.CONTACT_FROM || "Portfolio <onboarding@resend.dev>",
+            to: [to],
+            ...(replyTo ? { reply_to: replyTo } : {}),
+            subject,
+            text
+        }),
+        signal: AbortSignal.timeout(8000)
+    });
+    if (!response.ok) {
+        throw new Error(`Resend a répondu ${response.status} : ${(await response.text()).slice(0, 200)}`);
+    }
+    return true;
+}
+
 // Compare deux secrets en temps constant.
 function sameSecret(given, expected) {
     if (!given || !expected) {
@@ -86,4 +140,7 @@ function sameSecret(given, expected) {
     return crypto.timingSafeEqual(a, b);
 }
 
-module.exports = { redis, redisConfig, header, visitorHash, isBot, location, device, slug, sameSecret };
+module.exports = {
+    redis, redisConfig, header, visitorHash, isBot, location, device, slug, sameSecret,
+    SITE_URL, SITE_SOURCES, parse, lastDays, frenchDate, sendEmail
+};

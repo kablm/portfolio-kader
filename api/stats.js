@@ -1,20 +1,9 @@
 // Tableau de bord privé /stats/. Accès avec le mot de passe STATS_PASSWORD.
 // GET : chiffres du CV, liens de candidature et messages. POST {nom} : crée un lien de candidature.
-const { redis, redisConfig, visitorHash, sameSecret, header, slug } = require("./_lib");
+const { redis, redisConfig, visitorHash, sameSecret, header, slug, SITE_SOURCES, parse, lastDays } = require("./_lib");
 
 const MAX_FAILS = 10;
 const DAYS = 30;
-// Sources utilisées par le site lui-même : pas des entreprises.
-const SITE_SOURCES = new Set(["site", "jeu", "direct"]);
-
-function lastDays(count) {
-    const today = new Date();
-    return Array.from({ length: count }, (_, index) => {
-        const day = new Date(today);
-        day.setUTCDate(today.getUTCDate() - (count - 1 - index));
-        return day.toISOString().slice(0, 10);
-    });
-}
 
 // HGETALL renvoie [clé1, valeur1, clé2, valeur2...]
 function pairs(flat) {
@@ -23,14 +12,6 @@ function pairs(flat) {
         result[flat[i]] = flat[i + 1];
     }
     return result;
-}
-
-function parse(value) {
-    try {
-        return JSON.parse(value);
-    } catch {
-        return null;
-    }
 }
 
 const parseList = (list) => (list || []).map(parse).filter(Boolean);
