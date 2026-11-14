@@ -1,19 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": true,
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "portfolio-kaderr.vercel.app"
-        }
-      ],
-      "destination": "https://kaderbelem.com/:path*",
-      "permanent": true
-    }
-  ],
   "rewrites": [
     {
       "source": "/cv/",
