@@ -116,7 +116,7 @@ async function sendEmail({ subject, text, replyTo }) {
         method: "POST",
         headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
         body: JSON.stringify({
-            from: process.env.CONTACT_FROM || "Portfolio <onboarding@resend.dev>",
+            from: process.env.CONTACT_FROM || "Kader Belem <contact@kaderbelem.com>",
             to: [to],
             ...(replyTo ? { reply_to: replyTo } : {}),
             subject,

@@ -78,7 +78,7 @@ URL = "https://kaderbelem.com"
 
 TITRE   = "Administrateur Systèmes et Réseaux — Alternance Bac+3 2027"
 CONTACT = ("44400 Rezé / Nantes / Angers / Cholet  •  06 61 40 29 98  •  "
-           "kaderbelem428@gmail.com  •  Permis B")
+           "contact@kaderbelem.com  •  Permis B")
 
 PROFIL = ("Étudiant en BTS CIEL spécialisé en cybersécurité, réseaux et administration système. Double "
           "compétence développement (BTS SIO SLAM) + infrastructure, acquise à travers 7 stages en support, "
