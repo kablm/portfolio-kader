@@ -64,6 +64,9 @@ a { color: var(--primary); }
 .chip { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-2); background: var(--surface); border: 1px solid var(--border); padding: 6px 12px; border-radius: 999px; }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); }
 .chip.is-off .dot { background: var(--danger); }
+.chip-btn { font-family: inherit; cursor: pointer; }
+.chip-btn:hover { border-color: var(--primary); color: var(--primary); }
+.chip-btn[aria-pressed="true"] { color: var(--success); background: var(--success-soft); border-color: #bbf7d0; font-weight: 600; }
 
 /* Chiffres clés */
 .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }

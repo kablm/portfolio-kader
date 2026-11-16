@@ -265,6 +265,26 @@ $("loginForm").addEventListener("submit", async (event) => {
     }
 });
 
+/* « Ne pas compter mes visites » : cookie lu par api/cv.js, valable un an sur ce navigateur seulement */
+const IGNORE_COOKIE = "kb_ignorer";
+const isIgnored = () => document.cookie.split(";").some((part) => part.trim() === `${IGNORE_COOKIE}=1`);
+
+function renderIgnore() {
+    const on = isIgnored();
+    const button = $("ignoreToggle");
+    button.setAttribute("aria-pressed", String(on));
+    button.textContent = on ? "✓ Mes visites ne sont pas comptées" : "Ne pas compter mes visites";
+}
+
+$("ignoreToggle").addEventListener("click", () => {
+    const secure = location.protocol === "https:" ? "; Secure" : "";
+    document.cookie = isIgnored()
+        ? `${IGNORE_COOKIE}=; Max-Age=0; Path=/; SameSite=Lax${secure}`
+        : `${IGNORE_COOKIE}=1; Max-Age=31536000; Path=/; SameSite=Lax${secure}`;
+    renderIgnore();
+});
+renderIgnore();
+
 $("refresh").addEventListener("click", refresh);
 $("logout").addEventListener("click", () => logout(""));
 

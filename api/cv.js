@@ -1,10 +1,13 @@
 // /cv/?c=source : compte le téléchargement puis renvoie vers le PDF.
 // c=site pour les boutons du portfolio, c=nom-entreprise pour un lien de candidature suivi.
 // Quand une entreprise ouvre son lien, un email d'alerte part tout de suite.
-const { redis, visitorHash, isBot, location, device, slug, SITE_SOURCES, SITE_URL, parse, frenchDate, sendEmail } = require("./_lib");
+const { redis, header, visitorHash, isBot, location, device, slug, SITE_SOURCES, SITE_URL, parse, frenchDate, sendEmail } = require("./_lib");
 
 const PDF = "/assets/CV_Kader_Belem.pdf";
 const KEEP_DAYS = 400;
+
+// Bouton « Ne pas compter mes visites » du tableau de bord : ce cookie marque le navigateur du propriétaire.
+const isOwner = (req) => /(?:^|;\s*)kb_ignorer=1(?:;|$)/.test(header(req, "cookie"));
 
 // Renvoie le nombre d'ouvertures de cette source, ou null si la visite n'est pas comptée.
 async function count(req, source, event) {
@@ -48,7 +51,7 @@ async function alert(source, event, counted) {
 
 module.exports = async (req, res) => {
     const source = slug(req.query.c) || "direct";
-    if (!isBot(req)) {
+    if (!isBot(req) && !isOwner(req)) {
         try {
             const event = { t: new Date().toISOString(), c: source, ...location(req), appareil: device(req) };
             const counted = await count(req, source, event);
