@@ -19,6 +19,19 @@
     const SAVE_KEY = 'kb-portfolio-jeu-v1';
     const INDEX_URL = new URL('../', location.href);
     const CREDLY_SCRIPT = 'https://cdn.credly.com/assets/utilities/embed.js';
+
+    // Téléchargement du CV depuis le jeu : signal discret au compteur (api/cv.js), source « jeu ».
+    document.addEventListener('click', (event) => {
+        const link = event.target instanceof Element ? event.target.closest('a[href$=".pdf"]') : null;
+        if (!link) return;
+        fetch('/api/cv/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ c: 'jeu' }),
+            credentials: 'same-origin',
+            keepalive: true,
+        }).catch(() => {});
+    });
     const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const IS_TOUCH = matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
     const KEY_LABEL = IS_TOUCH ? 'A' : 'E';
@@ -658,7 +671,7 @@
             heroDesc: one('.hero-description', home),
             heroTarget,
             socials: all('.hero-social a', home).map((a) => ({ label: a.getAttribute('aria-label') || txt(a), href: a.getAttribute('href') })),
-            cv: cvLink ? cvLink.getAttribute('href').replace('c=site', 'c=jeu') : null,
+            cv: cvLink ? cvLink.getAttribute('href') : null,
             about: all('#about .about-text', competences),
             formations: all('#about .cert-item', competences).map((i) => ({ title: txt(one('.cert-title', i)), meta: txt(one('.cert-meta', i)) })),
             badges: all('[data-share-badge-id]', competences).map((d) => d.getAttribute('data-share-badge-id')).filter((id) => /^[\w-]+$/.test(id)),
@@ -1189,6 +1202,7 @@
             if (action) {
                 const status = h('p', { class: 'muted small', role: 'status' });
                 const submit = h('button', { class: 'px-btn primary', type: 'submit' }, '✉️ Envoyer le message');
+                const openedAt = Date.now();
                 form = h('form', { class: 'form', action, method: 'POST' },
                     h('label', null, 'Nom complet', h('input', { type: 'text', name: 'name', required: true, minlength: '2', autocomplete: 'name' })),
                     h('label', null, 'Email', h('input', { type: 'email', name: 'email', required: true, autocomplete: 'email' })),
@@ -1200,7 +1214,7 @@
                     submit.disabled = true;
                     status.textContent = 'Envoi en cours…';
                     try {
-                        const body = { ...Object.fromEntries(new FormData(form)), origine: 'jeu' };
+                        const body = { ...Object.fromEntries(new FormData(form)), origine: 'jeu', duree: Date.now() - openedAt };
                         const response = await fetch(action, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json', Accept: 'application/json' },

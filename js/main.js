@@ -287,7 +287,25 @@ if (proofsData) {
     chips.forEach((chip) => chip.addEventListener("click", () => show(chip.dataset.skill)));
 }
 
+/* Bouton CV : le lien mène directement au PDF ; ce signal discret prévient le compteur (api/cv.js).
+   Les robots qui parcourent la page ne cliquent pas, ils ne sont donc pas comptés. */
+document.addEventListener("click", (event) => {
+    const link = event.target instanceof Element ? event.target.closest("a[data-cv-source]") : null;
+    if (!link) {
+        return;
+    }
+    fetch("/api/cv/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ c: link.dataset.cvSource }),
+        credentials: "same-origin",
+        keepalive: true
+    }).catch(() => {});
+});
+
 /* Contact : envoi à /api/contact/ sans quitter la page */
+// Un humain met plusieurs secondes à remplir le formulaire : la durée est vérifiée par api/contact.js.
+const contactOpenedAt = Date.now();
 const contactForm = document.getElementById("contactForm");
 const contactFormStatus = document.getElementById("contactFormStatus");
 const CONTACT_OK = "Merci, votre message est bien parti. Je vous réponds rapidement.";
@@ -321,7 +339,7 @@ contactForm?.addEventListener("submit", async (event) => {
         const response = await fetch(contactForm.action, {
             method: "POST",
             headers: { "Content-Type": "application/json", Accept: "application/json" },
-            body: JSON.stringify(Object.fromEntries(new FormData(contactForm)))
+            body: JSON.stringify({ ...Object.fromEntries(new FormData(contactForm)), duree: Date.now() - contactOpenedAt })
         });
         const result = await response.json().catch(() => ({}));
         if (!response.ok) {

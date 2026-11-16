@@ -1,13 +1,72 @@
-// /cv/?c=source : compte le téléchargement puis renvoie vers le PDF.
-// c=site pour les boutons du portfolio, c=nom-entreprise pour un lien de candidature suivi.
+// Compteur de téléchargements du CV.
+// GET /cv/?c=source : courte page « Ouverture du CV… » dont le script signale l'ouverture puis affiche le PDF.
+//   Les robots qui vérifient les liens (antivirus, messageries) lisent la page sans exécuter ce script : ils ne comptent pas.
+// POST /api/cv/ {c} : compte l'ouverture, seulement pour un vrai navigateur venant du site.
+//   c=site pour les boutons du portfolio, c=jeu pour le jeu, c=nom-entreprise pour un lien de candidature suivi.
 // Quand une entreprise ouvre son lien, un email d'alerte part tout de suite.
 const { redis, header, visitorHash, isBot, location, device, slug, SITE_SOURCES, SITE_URL, parse, frenchDate, sendEmail } = require("./_lib");
 
 const PDF = "/assets/CV_Kader_Belem.pdf";
 const KEEP_DAYS = 400;
 
+// Page intermédiaire : sans script en ligne (CSP), le lien sert de secours sans JavaScript.
+const PAGE = `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>CV de Kader Belem</title>
+<style>
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f8fafc; color: #0f172a; font: 16px/1.5 system-ui, sans-serif; }
+main { text-align: center; padding: 24px; }
+p { margin: 8px 0; }
+a { color: #0369a1; font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+<p>Ouverture du CV de Kader Belem…</p>
+<p><a href="${PDF}">Le CV ne s'affiche pas ? Ouvrir le PDF</a></p>
+</main>
+<script src="/js/cv-ouverture.js"></script>
+</body>
+</html>
+`;
+
 // Bouton « Ne pas compter mes visites » du tableau de bord : ce cookie marque le navigateur du propriétaire.
 const isOwner = (req) => /(?:^|;\s*)kb_ignorer=1(?:;|$)/.test(header(req, "cookie"));
+
+// Un navigateur envoie toujours sa langue, et ce signal doit venir du site lui-même.
+function looksLikeBrowser(req) {
+    if (isBot(req) || !header(req, "accept-language")) {
+        return false;
+    }
+    const fetchSite = header(req, "sec-fetch-site");
+    if (fetchSite && fetchSite !== "same-origin") {
+        return false;
+    }
+    const origin = header(req, "origin");
+    if (origin) {
+        try {
+            return new URL(origin).host === header(req, "host");
+        } catch {
+            return false;
+        }
+    }
+    return true;
+}
+
+function readBody(req) {
+    if (req.body && typeof req.body === "object") {
+        return req.body;
+    }
+    try {
+        return JSON.parse(req.body || "{}");
+    } catch {
+        return {};
+    }
+}
 
 // Renvoie le nombre d'ouvertures de cette source, ou null si la visite n'est pas comptée.
 async function count(req, source, event) {
@@ -50,8 +109,20 @@ async function alert(source, event, counted) {
 }
 
 module.exports = async (req, res) => {
-    const source = slug(req.query.c) || "direct";
-    if (!isBot(req) && !isOwner(req)) {
+    res.setHeader("Cache-Control", "no-store");
+    res.setHeader("X-Robots-Tag", "noindex");
+
+    if (req.method === "GET") {
+        res.setHeader("Content-Type", "text/html; charset=utf-8");
+        return res.status(200).send(PAGE);
+    }
+    if (req.method !== "POST") {
+        res.setHeader("Allow", "GET, POST");
+        return res.status(405).json({ erreur: "Méthode non autorisée." });
+    }
+
+    const source = slug(readBody(req).c) || "direct";
+    if (looksLikeBrowser(req) && !isOwner(req)) {
         try {
             const event = { t: new Date().toISOString(), c: source, ...location(req), appareil: device(req) };
             const counted = await count(req, source, event);
@@ -59,11 +130,8 @@ module.exports = async (req, res) => {
                 await alert(source, event, counted);
             }
         } catch (error) {
-            // Le CV doit rester téléchargeable même si la base ou l'email ne répondent pas.
             console.error("Compteur du CV :", error.message);
         }
     }
-    res.setHeader("Cache-Control", "no-store");
-    res.setHeader("X-Robots-Tag", "noindex");
-    res.redirect(302, PDF);
+    return res.status(204).end();
 };

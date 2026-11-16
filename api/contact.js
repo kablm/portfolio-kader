@@ -2,6 +2,8 @@
 const { redis, header, visitorHash, location, sendEmail } = require("./_lib");
 
 const LIMIT_PER_HOUR = 5;
+// Un humain met plus de 3 secondes à remplir le formulaire ; le site et le jeu envoient cette durée.
+const MIN_FILL_MS = 3000;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 function clean(value, max) {
@@ -27,6 +29,11 @@ module.exports = async (req, res) => {
     const body = req.body && typeof req.body === "object" ? req.body : {};
     // Champ piège caché : un humain le laisse vide, un robot le remplit. On fait semblant d'accepter.
     if (clean(body.site_web, 200)) {
+        return reply(req, res, 200, { ok: true });
+    }
+    // Envoi en JSON (site ou jeu) trop rapide ou sans durée : robot, même réponse que le champ piège.
+    const isJson = /application\/json/.test(header(req, "content-type"));
+    if (isJson && !(Number(body.duree) >= MIN_FILL_MS)) {
         return reply(req, res, 200, { ok: true });
     }
     const message = {
