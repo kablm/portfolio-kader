@@ -1,13 +1,22 @@
 // Formulaire de contact : garde le message dans la base, puis l'envoie par email avec Resend.
+// Anti-spam : champ piège, durée de remplissage obligatoire, 5 messages par heure,
+// et les messages qui contiennent un lien sont gardés dans le tableau de bord sans être envoyés par email.
 const { redis, header, visitorHash, location, sendEmail } = require("./_lib");
 
 const LIMIT_PER_HOUR = 5;
 // Un humain met plus de 3 secondes à remplir le formulaire ; le site et le jeu envoient cette durée.
 const MIN_FILL_MS = 3000;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+// Lien : adresse web, « www. » ou nom de domaine. Les adresses email et kaderbelem.com ne comptent pas.
+const LINK_PATTERN = /\bhttps?:\/\/|\bwww\.|\b[a-z0-9-]+\.(?:com|net|org|pro|io|info|biz|xyz|top|site|online|shop|store|click|link|ru|cn|fr|co|me|app|dev|ai)\b/i;
 
 function clean(value, max) {
     return String(value ?? "").trim().slice(0, max);
+}
+
+function containsLink(text) {
+    const withoutAllowed = text.replace(/[^\s@]+@[^\s@]+/g, " ").replace(/\b(?:www\.)?kaderbelem\.com\b/gi, " ");
+    return LINK_PATTERN.test(withoutAllowed);
 }
 
 // Le site envoie du JSON ; sans JavaScript, le navigateur poste le formulaire et revient sur /contact/.
@@ -27,13 +36,9 @@ module.exports = async (req, res) => {
     }
 
     const body = req.body && typeof req.body === "object" ? req.body : {};
-    // Champ piège caché : un humain le laisse vide, un robot le remplit. On fait semblant d'accepter.
-    if (clean(body.site_web, 200)) {
-        return reply(req, res, 200, { ok: true });
-    }
-    // Envoi en JSON (site ou jeu) trop rapide ou sans durée : robot, même réponse que le champ piège.
-    const isJson = /application\/json/.test(header(req, "content-type"));
-    if (isJson && !(Number(body.duree) >= MIN_FILL_MS)) {
+    // Champ piège rempli, envoi en moins de 3 secondes ou sans durée (formulaire posté directement par un robot) :
+    // on répond « ok » sans rien enregistrer ni envoyer.
+    if (clean(body.site_web, 200) || !(Number(body.duree) >= MIN_FILL_MS)) {
         return reply(req, res, 200, { ok: true });
     }
     const message = {
@@ -46,7 +51,8 @@ module.exports = async (req, res) => {
         return reply(req, res, 400, { erreur: "Vérifiez votre nom, votre email et votre message (10 caractères minimum)." });
     }
 
-    const saved = { t: new Date().toISOString(), ...message, ...location(req) };
+    const suspect = containsLink(`${message.nom} ${message.message}`);
+    const saved = { t: new Date().toISOString(), ...message, ...location(req), ...(suspect ? { suspect: "lien" } : {}) };
     let stored = false;
     try {
         const limitKey = `contact:limite:${visitorHash(req)}`;
@@ -57,6 +63,11 @@ module.exports = async (req, res) => {
         stored = Boolean(await redis([["LPUSH", "contact:messages", JSON.stringify(saved)], ["LTRIM", "contact:messages", 0, 499]]));
     } catch (error) {
         console.error("Contact (base) :", error.message);
+    }
+
+    // Message avec un lien : visible dans le tableau de bord, pas envoyé par email.
+    if (suspect) {
+        return reply(req, res, 200, { ok: true });
     }
 
     let sent = false;
