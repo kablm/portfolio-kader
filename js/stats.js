@@ -196,7 +196,7 @@ function renderMessages(messages) {
                 el("b", { text: message.nom }),
                 el("span", { class: "mail", text: message.email }),
                 message.origine === "jeu" ? el("span", { class: "tag", text: "version jeu" }) : null,
-                message.suspect ? el("span", { class: "tag tag-warn", text: "mis de côté : contient un lien, pas envoyé par email" }) : null,
+                message.suspect ? el("span", { class: "tag tag-warn", text: "Contient un lien, gardé ici sans email" }) : null,
                 el("span", { class: "time", text: relative(message.t) })),
             el("p", { text: message.message }),
             reply);

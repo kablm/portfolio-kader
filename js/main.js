@@ -308,7 +308,7 @@ document.addEventListener("click", (event) => {
 const contactOpenedAt = Date.now();
 const contactForm = document.getElementById("contactForm");
 const contactFormStatus = document.getElementById("contactFormStatus");
-const CONTACT_OK = "Merci, votre message est bien parti. Je vous réponds rapidement.";
+const CONTACT_OK = "Merci, votre message est bien parti. Je vous réponds par email.";
 const CONTACT_FAIL = "Le message n'a pas pu être envoyé. Vous pouvez m'écrire à l'adresse email indiquée sur cette page.";
 
 const setContactStatus = (text, state = "") => {

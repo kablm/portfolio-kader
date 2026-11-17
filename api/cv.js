@@ -102,7 +102,7 @@ async function alert(source, event, counted) {
             `Où : ${place}`,
             `Appareil : ${event.appareil}`,
             "",
-            "Si tu ne les as pas encore relancés, c'est le bon moment.",
+            "Pense à les relancer si ce n'est pas déjà fait.",
             `Tableau de bord : ${SITE_URL}/stats/`
         ].join("\n")
     });

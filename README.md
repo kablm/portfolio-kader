@@ -48,7 +48,7 @@ Les anciens liens de la version une page (`/#projects`, `/#contact`…) redirige
 └── .github/workflows/update-veille.yml
 ```
 
-Le site n'a ni framework ni étape de build : chaque page est un fichier HTML qu'on modifie directement. Les fonctions de `api/` n'ont aucune dépendance : elles parlent à Redis et à Resend avec `fetch`.
+Le site n'a ni framework ni étape de build. Chaque page est un fichier HTML qu'on modifie directement. Les fonctions de `api/` n'ont aucune dépendance et parlent à Redis et à Resend avec `fetch`.
 
 ## Modifier le contenu
 
@@ -73,17 +73,17 @@ python update_veille.py --dry-run
 
 ## Version jeu
 
-`jeu/` présente le portfolio comme un jeu d'exploration : chaque bâtiment ouvre une partie du parcours, et le CV est dans le coffre de la place centrale.
+`jeu/` présente le portfolio comme un jeu d'exploration. Chaque bâtiment ouvre une partie du parcours, et le CV est dans le coffre de la place centrale.
 
-Le contenu n'est pas dupliqué : au chargement, le jeu lit les pages du site (accueil, projets, expériences, compétences, veille, contact). Modifier une page met donc le jeu à jour. Garde les identifiants de section (`#projects`, `#experience`, `#skills`, `#about`, `#certifications`, `#veille`, `#contact`) et les classes lues par `loadContent()` dans `jeu/jeu.js`.
+Le contenu n'est pas dupliqué. Au chargement, le jeu lit les pages du site (accueil, projets, expériences, compétences, veille, contact). Modifier une page met donc le jeu à jour. Garde les identifiants de section (`#projects`, `#experience`, `#skills`, `#about`, `#certifications`, `#veille`, `#contact`) et les classes lues par `loadContent()` dans `jeu/jeu.js`.
 
 ## Hébergement
 
-Le site est hébergé sur Vercel, relié à ce dépôt GitHub. Chaque push sur `main` est mis en ligne automatiquement, y compris les commits de la veille.
+Le site est hébergé sur Vercel, relié à ce dépôt GitHub. Vercel met en ligne chaque push sur `main`, y compris les commits de la veille.
 
 `vercel.json` force la barre finale des adresses (`/jeu` devient `/jeu/`). Sans elle, les pages qui chargent des fichiers relatifs, comme `jeu/jeu.js`, ne les trouvent pas.
 
-L'ancienne adresse https://kablm.github.io/portfolio-kader/ reste active : un script en tête de chaque page renvoie le visiteur vers la même page sur Vercel. Si tu crées une page, copie ce script avec le reste du `<head>`, ainsi que celui de Vercel Web Analytics.
+L'ancienne adresse https://kablm.github.io/portfolio-kader/ reste active. Un script en tête de chaque page renvoie le visiteur vers la même page sur kaderbelem.com. Si tu crées une page, copie ce script avec le reste du `<head>`, ainsi que celui de Vercel Web Analytics.
 
 `vercel.json` envoie aussi les en-têtes de sécurité : Content-Security-Policy, anti-clickjacking, Permissions-Policy, Cross-Origin-Opener-Policy. La CSP n'autorise que les scripts du site, ceux de Credly, et le script de redirection ci-dessus, reconnu par son empreinte SHA-256. Si tu modifies ce script (par exemple pour un nouveau domaine), recalcule l'empreinte et remplace la valeur `sha256-…` dans `vercel.json` :
 
@@ -97,8 +97,8 @@ Pour ajouter un service externe (police, script, cadre), ajoute son domaine à l
 
 | Fonction | Ce qu'elle fait |
 | --- | --- |
-| `/cv/?c=source` (`api/cv.js`) | Compte le téléchargement puis renvoie vers le PDF. `c=site` pour les boutons du portfolio, `c=jeu` pour le jeu, `c=nom-entreprise` pour un lien de candidature. Ignore les robots et les aperçus de lien (LinkedIn…), ne compte qu'une fois un double clic, ne stocke aucune adresse IP. Quand un lien de candidature est ouvert, envoie aussitôt un email d'alerte. |
-| `/api/contact/` (`api/contact.js`) | Reçoit le formulaire de contact : champ piège contre les robots, 5 messages par heure et par visiteur, copie dans la base puis envoi par email avec Resend. |
+| `/cv/?c=source` (`api/cv.js`) | Affiche « Ouverture du CV… », puis le PDF. Le script de cette page envoie le signal de comptage (POST `/api/cv/`) ; les robots qui lisent la page sans l'exécuter ne comptent pas. Les boutons du site (`c=site`) et du jeu (`c=jeu`) mènent directement au PDF et envoient ce signal au clic. `c=nom-entreprise` sert aux liens de candidature : leur ouverture déclenche un email d'alerte. Un double clic ne compte qu'une fois, aucune adresse IP n'est stockée, et le cookie `kb_ignorer` du bouton « Ne pas compter mes visites » coupe le comptage. |
+| `/api/contact/` (`api/contact.js`) | Reçoit le formulaire de contact, l'enregistre dans la base et l'envoie par email avec Resend. Un envoi est ignoré si le champ piège est rempli ou si le formulaire a été rempli en moins de 3 secondes. 5 messages par heure au maximum par visiteur. Un message qui contient un lien reste dans le tableau de bord sans être envoyé par email. |
 | `/api/stats/` (`api/stats.js`) | Données du tableau de bord, et création des liens de candidature. Mot de passe obligatoire, 10 essais ratés bloquent 15 minutes. |
 
 Les visites des pages sont mesurées par Vercel Web Analytics (sans cookies), à consulter dans l'onglet Analytics du projet Vercel.
@@ -109,7 +109,7 @@ Variables à définir dans Vercel (Settings, Environment Variables, pour Product
 | --- | --- |
 | `KV_REST_API_URL`, `KV_REST_API_TOKEN` | Base Upstash Redis, ajoutées automatiquement quand la base est reliée au projet |
 | `RESEND_API_KEY` | Clé d'envoi Resend |
-| `CONTACT_TO` | Adresse qui reçoit les messages (celle du compte Resend tant qu'aucun domaine n'est vérifié) |
+| `CONTACT_TO` | Adresse qui reçoit les messages du formulaire et les alertes. Les emails partent de contact@kaderbelem.com, domaine vérifié dans Resend |
 | `STATS_PASSWORD` | Mot de passe du tableau de bord `/stats/` |
 
 Sans base, le CV se télécharge quand même mais rien n'est compté. Sans Resend, les messages restent visibles dans le tableau de bord.
@@ -122,11 +122,11 @@ Le jeu et certaines pages chargent du contenu avec `fetch`, qui ne fonctionne pa
 python -m http.server 8000
 ```
 
-puis ouvre http://localhost:8000/. Ce serveur ne lance pas les fonctions de `api/` : le bouton CV, le formulaire de contact et `/stats/` ne marchent que sur Vercel (adresse d'aperçu d'une branche, ou site en ligne).
+puis ouvre http://localhost:8000/. Ce serveur ne lance pas les fonctions de `api/`. Le comptage du CV, le formulaire de contact et `/stats/` ne marchent que sur Vercel, sur l'adresse d'aperçu d'une branche ou sur le site en ligne.
 
 ## Mettre à jour le CV
 
-Le PDF proposé au téléchargement est généré : il ne s'édite pas directement. Le contenu se modifie dans `tools/build_cv.py` :
+Le PDF proposé au téléchargement est généré. Il ne s'édite pas directement. Le contenu se modifie dans `tools/build_cv.py` :
 
 ```bash
 pip install -r tools/requirements.txt
