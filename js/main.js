@@ -223,6 +223,11 @@ if (homelabData) {
             node.classList.toggle("is-active", isActive);
             node.setAttribute("aria-pressed", String(isActive));
         });
+        // Chemin des paquets jusqu'à la machine choisie (Proxmox héberge tout, pfSense est l'entrée).
+        const route = { pfsense: ["wan"], proxmox: ["wan", "lan", "ad", "web", "mon"] }[id] || ["wan", "lan", id];
+        document.querySelectorAll(".homelab-flow path").forEach((path) => {
+            path.classList.toggle("is-active", route.includes(path.dataset.flow));
+        });
         title.textContent = machine.title;
         role.textContent = machine.role;
         tech.replaceChildren(...machine.tech.map((name) => {

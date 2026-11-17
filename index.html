@@ -6,6 +6,8 @@
     <script>if (location.hostname === "kablm.github.io") location.replace("https://kaderbelem.com" + location.pathname.replace(/^\/portfolio-kader/, "") + location.search + location.hash);</script>
     <!-- Mesure d'audience Vercel : sans cookies, active seulement sur Vercel -->
     <script defer src="/_vercel/insights/script.js"></script>
+    <!-- Animation d'entrée de l'accueil, une fois par session -->
+    <script src="js/intro.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#f8fafc">
     <meta name="description" content="Portfolio de Kader Belem, administrateur systèmes et réseaux à Nantes. Recherche une alternance Bac+3 en administration systèmes, réseaux et cybersécurité pour la rentrée 2027, à Nantes, Angers ou Cholet.">
@@ -214,6 +216,13 @@
                                 <path class="homelab-head-arrow" d="M95 287 L105 287 L100 295 Z"/>
                                 <path class="homelab-head-arrow" d="M295 287 L305 287 L300 295 Z"/>
                                 <path class="homelab-head-arrow" d="M495 287 L505 287 L500 295 Z"/>
+                                <g class="homelab-flow">
+                                    <path data-flow="wan" class="is-active" d="M300 56 V146"/>
+                                    <path data-flow="lan" class="is-active" d="M300 216 V256"/>
+                                    <path data-flow="ad" class="is-active" d="M300 256 H100 V289"/>
+                                    <path data-flow="web" d="M300 256 V289"/>
+                                    <path data-flow="mon" d="M300 256 H500 V289"/>
+                                </g>
                             </svg>
                             <div class="homelab-host" aria-hidden="true"></div>
                             <span class="homelab-node homelab-internet">Internet</span>
