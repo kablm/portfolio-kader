@@ -1,5 +1,6 @@
 // Tableau de bord privé /stats/. Accès avec le mot de passe STATS_PASSWORD.
-// GET : chiffres du CV, liens de candidature et messages. POST {nom} : crée un lien de candidature.
+// GET : chiffres du CV, liens de candidature, messages et candidatures lues dans Gmail.
+// POST {nom} : crée un lien de candidature. POST {action:"statut", id, statut} : corrige le statut d'une candidature.
 const { redis, redisConfig, visitorHash, sameSecret, header, slug, SITE_SOURCES, parse, lastDays } = require("./_lib");
 
 const MAX_FAILS = 10;
@@ -68,8 +69,45 @@ async function createLink(req, res) {
     }
 }
 
+// Statut corrigé à la main pour une candidature lue dans Gmail. statut "" revient au statut automatique.
+const MANUAL_STATUSES = new Set(["entretien", "refus", "reponse", "attente"]);
+
+async function setStatus(body, res) {
+    const id = String(body.id || "");
+    const status = String(body.statut || "");
+    if (!/^[A-Za-z0-9_-]{1,64}$/.test(id) || (status && !MANUAL_STATUSES.has(status))) {
+        return res.status(400).json({ erreur: "Candidature ou statut invalide." });
+    }
+    try {
+        const [exists] = (await redis([["HEXISTS", "candidatures", id]])) || [0];
+        if (!exists) {
+            return res.status(404).json({ erreur: "Cette candidature n'existe plus. Actualise la page." });
+        }
+        await redis([status ? ["HSET", "candidatures:manuel", id, status] : ["HDEL", "candidatures:manuel", id]]);
+        return res.status(200).json({ id, statut: status || null });
+    } catch (error) {
+        console.error("Tableau de bord :", error.message);
+        return res.status(502).json({ erreur: "La base de données ne répond pas." });
+    }
+}
+
+function applications(auto, manual, synchro) {
+    const overrides = pairs(manual);
+    const list = Object.values(pairs(auto)).map(parse).filter(Boolean).map((item) => ({
+        ...item,
+        statutAuto: item.statut,
+        statut: overrides[item.id] || item.statut,
+        manuel: Boolean(overrides[item.id])
+    })).sort((a, b) => String(b.envoyee).localeCompare(String(a.envoyee)));
+    return { synchro: synchro || null, liste: list };
+}
+
 async function readStats(res) {
-    const configuration = { base: Boolean(redisConfig()), email: Boolean(process.env.RESEND_API_KEY && process.env.CONTACT_TO) };
+    const configuration = {
+        base: Boolean(redisConfig()),
+        email: Boolean(process.env.RESEND_API_KEY && process.env.CONTACT_TO),
+        candidatures: Boolean(process.env.CANDIDATURES_SECRET)
+    };
     const days = lastDays(DAYS);
     let replies;
     try {
@@ -80,17 +118,20 @@ async function readStats(res) {
             ["HGETALL", "cv:derniere"],
             ["LRANGE", "cv:evenements", 0, 49],
             ["LRANGE", "contact:messages", 0, 49],
-            ["HGETALL", "cv:liens"]
+            ["HGETALL", "cv:liens"],
+            ["HGETALL", "candidatures"],
+            ["HGETALL", "candidatures:manuel"],
+            ["GET", "candidatures:synchro"]
         ]);
     } catch (error) {
         console.error("Tableau de bord :", error.message);
         return res.status(502).json({ erreur: "La base de données ne répond pas.", configuration });
     }
     if (!replies) {
-        return res.status(200).json({ configuration, cv: { total: 0, jours: [], sources: [], evenements: [] }, liens: [], messages: [] });
+        return res.status(200).json({ configuration, cv: { total: 0, jours: [], sources: [], evenements: [] }, liens: [], messages: [], candidatures: { synchro: null, liste: [] } });
     }
 
-    const [total, perDay, sources, last, events, messages, links] = replies;
+    const [total, perDay, sources, last, events, messages, links, auto, manual, synchro] = replies;
     const counts = pairs(sources);
     const lastBySource = pairs(last);
     const created = pairs(links);
@@ -111,7 +152,8 @@ async function readStats(res) {
             evenements: parseList(events)
         },
         liens: allLinks,
-        messages: parseList(messages)
+        messages: parseList(messages),
+        candidatures: applications(auto, manual, synchro)
     });
 }
 
@@ -125,5 +167,9 @@ module.exports = async (req, res) => {
     if (!(await authorize(req, res))) {
         return undefined;
     }
-    return req.method === "POST" ? createLink(req, res) : readStats(res);
+    if (req.method === "GET") {
+        return readStats(res);
+    }
+    const body = req.body && typeof req.body === "object" ? req.body : {};
+    return body.action === "statut" ? setStatus(body, res) : createLink(req, res);
 };
