@@ -47,6 +47,59 @@
                 <a href="https://vercel.com/kablms-projects/portfolio-kader/analytics" target="_blank" rel="noopener">Visites des pages : Vercel Analytics ↗</a>
             </div>
 
+            <section class="cand" aria-labelledby="candTitle">
+                <div class="section-title">
+                    <h2 id="candTitle">Candidatures</h2>
+                    <span class="hint">Lues dans Gmail grâce au libellé « Candidatures »</span>
+                    <span class="chip sync" id="candSync" hidden><span class="dot"></span><span></span></span>
+                </div>
+
+                <div class="card panel setup" id="candSetup" hidden>
+                    <div>
+                        <h3>Le suivi n'est pas encore relié à ton Gmail</h3>
+                        <ol class="steps">
+                            <li><span class="n">1</span><span>Dans Gmail, pose le libellé <b>Candidatures</b> sur tes candidatures envoyées, depuis Gmail comme depuis contact@.</span></li>
+                            <li><span class="n">2</span><span>Dans Vercel › Settings › Environment Variables, ajoute <b>CANDIDATURES_SECRET</b> avec une longue phrase au hasard, puis redéploie.</span></li>
+                            <li><span class="n">3</span><span>Sur <b>script.google.com</b>, crée un projet et colle le <a href="https://github.com/kablm/portfolio-kader/blob/main/tools/suivi-candidatures.gs" target="_blank" rel="noopener">script du suivi</a>.</span></li>
+                            <li><span class="n">4</span><span>Dans Paramètres du projet › Propriétés du script, ajoute <b>CANDIDATURES_SECRET</b> avec la même valeur.</span></li>
+                            <li><span class="n">5</span><span>Choisis la fonction <b>installer</b>, clique sur Exécuter et accepte l'accès à Gmail. Le script se relance ensuite seul toutes les heures.</span></li>
+                        </ol>
+                    </div>
+                    <div>
+                        <p class="setup-label">Clé côté site</p>
+                        <p class="key" id="candKey"></p>
+                        <p class="note">Seuls l'entreprise, l'objet, les dates, le statut et le code du lien suivi sortent de Gmail. Le texte des emails reste dans ta boîte.</p>
+                    </div>
+                </div>
+
+                <div class="cand-content" id="candContent" hidden>
+                    <div class="kpis kpis-5">
+                        <div class="card kpi"><div class="label">Envoyées</div><div class="num" id="candSent">0</div><div class="sub" id="candSentSub"></div></div>
+                        <div class="card kpi"><div class="label">Réponses reçues</div><div class="num" id="candReplies">0</div><div class="sub" id="candRepliesSub"></div></div>
+                        <div class="card kpi"><div class="label">Entretiens</div><div class="num" id="candInterviews">0</div><div class="sub" id="candInterviewsSub"></div></div>
+                        <div class="card kpi"><div class="label">Refus</div><div class="num" id="candRefusals">0</div><div class="sub" id="candRefusalsSub"></div></div>
+                        <div class="card kpi kpi-warn"><div class="label">À relancer</div><div class="num" id="candFollow">0</div><div class="sub">sans réponse depuis 10 jours</div></div>
+                    </div>
+                    <section class="card panel">
+                        <div class="toolbar">
+                            <div class="tabs" id="candTabs" role="group" aria-label="Filtrer par statut"></div>
+                            <label class="sr-only" for="candSearch">Rechercher une entreprise</label>
+                            <input class="input search" id="candSearch" type="search" placeholder="Rechercher une entreprise" autocomplete="off">
+                        </div>
+                        <p class="form-error" id="candError" role="alert"></p>
+                        <div class="table-wrap">
+                            <table class="cand-table">
+                                <thead><tr><th>Entreprise</th><th>Envoyée</th><th>Statut</th><th>Réponse</th><th>CV ouvert</th><th><span class="sr-only">Corriger le statut</span></th></tr></thead>
+                                <tbody id="candRows"></tbody>
+                            </table>
+                        </div>
+                        <p class="note">Le statut est deviné d'après la dernière réponse : « entretien » ou « disponibilités » donnent Entretien, « malheureusement » ou « pas donner suite » donnent Refus. Les accusés de réception automatiques ne comptent pas comme une réponse. Le menu de chaque ligne corrige le statut, et le script ne revient jamais sur une correction. « CV ouvert » vient du lien suivi trouvé dans l'email envoyé.</p>
+                    </section>
+                </div>
+            </section>
+
+            <div class="section-title"><h2>CV et messages</h2></div>
+
             <section class="kpis" aria-label="Chiffres clés">
                 <div class="card kpi"><div class="label">CV téléchargés</div><div class="num" id="kpiTotal">0</div><div class="sub">depuis la mise en place du compteur</div></div>
                 <div class="card kpi"><div class="label">Sur les 30 derniers jours</div><div class="num" id="kpi30">0</div><div class="sub" id="kpi30Sub"></div></div>

@@ -33,7 +33,7 @@ Les anciens liens de la version une page (`/#projects`, `/#contact`…) redirige
 ├── contact/index.html
 ├── github/index.html
 ├── stats/index.html          # Tableau de bord privé
-├── api/                      # Fonctions Vercel : cv.js, contact.js, stats.js (+ _lib.js partagé)
+├── api/                      # Fonctions Vercel : cv.js, contact.js, stats.js, candidatures.js (+ _lib.js partagé)
 ├── .well-known/security.txt  # Où signaler une faille (à renouveler avant le 1er novembre 2027)
 ├── css/style.css             # Styles de toutes les pages (thème clair)
 ├── css/stats.css             # Styles du tableau de bord
@@ -42,6 +42,7 @@ Les anciens liens de la version une page (`/#projects`, `/#contact`…) redirige
 ├── jeu/                      # Version jeu du portfolio
 ├── assets/                   # CV en PDF, image de partage, icônes
 ├── tools/build_cv.py         # Génère le CV en PDF
+├── tools/suivi-candidatures.gs # Script Google qui lit Gmail pour le suivi des candidatures
 ├── update_veille.py          # Met à jour la veille
 ├── vercel.json               # Réglages de Vercel (barre finale, /cv/, en-têtes de sécurité)
 ├── robots.txt                # Écarte /api/, /cv/ et /stats/ des moteurs de recherche
@@ -99,7 +100,23 @@ Pour ajouter un service externe (police, script, cadre), ajoute son domaine à l
 | --- | --- |
 | `/cv/?c=source` (`api/cv.js`) | Affiche « Ouverture du CV… », puis le PDF. Le script de cette page envoie le signal de comptage (POST `/api/cv/`) ; les robots qui lisent la page sans l'exécuter ne comptent pas. Les boutons du site (`c=site`) et du jeu (`c=jeu`) mènent directement au PDF et envoient ce signal au clic. `c=nom-entreprise` sert aux liens de candidature : leur ouverture déclenche un email d'alerte. Un double clic ne compte qu'une fois, aucune adresse IP n'est stockée, et le cookie `kb_ignorer` du bouton « Ne pas compter mes visites » coupe le comptage. |
 | `/api/contact/` (`api/contact.js`) | Reçoit le formulaire de contact, l'enregistre dans la base et l'envoie par email avec Resend. Un envoi est ignoré si le champ piège est rempli ou si le formulaire a été rempli en moins de 3 secondes. 5 messages par heure au maximum par visiteur. Un message qui contient un lien reste dans le tableau de bord sans être envoyé par email. |
-| `/api/stats/` (`api/stats.js`) | Données du tableau de bord, et création des liens de candidature. Mot de passe obligatoire, 10 essais ratés bloquent 15 minutes. |
+| `/api/stats/` (`api/stats.js`) | Données du tableau de bord, création des liens de candidature et correction à la main du statut d'une candidature. Mot de passe obligatoire, 10 essais ratés bloquent 15 minutes. |
+| `/api/candidatures/` (`api/candidatures.js`) | Reçoit chaque heure la liste des candidatures envoyée par le script Google, avec la clé `CANDIDATURES_SECRET`. La liste remplace la précédente, sauf les statuts corrigés à la main, qui sont gardés à part. |
+
+### Suivi des candidatures
+
+`tools/suivi-candidatures.gs` tourne dans le compte Google de Kader, sur script.google.com, et pas sur Vercel. Toutes les heures, il lit les conversations Gmail qui portent le libellé « Candidatures ». Pour chacune, il garde l'email envoyé par Kader, depuis Gmail ou contact@, et les réponses reçues. Il devine ensuite le statut :
+
+- les accusés de réception et les messages d'absence sont ignorés ;
+- « malheureusement », « pas donner suite » ou « autre candidat » donnent Refus ;
+- « entretien », « disponibilités » ou « créneau » donnent Entretien ;
+- toute autre réponse donne Réponse reçue.
+
+Le texte cité de l'email d'origine n'est pas lu. Le tableau de bord affiche « À relancer » au bout de 10 jours sans réponse.
+
+Seuls l'entreprise (devinée à partir du domaine du destinataire), l'objet, les dates, l'adresse d'envoi, le statut et le code du lien suivi (`/cv/?c=…`) sont envoyés au site. Le texte des emails reste dans Gmail.
+
+Installation : colle le script dans un nouveau projet, ajoute la propriété de script `CANDIDATURES_SECRET` (même valeur que dans Vercel), puis exécute la fonction `installer`. Elle crée le déclenchement horaire et fait une première lecture.
 
 Les visites des pages sont mesurées par Vercel Web Analytics (sans cookies), à consulter dans l'onglet Analytics du projet Vercel.
 
@@ -111,6 +128,7 @@ Variables à définir dans Vercel (Settings, Environment Variables, pour Product
 | `RESEND_API_KEY` | Clé d'envoi Resend |
 | `CONTACT_TO` | Adresse qui reçoit les messages du formulaire et les alertes. Les emails partent de contact@kaderbelem.com, domaine vérifié dans Resend |
 | `STATS_PASSWORD` | Mot de passe du tableau de bord `/stats/` |
+| `CANDIDATURES_SECRET` | Clé partagée avec le script Google du suivi des candidatures (une longue phrase au hasard) |
 
 Sans base, le CV se télécharge quand même mais rien n'est compté. Sans Resend, les messages restent visibles dans le tableau de bord.
 

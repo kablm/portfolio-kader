@@ -203,7 +203,143 @@ function renderMessages(messages) {
     }));
 }
 
+/* Candidatures lues dans Gmail par le script Google */
+const STATUSES = {
+    entretien: ["Entretien", "p-interview"],
+    reponse: ["Réponse reçue", "p-reply"],
+    refus: ["Refus", "p-refus"],
+    attente: ["En attente", "p-wait"],
+    relance: ["À relancer", "p-relance"]
+};
+const FILTERS = [["toutes", "Toutes"], ["relance", "À relancer"], ["entretien", "Entretiens"], ["reponse", "Réponses"], ["attente", "En attente"], ["refus", "Refus"]];
+const FOLLOW_UP_DAYS = 10;
+const appState = { filter: "toutes", search: "" };
+let lastData = null;
+
+const daysBetween = (from, to = new Date()) => Math.max(0, Math.floor((new Date(to) - new Date(from)) / 86400000));
+const normalize = (value) => String(value || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+const toSlug = (value) => normalize(value).replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40);
+// Sans réponse depuis 10 jours : « À relancer » au lieu de « En attente ».
+const shownStatus = (app) => (app.statut === "attente" && daysBetween(app.envoyee) >= FOLLOW_UP_DAYS ? "relance" : app.statut);
+
+function renderSetup(configuration) {
+    $("candSetup").hidden = false;
+    $("candContent").hidden = true;
+    $("candSync").hidden = true;
+    $("candKey").textContent = configuration.candidatures
+        ? "CANDIDATURES_SECRET est bien configurée dans Vercel. Il reste à installer le script Google (étapes 3 à 5)."
+        : "CANDIDATURES_SECRET n'est pas encore configurée dans Vercel (étape 2). Tu crées toi-même sa valeur, elle n'est jamais affichée ici.";
+}
+
+function renderSync(synchro) {
+    const chip = $("candSync");
+    // Le script tourne toutes les heures : au-delà de 3 h sans nouvelles, il y a sans doute un problème.
+    const late = !withinDays(synchro, 3 / 24);
+    chip.hidden = false;
+    chip.classList.toggle("is-off", late);
+    chip.lastElementChild.textContent = late ? `Gmail lu ${relative(synchro)}, vérifie le script Google` : `Gmail lu ${relative(synchro)}`;
+}
+
+function renderAppKpis(list) {
+    const shown = list.map(shownStatus);
+    const count = (status) => shown.filter((s) => s === status).length;
+    const replied = list.filter((app, i) => ["entretien", "reponse", "refus"].includes(shown[i]));
+    $("candSent").textContent = list.length;
+    $("candSentSub").textContent = `dont ${list.filter((app) => app.depuis === "contact").length} depuis contact@`;
+    $("candReplies").textContent = replied.length;
+    $("candRepliesSub").textContent = list.length ? `${Math.round((replied.length / list.length) * 100)} % de réponses` : "";
+    const interviews = list.filter((app, i) => shown[i] === "entretien");
+    $("candInterviews").textContent = interviews.length;
+    const thisWeek = interviews.filter((app) => withinDays(app.reponse, 7)).length;
+    $("candInterviewsSub").textContent = thisWeek ? `dont ${thisWeek} cette semaine` : "";
+    const refusals = list.filter((app, i) => shown[i] === "refus" && app.reponse);
+    $("candRefusals").textContent = count("refus");
+    const average = refusals.length ? Math.round(refusals.reduce((sum, app) => sum + daysBetween(app.envoyee, app.reponse), 0) / refusals.length) : null;
+    $("candRefusalsSub").textContent = average == null ? "" : `réponse en ${plural(average, "jour")} en moyenne`;
+    $("candFollow").textContent = count("relance");
+}
+
+function renderTabs(list) {
+    const counts = { toutes: list.length };
+    list.forEach((app) => { const s = shownStatus(app); counts[s] = (counts[s] || 0) + 1; });
+    $("candTabs").replaceChildren(...FILTERS.map(([key, label]) => {
+        const button = el("button", { type: "button", class: "tab", "aria-pressed": String(appState.filter === key) }, label, el("small", { text: String(counts[key] || 0) }));
+        button.addEventListener("click", () => { appState.filter = key; renderApplications(lastData); });
+        return button;
+    }));
+}
+
+function cvCell(app, links, events) {
+    const link = links.find((l) => l.source === app.cv) || links.find((l) => l.source === toSlug(app.entreprise));
+    if (!link) return el("td", { "data-label": "CV ouvert" }, el("span", { class: "cv-no", text: "Pas de lien suivi" }));
+    if (!link.n) return el("td", { "data-label": "CV ouvert" }, el("span", { class: "cv-no", text: "Pas encore" }));
+    const lastEvent = events.find((event) => event.c === link.source);
+    const where = [link.derniere ? `le ${shortDate(new Date(link.derniere))}` : "", lastEvent?.ville ? `à ${lastEvent.ville}` : ""].filter(Boolean).join(" ");
+    return el("td", { "data-label": "CV ouvert" }, el("span", { class: "cv-yes", text: `Oui, ${link.n} fois` }), where ? el("span", { class: "where", text: where }) : null);
+}
+
+function statusSelect(app) {
+    const select = el("select", { class: "status-select", "aria-label": `Corriger le statut de ${app.entreprise}` });
+    select.append(el("option", { value: "", text: `Auto (${STATUSES[app.statutAuto]?.[0] || "En attente"})` }));
+    ["entretien", "reponse", "refus", "attente"].forEach((key) => select.append(el("option", { value: key, text: STATUSES[key][0] })));
+    select.value = app.manuel ? app.statut : "";
+    select.addEventListener("change", async () => {
+        select.disabled = true;
+        $("candError").textContent = "";
+        try {
+            await api("POST", { action: "statut", id: app.id, statut: select.value });
+            render(await api());
+        } catch (error) {
+            if (error.status === 401) logout(error.message);
+            else $("candError").textContent = error.message;
+            select.disabled = false;
+        }
+    });
+    return select;
+}
+
+function appRow(app, links, events) {
+    const status = shownStatus(app);
+    const [label, css] = STATUSES[status] || STATUSES.attente;
+    const waited = daysBetween(app.envoyee);
+    const reply = app.reponse
+        ? [shortDate(new Date(app.reponse)), daysBetween(app.envoyee, app.reponse) === 0 ? "le jour même" : `en ${plural(daysBetween(app.envoyee, app.reponse), "jour")}`]
+        : ["—", status === "relance" ? `${plural(waited, "jour")} sans réponse` : `depuis ${plural(waited, "jour")}`];
+    return el("tr", {},
+        el("td", { class: "company", "data-label": "Entreprise" }, el("b", { text: app.entreprise }), app.objet ? el("span", { class: "where", text: app.objet }) : null),
+        el("td", { "data-label": "Envoyée" }, el("span", { text: shortDate(new Date(app.envoyee)) }), el("span", { class: "where" }, el("span", { class: "from", text: app.depuis === "contact" ? "contact@" : "gmail" }))),
+        el("td", { "data-label": "Statut" }, el("span", { class: `pill ${css}`, text: label }), app.manuel ? el("span", { class: "where", text: "corrigé à la main" }) : null),
+        el("td", { "data-label": "Réponse" }, el("span", { text: reply[0] }), el("span", { class: "where", text: reply[1] })),
+        cvCell(app, links, events),
+        el("td", { class: "num-col" }, statusSelect(app)));
+}
+
+function renderApplications(data) {
+    const { synchro, liste } = data.candidatures || { synchro: null, liste: [] };
+    if (!synchro) {
+        renderSetup(data.configuration);
+        return;
+    }
+    $("candSetup").hidden = true;
+    $("candContent").hidden = false;
+    renderSync(synchro);
+    renderAppKpis(liste);
+    renderTabs(liste);
+    const query = normalize(appState.search.trim());
+    const visible = liste.filter((app) =>
+        (appState.filter === "toutes" || shownStatus(app) === appState.filter) &&
+        (!query || normalize(`${app.entreprise} ${app.objet}`).includes(query)));
+    if (!visible.length) {
+        const message = liste.length ? "Aucune candidature ne correspond." : "Aucune candidature avec le libellé « Candidatures » pour l'instant.";
+        $("candRows").replaceChildren(el("tr", {}, el("td", { colspan: "6", class: "empty", text: message })));
+        return;
+    }
+    $("candRows").replaceChildren(...visible.map((app) => appRow(app, data.liens, data.cv.evenements)));
+}
+
 function render(data) {
+    lastData = data;
+    renderApplications(data);
     renderStatus(data.configuration);
     renderKpis(data);
     renderChart(data.cv.jours);
@@ -294,6 +430,11 @@ $("toggleTable").addEventListener("click", (event) => {
     table.hidden = !table.hidden;
     event.currentTarget.setAttribute("aria-expanded", String(!table.hidden));
     event.currentTarget.textContent = table.hidden ? "Voir en tableau" : "Masquer le tableau";
+});
+
+$("candSearch").addEventListener("input", (event) => {
+    appState.search = event.currentTarget.value;
+    if (lastData) renderApplications(lastData);
 });
 
 $("createForm").addEventListener("submit", async (event) => {
